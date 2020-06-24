@@ -460,12 +460,12 @@ if __name__ == '__main__':
                          'Chemical price [USD/g]': Option_prices, 'Waste flow [kg/yr]': Option_flow,
                          'Pollution abatement capital expenditure [USD/kg]': Levels_for_PACE,
                          'Pollution Abatement operating cost [USD/kg]': Option_PAOC}
-            # for chem in CAS_for_search:
-            #     print('-'*120)
-            #     print('\nFor the chemical with CAS Number {}, select an option for the following: '.format(chem))
-            #     print()
-            #     Inputs_dictionary = {Input: input('\n{}, options:\n\n{}\n\nInput: '.format(Input, '\n'.join(' - {}'.format(opt) for opt in option))) for Input, option in  Inputs_list.items()}
-            #     print(Inputs_dictionary)
-            #     Calculating_probabilities(Inputs_dictionary, chem, PCU_model, dir_path)
+            for chem in CAS_for_search:
+                 print('-'*120)
+                 print('\nFor the chemical with CAS Number {}, select an option for the following: '.format(chem))
+                 print()
+                 Inputs_dictionary = {Input: input('\n{}, options:\n\n{}\n\nInput: '.format(Input, '\n'.join(' - {}'.format(opt) for opt in option))) for Input, option in  Inputs_list.items()}
+                 print(Inputs_dictionary)
+                 Calculating_probabilities(Inputs_dictionary, chem, PCU_model, dir_path)
     else:
         print('It is not possible to build a Bayesian Network for the chemicals')
