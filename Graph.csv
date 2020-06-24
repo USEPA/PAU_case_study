@@ -1,0 +1,49 @@
+Source,Target
+Manufacturing stage,Produce the chemical
+Manufacturing stage,Import the chemical
+Produce the chemical,Sale or distribution of the chemical
+Produce the chemical,As a byproduct
+Produce the chemical,As a manufactured impurity
+Import the chemical,Sale or distribution of the chemical
+Import the chemical,As a byproduct
+Import the chemical,As a manufactured impurity
+Processing stage,Used as an article component
+Processing stage,Added as a formulation component
+Processing stage,Used as a reactant
+Processing stage,As a process impurity
+Processing stage,Repackaging
+Use stage,Used as a chemical processing aid
+Use stage,Used as a manufacturing aid
+Use stage,Ancillary or other use
+Sale or distribution of the chemical,Type of waste
+As a byproduct,Type of waste
+As a manufactured impurity,Type of waste
+Used as an article component,Type of waste
+Added as a formulation component,Type of waste
+Used as a reactant,Type of waste
+As a process impurity,Type of waste
+Repackaging,Type of waste
+Used as a chemical processing aid,Type of waste
+Used as a manufacturing aid,Type of waste
+Ancillary or other use,Type of waste
+Sale or distribution of the chemical,Concentration
+As a byproduct,Concentration
+As a manufactured impurity,Concentration
+Used as an article component,Concentration
+Added as a formulation component,Concentration
+Used as a reactant,Concentration
+As a process impurity,Concentration
+Repackaging,Concentration
+Used as a chemical processing aid,Concentration
+Used as a manufacturing aid,Concentration
+Ancillary or other use,Concentration
+Concentration,Efficiency
+Type of waste,PCU
+Efficiency,PCU
+Waste flow,PCU
+Chemical price,PCU
+PCU,Type of waste management
+Type of waste management,PACE
+Type of waste management,PAOC
+Type of waste,PACE
+Type of waste,PAOC
