@@ -10,7 +10,6 @@ import argparse
 import os
 import itertools
 import pygraphviz as pgv
-
 from interval import interval, inf, imath
 
 
@@ -184,6 +183,7 @@ def Building_flows_dataset(dir_path, Years, nbins, df_PCU, CAS_for_search):
                                                    bins = Bin_values,
                                                    labels = Bin_labels,
                                                    precision = 0)
+    df['MIDDLE WASTE FLOW INTERVAL CODE'] = df['MIDDLE WASTE FLOW INTERVAL CODE'].astype('object')
     df_intervals = df[['MIDDLE WASTE FLOW INTERVAL', 'MIDDLE WASTE FLOW INTERVAL CODE']]
     df_intervals.drop_duplicates(keep = 'first', inplace = True)
     df_intervals['UNIT'] = 'kg/yr'
@@ -237,6 +237,7 @@ def Building_price_dataset(dir_path, Years, nbins, df_PCU):
                                                    bins = Bin_values,
                                                    labels = Bin_labels,
                                                    precision = 0)
+    df['PRICE INTERVAL CODE'] = df['PRICE INTERVAL CODE'].astype('object')
     df_intervals = df[['PRICE INTERVAL', 'PRICE INTERVAL CODE']]
     df_intervals.drop_duplicates(keep = 'first', inplace = True)
     df_intervals['UNIT'] = 'USD/g'
@@ -287,6 +288,7 @@ def Building_PAOC_and_PACE_dataset(dir_path, nbins, ccccccc):
                                                    bins = Bin_values,
                                                    labels = Bin_labels,
                                                    precision = 0)
+    df_PAOC['MEAN PAOC INTERVAL CODE'] = df_PAOC['MEAN PAOC INTERVAL CODE'].astype('object')
     df_intervals = df_PAOC[['MEAN PAOC INTERVAL', 'MEAN PAOC INTERVAL CODE']]
     df_intervals.drop_duplicates(keep = 'first', inplace = True)
     df_intervals['UNIT'] = 'USD/kg'
@@ -331,6 +333,7 @@ def Building_PAOC_and_PACE_dataset(dir_path, nbins, ccccccc):
                                                    bins = Bin_values,
                                                    labels = Bin_labels,
                                                    precision = 0)
+    df_PACE['MEAN PACE INTERVAL CODE'] = df_PACE['MEAN PACE INTERVAL CODE'].astype('object')
     df_intervals = df_PACE[['MEAN PACE INTERVAL', 'MEAN PACE INTERVAL CODE']]
     df_intervals.drop_duplicates(keep = 'first', inplace = True)
     df_intervals['UNIT'] = 'USD/kg'
@@ -419,19 +422,23 @@ if __name__ == '__main__':
             df_PCU_chem = df_PCU[df_PCU['CAS NUMBER'] == chem]
             df_PCU_chem.drop(columns = ['CAS NUMBER'], inplace = True)
             Levels_for_PCU = df_PCU_chem['PCU'].unique().tolist()
-            df_1 = pd.read_csv(dir_path + '/Relationship_chemical_prices_and_codes.csv')
+            df_1 = pd.read_csv(dir_path + '/Relationship_chemical_prices_and_codes.csv',
+                                dtype = {'PRICE INTERVAL CODE': 'object'})
             Levels_for_chemical_prices = df_1['PRICE INTERVAL CODE'].tolist()
             Option_prices = [str(row['PRICE INTERVAL CODE']) + ': ' + str(row['PRICE INTERVAL']) for idx, row in df_1.iterrows()]
             del df_1
-            df_2 = pd.read_csv(dir_path + '/Relationship_flow_interval_and_codes.csv')
+            df_2 = pd.read_csv(dir_path + '/Relationship_flow_interval_and_codes.csv',
+                                dtype = {'MIDDLE WASTE FLOW INTERVAL CODE': 'object'})
             Levels_for_flow = df_2['MIDDLE WASTE FLOW INTERVAL CODE'].tolist()
             Option_flow = [str(row['MIDDLE WASTE FLOW INTERVAL CODE']) + ': ' + str(row['MIDDLE WASTE FLOW INTERVAL']) for idx, row in df_2.iterrows()]
             del df_2
-            df_3 = pd.read_csv(dir_path + '/Relationship_PACE_and_codes.csv')
+            df_3 = pd.read_csv(dir_path + '/Relationship_PACE_and_codes.csv',
+                                dtype = {'MEAN PACE INTERVAL CODE': 'object'})
             Levels_for_PACE = df_3['MEAN PACE INTERVAL CODE'].tolist()
             Option_PACE = [str(row['MEAN PACE INTERVAL CODE']) + ': ' + str(row['MEAN PACE INTERVAL']) for idx, row in df_3.iterrows()]
             del df_3
-            df_4 = pd.read_csv(dir_path + '/Relationship_PAOC_and_codes.csv')
+            df_4 = pd.read_csv(dir_path + '/Relationship_PAOC_and_codes.csv',
+                                dtype = {'MEAN PAOC INTERVAL CODE': 'object'})
             Levels_for_PAOC = df_4['MEAN PAOC INTERVAL CODE'].tolist()
             Option_PAOC = [str(row['MEAN PAOC INTERVAL CODE']) + ': ' + str(row['MEAN PAOC INTERVAL']) for idx, row in df_4.iterrows()]
             del df_4
@@ -441,9 +448,9 @@ if __name__ == '__main__':
             Probabilities = buidling_probabilities(df_PCU_chem, edges, Inputs_list)
             PCU_model = building_network(Probabilities, edges)
             Options = [['Yes', 'No'],
-                      ['1: concentraton > 1%', '2: 0.01% < concentration <= 1%',
-                      '3: 0.0001% < concentration <= 0.01%', '4: 0.0000001% < concentration <= 0.0001%',
-                      '5: concentration <= 0.0000001%'],
+                      ['1: concentration > 1%', '2: 0.01% < concentration <= 1%',
+                       '3: 0.0001% < concentration <= 0.01%', '4: 0.0000001% < concentration <= 0.0001%',
+                       '5: concentration <= 0.0000001%'],
                       ['W: wastewater', 'S: solid waste', 'L: liquid waste', 'A: gaseous waste'],
                       ['E1: efficiency > 99.9999%', 'E2: 99.99% < efficiency <= 99.9999%',
                       'E3: 99% < efficiency <= 99.99%', 'E4: 95% < efficiency <= 99%',
@@ -461,11 +468,11 @@ if __name__ == '__main__':
                          'Pollution abatement capital expenditure [USD/kg]': Levels_for_PACE,
                          'Pollution Abatement operating cost [USD/kg]': Option_PAOC}
             for chem in CAS_for_search:
-                 print('-'*120)
-                 print('\nFor the chemical with CAS Number {}, select an option for the following: '.format(chem))
-                 print()
-                 Inputs_dictionary = {Input: input('\n{}, options:\n\n{}\n\nInput: '.format(Input, '\n'.join(' - {}'.format(opt) for opt in option))) for Input, option in  Inputs_list.items()}
-                 print(Inputs_dictionary)
-                 Calculating_probabilities(Inputs_dictionary, chem, PCU_model, dir_path)
+                print('-'*120)
+                print('\nFor the chemical with CAS Number {}, select an option for the following: '.format(chem))
+                print()
+                Inputs_dictionary = {Input: input('\n{}, options:\n\n{}\n\nInput: '.format(Input, '\n'.join(' - {}'.format(opt) for opt in option))) for Input, option in  Inputs_list.items()}
+                print(Inputs_dictionary)
+                Calculating_probabilities(Inputs_dictionary, chem, PCU_model, dir_path)
     else:
         print('It is not possible to build a Bayesian Network for the chemicals')
