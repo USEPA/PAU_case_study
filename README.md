@@ -1,4 +1,4 @@
-# Bayesian Network for Seletion of Pollution Control Units
+# Bayesian Network for Pollution Control Units Selection
 
 ### Factor names
 
