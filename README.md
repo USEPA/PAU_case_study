@@ -1,11 +1,5 @@
 # Bayesian Network for Seletion of Pollution Control Units
 
-## Structure
-
-<p align="center">
-  <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/Bayesian_Network_PCU.png width="80%">
-</p>
-
 ### Factor names
 
 | Name | Node|
@@ -31,7 +25,15 @@
 | Efficiency	| Node-19 |
 | Waste flow	| Node-20 |
 | Chemical price	| Node-21 |
-| PCU	| Node-22 |
-| PACE	| Node-23 |
-| PAOC	| Node-24 |
+| Pollution control unit	| Node-22 |
+| Pollution abatement capital expenditure	| Node-23 |
+| Pollution abatament operating cost	| Node-24 |
 | Type of waste management	| Node-25 |
+
+## Structure
+
+<p align="center">
+  <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/Bayesian_Network_PCU.png width="80%">
+</p>
+
+
