@@ -18,7 +18,7 @@
 | As a process impurity	 | Node-12 | Type of waste management	| Node-25 |
 | Repackaging	| Node-13 | | |
 
-## Structure
+### Structure
 
 <p align="center">
   <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/Bayesian_Network_PCU.png width="80%">
