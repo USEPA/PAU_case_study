@@ -1,0 +1,83 @@
+Code 2004 and prior,Method 2004 and prior,Type of waste management
+A01,Flare,Treatment
+A02,Condenser,Treatment
+A03,Scrubber,Treatment
+A04,Absorber,Treatment
+A05,Electrostatic Precipitator,Treatment
+A06,Mechanical Separation,Treatment
+A07,Other Air Emission Treatment,Treatment
+B11,Aerobic,Treatment
+B21,Anaerobic,Treatment
+B31,Facultative,Treatment
+B99,Other Biological Treatment,Treatment
+C01,Chemical Precipitation - Lime or Sodium Hydroxide,Treatment
+C02,Chemical Precipitation - Sulfide,Treatment
+C09,Chemical Precipitation - Other,Treatment
+C11,Neutralization,Treatment
+C21,Chromium Reduction,Treatment
+C31,Complexed Metals Treatment (other than pH adjustment),Treatment
+C41,Cyanide Oxidation - Alkaline Chlorination,Treatment
+C42,Cyanide Oxidation - Electrochemical,Treatment
+C43,Cyanide Oxidation - Other,Treatment
+C44,General Oxidation (including Disinfection) - Chlorination,Treatment
+C45,General Oxidation (including Disinfection) - Ozonation,Treatment
+C46,General Oxidation (including Disinfection) - Other,Treatment
+C99,Other Chemical Treatment,Treatment
+F01,Liquid Injection,Treatment
+F11,Rotary Kiln with Liquid Injection Unit,Treatment
+F19,Other Rotary Kiln,Treatment
+F31,Two Stage,Treatment
+F41,Fixed Hearth,Treatment
+F42,Multiple Hearth,Treatment
+F51,Fluidized Bed,Treatment
+F61,Infra-Red,Treatment
+F71,Fume/Vapor,Treatment
+F81,Pyrolytic Destructor,Treatment
+F82,Wet Air Oxidation,Treatment
+F83,Thermal Drying/Dewatering,Treatment
+F99,Other Incineration/Thermal Treatment,Treatment
+P01,Equalization,Treatment
+P09,Other Blending,Treatment
+P11,Settling/Clarification,Treatment
+P12,Filtration,Treatment
+P13,Sludge Dewatering (non-thermal),Treatment
+P14,Air Flotation,Treatment
+P15,Oil Skimming,Treatment
+P16,Emulsion Breaking - Thermal,Treatment
+P17,Emulsion Breaking - Chemical,Treatment
+P18,Emulsion Breaking - Other,Treatment
+P19,Other Liquid Phase Separation,Treatment
+P21,Adsorption - Carbon,Treatment
+P22,Adsorption - Ion Exchange (other than for recovery/reuse),Treatment
+P23,Adsorption - Resin,Treatment
+P29,Adsorption - Other,Treatment
+P31,Reverse Osmosis (other than for recovery/reuse),Treatment
+P41,Stripping - Air,Treatment
+P42,Stripping - Steam,Treatment
+P49,Stripping - Other,Treatment
+P51,Acid Leaching (other than for recovery/reuse),Treatment
+P61,Solvent Extraction (other than recovery/reuse),Treatment
+P99,Other Physical Treatment,Treatment
+U01,Industrial Kiln,Energy recovery
+U02,Industrial Furnace,Energy recovery
+U03,Industrial Boiler,Energy recovery
+U09,Other Energy Recovery Methods,Energy recovery
+R11,Solvents/Organics Recovery - Batch Still Distillation,Recycling
+R12,Solvents/Organics Recovery - Thin-Film Evaporation,Recycling
+R13,Solvents/Organics Recovery - Fractionation,Recycling
+R14,Solvents/Organics Recovery - Solvent Extraction,Recycling
+R19,Solvents/Organics Recovery - Other,Recycling
+R21,Metals Recovery - Electrolytic,Recycling
+R22,Metals Recovery - Ion Exchange,Recycling
+R23,Metals Recovery - Acid Leaching,Recycling
+R24,Metals Recovery - Reverse Osmosis,Recycling
+R26,Metals Recovery - Solvent Extraction,Recycling
+R27,Metals Recovery - High Temperature,Recycling
+R28,Metals Recovery - Retorting,Recycling
+R29,Metals Recovery - Second Smelting,Recycling
+R30,Metals Recovery - Other,Recycling
+R40,Acid Regeneration,Recycling
+R99,Other Reuse or Recovery,Recycling
+H20,"Solvent recovery (including distillation, evaporation, fractionation or extraction)",Recycling
+H10,"Metal recovery (by retorting, smelting, or chemical or physical extraction)",Recycling
+H39,Other recovery or reclamation for reuse (including acid regeneration or other chemical reaction process),Recycling

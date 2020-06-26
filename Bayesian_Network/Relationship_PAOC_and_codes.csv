@@ -1,0 +1,11 @@
+MEAN PAOC INTERVAL,MEAN PAOC INTERVAL CODE,UNIT
+"(9e-07, 1e-06]",1,USD/kg
+"(100.0, 8618.235]",10,USD/kg
+"(1e-06, 1e-05]",2,USD/kg
+"(1e-05, 0.0001]",3,USD/kg
+"(0.0001, 0.001]",4,USD/kg
+"(0.001, 0.01]",5,USD/kg
+"(0.01, 0.1]",6,USD/kg
+"(0.1, 1.0]",7,USD/kg
+"(1.0, 10.0]",8,USD/kg
+"(10.0, 100.0]",9,USD/kg
