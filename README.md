@@ -1,39 +1,27 @@
-# Bayesian Network for Seletion of Pollution Control Units
+# Bayesian Network for Pollution Control Units Selection
 
 ### Factor names
 
-| Name | Node|
-| ------------- | ------------- |
-| Manufacturing stage | Node-1 |
-| Processing stage | Node-2 |
-| Use stage |	Node-3 |
-| Produce the chemical |	Node-4 |
-| Import the chemical	| Node-5 |
-| Sale or distribution of the chemical	| Node-6 |
-| As a byproduct	| Node-7 |
-| As a manufactured impurity	| Node-8 |
-| Used as an article component	| Node-9 |
-| Added as a formulation component	 | Node-10 |
-| Used as a reactant	| Node-11 |
-| As a process impurity	 | Node-12 |
-| Repackaging	| Node-13 |
-| Used as a chemical processing aid	| Node-14 |
-| Used as a manufacturing aid	| Node-15 |
-| Ancillary or other use	| Node-16 |
-| Type of waste	| Node-17 |
-| Concentration	| Node-18 |
-| Efficiency	| Node-19 |
-| Waste flow	| Node-20 |
-| Chemical price	| Node-21 |
-| Pollution control unit	| Node-22 |
-| Pollution abatement capital expenditure	| Node-23 |
-| Pollution abatament operating cost	| Node-24 |
-| Type of waste management	| Node-25 |
+| Name | Node| Name | Node |
+| ------------- | ------------- | ------------- | ------------- |
+| Manufacturing stage | Node-1 | Used as a chemical processing aid	| Node-14 |
+| Processing stage | Node-2 | Used as a manufacturing aid	| Node-15 |
+| Use stage |	Node-3 | Ancillary or other use	| Node-16 |
+| Produce the chemical |	Node-4 | Type of waste	| Node-17 |
+| Import the chemical	| Node-5 | Concentration	| Node-18 |
+| Sale or distribution of the chemical	| Node-6 | Efficiency	| Node-19 |
+| As a byproduct	| Node-7 | Waste flow	| Node-20 |
+| As a manufactured impurity	| Node-8 | Chemical price	| Node-21 |
+| Used as an article component	| Node-9 | Pollution control unit	| Node-22 |
+| Added as a formulation component	 | Node-10 | Pollution abatement capital expenditure	| Node-23 |
+| Used as a reactant	| Node-11 | Pollution abatament operating cost	| Node-24 |
+| As a process impurity	 | Node-12 | Type of waste management	| Node-25 |
+| Repackaging	| Node-13 | | |
 
-## Structure
+### Structure
 
 <p align="center">
-  <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/Bayesian_Network_PCU.png width="80%">
+  <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/Bayesian_Network_PCU.png width="85%">
 </p>
 
 
