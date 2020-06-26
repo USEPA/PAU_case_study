@@ -123,11 +123,18 @@ def buidling_probabilities(df, edges, Inputs_list):
     return Probabilities
 
 
-def Calculating_probabilities(Input_dictionary, chem, Model, dir_path):
-    Input_dictionary.update({'Chemical': chem})
-    PCUs = set([vals[2] for state in Model.states for vals in state.distribution.parameters[0] if state.name == 'PCU'])
-    value_event = [Input_dictionary[state.name] for state in Model.states if state.name != 'PCU']
-    values_to_assess = [value_event + [PCU] for PCU in PCUs]
+def Calculating_probabilities(Input_dictionary, chem, Model, dir_path, TRI_method, PCUs):
+    values_to_assess = list()
+    for PCU in PCUs:
+        values_to_include = list()
+        for state in Model.states:
+            if state.name == 'PCU':
+                values_to_include.append(PCU)
+            elif state.name == 'Type of waste management':
+                values_to_include.append(TRI_method[PCU])
+            else:
+                values_to_include.append(Input_dictionary[state.name])
+        values_to_assess.append(values_to_include)
     Probabilities = Model.probability(values_to_assess)
     df_values = {key: [value]*len(PCUs) for key, value in Input_dictionary.items()}
     df_values.update({'PCU': list(PCUs), 'Probability': Probabilities})
@@ -464,15 +471,19 @@ if __name__ == '__main__':
                          'Use stage': Options[0], 'Used as a chemical processing aid': Options[0],
                          'Used as a manufacturing aid': Options[0], 'Ancillary or other use': Options[0],
                          'Concentration': Options[1], 'Type of waste': Options[2], 'Efficiency': Options[3],
-                         'Chemical price [USD/g]': Option_prices, 'Waste flow [kg/yr]': Option_flow,
-                         'Pollution abatement capital expenditure [USD/kg]': Levels_for_PACE,
-                         'Pollution Abatement operating cost [USD/kg]': Option_PAOC}
+                         'Chemical price': Option_prices, 'Waste flow': Option_flow,
+                         'PACE': Option_PACE, 'PAOC': Option_PAOC}
+            TRI_method = pd.read_csv(dir_path + '/Methods_TRI.csv',
+                                    usecols = ['Code 2004 and prior',
+                                               'Type of waste management'])
+            TRI_method = {row['Code 2004 and prior']: row['Type of waste management'] \
+                          for idx, row in TRI_method.iterrows()}
             for chem in CAS_for_search:
                 print('-'*120)
                 print('\nFor the chemical with CAS Number {}, select an option for the following: '.format(chem))
                 print()
                 Inputs_dictionary = {Input: input('\n{}, options:\n\n{}\n\nInput: '.format(Input, '\n'.join(' - {}'.format(opt) for opt in option))) for Input, option in  Inputs_list.items()}
                 print(Inputs_dictionary)
-                Calculating_probabilities(Inputs_dictionary, chem, PCU_model, dir_path)
+                Calculating_probabilities(Inputs_dictionary, chem, PCU_model, dir_path, TRI_method, Levels_for_PCU)
     else:
         print('It is not possible to build a Bayesian Network for the chemicals')
