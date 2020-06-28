@@ -3,7 +3,7 @@ P42,0.0,Treatment,1.0
 P21,0.0,Treatment,1.0
 B11,0.0,Treatment,1.0
 P19,0.0,Treatment,1.0
-P15,1.0,Treatment,1.0
+P15,0.4999999999999954,Treatment,1.0
 C44,0.0,Treatment,1.0
 P41,0.0,Treatment,1.0
 B31,0.0,Treatment,1.0
@@ -41,6 +41,6 @@ R19,0.0,Recycling,0.0
 R14,0.0,Recycling,0.0
 R12,0.0,Recycling,0.0
 R13,0.0,Recycling,0.0
-P09,0.0,Treatment,1.0
+P09,0.4999999999999954,Treatment,1.0
 F19,0.0,Treatment,1.0
 C99,0.0,Treatment,1.0

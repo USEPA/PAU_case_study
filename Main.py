@@ -38,7 +38,7 @@ if __name__ == '__main__':
     read_book = xlrd.open_workbook(dir_path + '/Inputs.xls', formatting_info = True)
     write_book = copy(read_book)
     write_sheet1 = write_book.get_sheet(1)
-    initial_pos = {'Chemical price': 48, 'Waste flow': 58, 'PACE': 68, 'PAOC': 78}
+    initial_pos = {'Chemical price': 22, 'Waste flow': 32, 'PACE': 42, 'PAOC': 52}
     for key, values in Options.items():
         list_position = list()
         pos = initial_pos[key]

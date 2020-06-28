@@ -5,11 +5,58 @@
 import pandas as pd
 pd.set_option('mode.chained_assignment', None)
 import math
+import itertools
 from pomegranate import *
 import os
 import sys
 import pygraphviz as pgv
 import re
+
+
+def building_network(Probabilities, edges):
+    PCU_model = BayesianNetwork('PCU Selection')
+    # Adding states
+    nodes =  dict()
+    for Name, Prob in Probabilities.items():
+        s = Node(Prob, name = Name)
+        nodes.update({Name: s})
+        PCU_model.add_node(s)
+    # Adding edges
+    for idx, row in edges.iterrows():
+        PCU_model.add_edge(nodes[row['Source']], nodes[row['Target']])
+    PCU_model.bake()
+    return PCU_model
+
+
+def buidling_probabilities(df, edges, Inputs_list):
+    children = edges['Target'].unique().tolist()
+    parents = {child: edges.loc[edges['Target'] == child, 'Source'].tolist() for child in children}
+    without_parents = edges.loc[~edges['Source'].isin(children), 'Source'].unique().tolist()
+    Probabilities = {root: DiscreteDistribution({key: value for key, value in df[root].value_counts(normalize = True).items()}) for root in without_parents}
+    for key, value in parents.items():
+        contingency_table = pd.crosstab(df[key], [df[col] for col in value], normalize = 'columns').T
+        if len(value) != 1:
+            level_values = tuple(Inputs_list[val] for val in contingency_table.index.names)
+            combinations = [list(com) for com in itertools.product(*level_values)]
+        else:
+            level_values = list(Inputs_list[contingency_table.index.name])
+            combinations = [[com] for com in level_values]
+        column_names = Inputs_list[key]
+        list_of_lists = list()
+        for combination in combinations:
+            for column_name in column_names:
+                list_aux = combination.copy()
+                try:
+                    if len(value) == 1:
+                        frac = contingency_table.loc[combination, column_name].values[0]
+                    else:
+                        frac = frac = contingency_table.xs(tuple(combination), level = tuple(value))[column_name].values[0]
+                except (KeyError, IndexError):
+                    frac = 0
+                list_aux  = list_aux + [column_name, frac]
+                list_of_lists.append(list_aux)
+        Probabilities.update({key: ConditionalProbabilityTable(list_of_lists, [Probabilities[val] for val in value])})
+    return Probabilities
 
 
 def drawing_network(df, dir_path):
@@ -37,12 +84,8 @@ def drawing_network(df, dir_path):
 
 
 def building_dataframe(dir_path, Years, values):
-    cols_for_using = ['TRIFID', 'CAS NUMBER', 'PRODUCE THE CHEMICAL', 'IMPORT THE CHEMICAL',
-    	               'SALE OR DISTRIBUTION OF THE CHEMICAL',
-                       'AS A BYPRODUCT', 'AS A MANUFACTURED IMPURITY', 'USED AS A REACTANT',
-                       'ADDED AS A FORMULATION COMPONENT', 'USED AS AN ARTICLE COMPONENT',
-                       'REPACKAGING', 'AS A PROCESS IMPURITY', 'USED AS A CHEMICAL PROCESSING AID',
-                       'USED AS A MANUFACTURING AID', 'ANCILLARY OR OTHER USE',
+    cols_for_using = ['TRIFID', 'CAS NUMBER', 'AS A BYPRODUCT',
+                      'AS A MANUFACTURED IMPURITY', 'AS A PROCESS IMPURITY',
                        'WASTE STREAM CODE', 'RANGE INFLUENT CONCENTRATION',
                        'METHOD CODE - 2004 AND PRIOR', 'EFFICIENCY RANGE CODE',
                        'TYPE OF MANAGEMENT', 'PRIMARY NAICS CODE']
@@ -416,13 +459,7 @@ def Building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2):
     df_names = pd.read_csv(dir_path + '/Bayesian_Network/Node_names.csv')
     columns = df_names['Name'].tolist()
     df_PCU_chem = df_PCU_chem[columns]
-    data = df_PCU_chem.values
-    order = {val: idx for idx, val in enumerate(columns)}
-    State_names = list(order.keys())
-    Target = set(edges['Target'].tolist())
-    edges_tuple = tuple([tuple([order[s] for s in edges.loc[edges['Target'] == node, 'Source']]) if node in Target else tuple([]) for node in columns])
-    PCU_model = BayesianNetwork.from_structure(data,
-                                            state_names = State_names,
-                                            structure = edges_tuple,
-                                            name = 'PCU Selection')
+    Inputs_list = {col: df_PCU_chem[col].unique().tolist() for col in columns}
+    Probabilities = buidling_probabilities(df_PCU_chem, edges, Inputs_list)
+    PCU_model = building_network(Probabilities, edges)
     return PCU_model
