@@ -3,7 +3,6 @@
 
 # Importing libraries
 import pandas as pd
-import json
 pd.set_option('mode.chained_assignment', None)
 import math
 from pomegranate import *
@@ -426,9 +425,4 @@ def Building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2):
                                             state_names = State_names,
                                             structure = edges_tuple,
                                             name = 'PCU Selection')
-    json_object = PCU_model.to_json(separators = (',',':'),
-                                    indent = 4)
-    with open(dir_path + '/Bayesian_Network/Models/Bayesian_model_for_{}.json'.format(chem_1),\
-              'w', encoding='utf-8') as outfile:
-        json.dump(json_object, outfile, ensure_ascii = False)
     return PCU_model
