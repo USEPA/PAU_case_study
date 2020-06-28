@@ -1,1 +1,4 @@
 /Bayesian_Network/DB_Bayesian_Network.csv filter=lfs diff=lfs merge=lfs -text
+/Bayesian_Network/Probabilities filter=lfs diff=lfs merge=lfs -text
+/Bayesian_Network/Models filter=lfs diff=lfs merge=lfs -text
+/Bayesian_Network/Models/*.json !text !filter !merge !diff
