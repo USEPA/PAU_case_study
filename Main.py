@@ -7,6 +7,8 @@ import os
 import xlrd, xlwt
 from xlutils.copy import copy
 from Bayesian_Network.Bayesian_Network import *
+from Fuzzy_Analytical_Hierarchy_Process.Fuzzy_Inference import *
+import pandas as pd
 
 if __name__ == '__main__':
 
@@ -61,16 +63,42 @@ if __name__ == '__main__':
     df_inputs.reset_index(inplace = True, drop = True)
     del df_inputs.index.name
     Columns = set(df_inputs.columns.tolist()) - set(['CAS NUMBER', 'Stream #', 'Chemical flow [kg/yr]'])
-    for chem_1, chem_2 in CAS_for_search.items():
-        Input_dictionary_joint = dict()
-        Input_dictionary_marginal = dict()
-        for col in Columns:
-            df_input_chem = df_inputs[df_inputs['CAS NUMBER'] == chem_1]
-            val = df_input_chem[col].values[0]
-            Input_dictionary_joint.update({col: val})
-            if col != 'Type of waste management':
-                Input_dictionary_marginal.update({col: val})
-        PCU_model = Building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2)
-        Calculating_joint_probabilities(Input_dictionary_joint, chem_1, chem_2, PCU_model, dir_path, df_PCU)
-        Calculating_marginal_probabilities(Input_dictionary_marginal, PCU_model, dir_path, chem_1, chem_2, df_PCU)
+    # for chem_1, chem_2 in CAS_for_search.items():
+    #     Input_dictionary_joint = dict()
+    #     Input_dictionary_marginal = dict()
+    #     for col in Columns:
+    #         df_input_chem = df_inputs[df_inputs['CAS NUMBER'] == chem_1]
+    #         val = df_input_chem[col].values[0]
+    #         Input_dictionary_joint.update({col: val})
+    #         if col != 'Type of waste management':
+    #             Input_dictionary_marginal.update({col: val})
+    #     PCU_model = Building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2)
+    #     Calculating_joint_probabilities(Input_dictionary_joint, chem_1, chem_2, PCU_model, dir_path, df_PCU)
+    #     Calculating_marginal_probabilities(Input_dictionary_marginal, PCU_model, dir_path, chem_1, chem_2, df_PCU)
     # Fuzzy analysis
+    streams = df_inputs['Stream #'].unique().tolist()
+    concerning_chemical_in_stream = {stream: df_inputs.loc[df_inputs['Stream #'] == stream, 'CAS NUMBER'].tolist() for stream in streams}
+    del streams
+    Prob_PCU_chemical_and_stream = pd.DataFrame()
+    for stream, chemicals in concerning_chemical_in_stream.items():
+        for chemical in chemicals:
+            Path = '/Bayesian_Network/Probabilities/Marginal/Marginal_probabilities_based_on_BN_for_{}.csv'.format(chemical)
+            Prob_chem = pd.read_csv(dir_path + Path)
+            Prob_chem = Prob_chem[Prob_chem['PCU-probability'] != 0.0]
+            if Prob_chem.empty:
+                print('Based on the information, there is not chance to isolate the chemical under the input conditions')
+            else:
+                Prob_chem['Stream'] = stream
+                Prob_chem['Chemical'] = chemical
+                Prob_PCU_chemical_and_stream = pd.concat([Prob_PCU_chemical_and_stream, Prob_chem],
+                                                        axis = 0, sort = False, ignore_index = True)
+    del Prob_chem
+    ## Selecting PCUs
+    Prob_PCU_chemical_and_stream = Prob_PCU_chemical_and_stream\
+                                   .groupby('Stream', as_index = False)\
+                                   .apply(lambda x: pairwise_comparison(x, objective = 'pcu'))
+    Prob_PCU_chemical_and_stream = Prob_PCU_chemical_and_stream[Prob_PCU_chemical_and_stream['Selected'] == 'Yes']
+    Prob_PCU_chemical_and_stream.drop(columns = ['Selected'], inplace = True)
+    Prob_PCU_chemical_and_stream.reset_index(inplace = True, drop = True)
+    ## Sequence for PCUs
+    # Chemical flow analysis

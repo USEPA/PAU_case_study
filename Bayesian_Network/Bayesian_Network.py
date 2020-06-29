@@ -70,14 +70,7 @@ def drawing_network(df, dir_path):
                                 fontfamily = 'arial', width = '3',
                                 style = 'bold', penwidth = '5')
     for idx, row in df.iterrows():
-        if row['Target'] == 'Node-17':
-            color = '#1b6ca8'
-        elif row['Target'] == 'Node-18':
-            color = '#ff847c'
-        elif row['Source'] == 'Node-17':
-            color = '#e84a5f'
-        else:
-            color = 'black'
+        color = 'black'
         Graph_bayesian.add_edge(*tuple(row.values) , color = color, alpha = '0.2',
                             arrowsize = '2', arrowType = 'open', style = 'bold')
     Graph_bayesian.draw(dir_path + '/Bayesian_Network/Bayesian_Network_PCU.png' ,prog = 'dot')
