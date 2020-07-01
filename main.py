@@ -6,8 +6,9 @@ import argparse
 import os
 import xlrd, xlwt
 from xlutils.copy import copy
-from Bayesian_Network.Bayesian_Network import *
-from Fuzzy_Analytical_Hierarchy_Process.Fuzzy_Inference import *
+from bayesian_network.bayesian_network import *
+from fuzzy_analytical_hierarchy_process.fuzzy_inference import *
+from chemical_flow_analysis.chemical_tracking import *
 import pandas as pd
 
 if __name__ == '__main__':
@@ -63,7 +64,8 @@ if __name__ == '__main__':
     df_inputs.reset_index(inplace = True, drop = True)
     del df_inputs.index.name
     Columns = set(df_inputs.columns.tolist()) - set(['CAS NUMBER', 'Stream #', 'Chemical flow [kg/yr]',
-                                                    'Flammability', 'Instability', 'Corrosivity'])
+                                                    'Flammability', 'Instability', 'Corrosivity',
+                                                    'Efficiency [%]'])
     streams = df_inputs['Stream #'].unique().tolist()
     concerning_chemical_in_stream = {stream: df_inputs.loc[df_inputs['Stream #'] == stream, 'CAS NUMBER'].tolist() for stream in streams}
     del streams
@@ -78,14 +80,14 @@ if __name__ == '__main__':
                 Input_dictionary_joint.update({col: val})
                 if col != 'Type of waste management':
                     Input_dictionary_marginal.update({col: val})
-            PCU_model = Building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2)
-            Calculating_joint_probabilities(Input_dictionary_joint, chem_1, chem_2, stream, PCU_model, dir_path, df_PCU)
-            Calculating_marginal_probabilities(Input_dictionary_marginal, PCU_model, dir_path, chem_1, chem_2, stream, df_PCU)
+            PCU_model = building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2)
+            calculating_joint_probabilities(Input_dictionary_joint, chem_1, chem_2, stream, PCU_model, dir_path, df_PCU)
+            calculating_marginal_probabilities(Input_dictionary_marginal, PCU_model, dir_path, chem_1, chem_2, stream, df_PCU)
     # Fuzzy analysis
     Prob_PCU_chemical_and_stream = pd.DataFrame()
     for stream, chemicals in concerning_chemical_in_stream.items():
         for chemical in chemicals:
-            Path = '/Bayesian_Network/Probabilities/Marginal/Marginal_probabilities_based_on_BN_for_{}_in_stream_{}.csv'.format(chemical, stream)
+            Path = '/bayesian_network/probabilities/marginal/Marginal_probabilities_based_on_BN_for_{}_in_stream_{}.csv'.format(chemical, stream)
             Prob_chem = pd.read_csv(dir_path + Path)
             Prob_chem = Prob_chem[Prob_chem['PCU-probability'] != 0.0]
             if Prob_chem.empty:
@@ -105,18 +107,20 @@ if __name__ == '__main__':
     Prob_PCU_chemical_and_stream.reset_index(inplace = True, drop = True)
     ## Sequence for PCUs
     df_inputs = df_inputs[['Stream #', 'Chemical flow [kg/yr]', 'CAS NUMBER',
-                           'Flammability', 'Instability', 'Corrosivity']]
+                           'Flammability', 'Instability', 'Corrosivity',
+                           'Efficiency [%]']]
     df_inputs.rename(columns = {'Stream #': 'Stream',
                                 'Chemical flow [kg/yr]': 'Chemical flow',
                                 'CAS NUMBER': 'Chemical'}, inplace = True)
     df_inputs['Chemical flow'] = df_inputs['Chemical flow'].astype('float')
+    df_inputs['Efficiency [%]'] = df_inputs['Efficiency [%]'].astype('float')
     df_inputs['Flammability'] = df_inputs['Flammability'].astype('int')
     df_inputs['Instability'] = df_inputs['Instability'].astype('int')
     df_inputs['Corrosivity'] = df_inputs['Corrosivity'].astype('int')
     Prob_PCU_chemical_and_stream = pd.merge(df_inputs, Prob_PCU_chemical_and_stream,
                                             on = ['Chemical', 'Stream'],
                                             how = 'inner')
-    df_TRI_methods = pd.read_csv(dir_path + '/Bayesian_Network/Methods_TRI.csv',
+    df_TRI_methods = pd.read_csv(dir_path + '/bayesian_network/Methods_TRI.csv',
                                 usecols = ['Code 2004 and prior', 'Objective'])
     df_TRI_methods.rename(columns = {'Code 2004 and prior': 'PCU'}, inplace = True)
     Prob_PCU_chemical_and_stream = pd.merge(df_TRI_methods, Prob_PCU_chemical_and_stream,
@@ -127,6 +131,6 @@ if __name__ == '__main__':
     Prob_PCU_chemical_and_stream.sort_values(by = ['Stream', 'Position'],
                                              ascending = [True, True],
                                              inplace = True)
-    Prob_PCU_chemical_and_stream.to_csv(dir_path + '/Fuzzy_Analytical_Hierarchy_Process/PCU_selection_and_position_under_FAHP.csv',
+    Prob_PCU_chemical_and_stream.to_csv(dir_path + '/fuzzy_analytical_hierarchy_process/PCU_selection_and_position_under_FAHP.csv',
                                         sep = ',', index = False)
     # Chemical flow analysis

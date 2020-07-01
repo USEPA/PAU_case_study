@@ -96,7 +96,7 @@ def pairwise_comparison(df, objective):
             else:
                 # Call fuzzy function to make decision based on WMH, PCU-probability, and WMH probability
                 criteria_on_columns = ['WHM importance', 'PCU-probability', 'Type_of_waste_management-probability']
-                df = FAHP(n_probable_pcu, criteria_on_columns, df)
+                df = fahp(n_probable_pcu, criteria_on_columns, df)
                 df['Selected'] = 'No'
                 df.loc[df['Weight'].idxmax(), 'Selected'] = 'Yes'
                 df.drop(columns = ['Weight', 'WHM importance'], inplace = True)
@@ -115,7 +115,7 @@ def pairwise_comparison(df, objective):
                     df_chem.drop(columns = ['P-based_on_intersection', 'Intersection'], inplace = True)
                 else:
                     n_probable_pcu =  len(df_chem['PCU'].tolist())
-                    df_chem = FAHP(n_probable_pcu, criteria_on_columns, df_chem)
+                    df_chem = fahp(n_probable_pcu, criteria_on_columns, df_chem)
                     df_chem['Selected'] = 'No'
                     df_chem.loc[df_chem['Weight'].idxmax(), 'Selected'] = 'Yes'
                     df_chem.drop(columns = ['Weight', 'WHM importance', 'P-based_on_intersection', 'Intersection'], inplace = True)
@@ -161,7 +161,7 @@ def pairwise_comparison(df, objective):
                                            'T Corrosivity', 'Position database',
                                            'T Chemical flow']
                     n_probable_pcu = df_removal_reduce['PCU'].nunique()
-                    df_removal_reduce = FAHP(n_probable_pcu, criteria_on_columns, df_removal_reduce)
+                    df_removal_reduce = fahp(n_probable_pcu, criteria_on_columns, df_removal_reduce)
                     df_removal_reduce.sort_values(by = ['Weight'], inplace = True, ascending = False)
                     df_removal_reduce['Position'] = pd.Series(np.arange(min, df_removal_reduce.shape[0] + min))
                     df_removal_reduce.drop(columns = criteria_on_columns + ['Weight'],
@@ -176,7 +176,7 @@ def pairwise_comparison(df, objective):
     return df
 
 
-def FAHP(n, cols_criteri, df):
+def fahp(n, cols_criteri, df):
     m_criteria = len(cols_criteri)
     N = comparison_matrix(df, cols_criteri)
     # Definition of variables
