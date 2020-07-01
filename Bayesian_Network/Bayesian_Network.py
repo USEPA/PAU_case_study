@@ -111,7 +111,7 @@ def building_dataframe(dir_path, Years, values):
     return df
 
 
-def Calculating_joint_probabilities(Input_dictionary, chem_1, chem_2, Model, dir_path, df_PCU):
+def Calculating_joint_probabilities(Input_dictionary, chem_1, chem_2, stream, Model, dir_path, df_PCU):
     TRI_method = pd.read_csv(dir_path + '/Bayesian_Network/Methods_TRI.csv',
                             usecols = ['Code 2004 and prior',
                                        'Type of waste management'])
@@ -134,10 +134,10 @@ def Calculating_joint_probabilities(Input_dictionary, chem_1, chem_2, Model, dir
     df_values = {key: [value]*len(Levels_for_PCU) for key, value in Input_dictionary.items()}
     df_values.update({'PCU': list(Levels_for_PCU), 'Probability': Probabilities})
     df = pd.DataFrame(df_values)
-    df.to_csv(dir_path + '/Bayesian_Network/Probabilities/Joint/Joint_probabilities_based_on_BN_for_{}.csv'.format(chem_1), sep = ',', index = False)
+    df.to_csv(dir_path + '/Bayesian_Network/Probabilities/Joint/Joint_probabilities_based_on_BN_for_{}_in_stream_{}.csv'.format(chem_1, stream), sep = ',', index = False)
 
 
-def Calculating_marginal_probabilities(Input_dictionary, Model, dir_path, chem_1, chem_2, df_PCU):
+def Calculating_marginal_probabilities(Input_dictionary, Model, dir_path, chem_1, chem_2, stream, df_PCU):
     TRI_method = pd.read_csv(dir_path + '/Bayesian_Network/Methods_TRI.csv',
                             usecols = ['Code 2004 and prior',
                                        'Type of waste management'])
@@ -161,7 +161,7 @@ def Calculating_marginal_probabilities(Input_dictionary, Model, dir_path, chem_1
     df = df[['PCU', 'PCU-probability',\
              'Type_of_waste_management',\
              'Type_of_waste_management-probability']]
-    df.to_csv(dir_path + '/Bayesian_Network/Probabilities/Marginal/Marginal_probabilities_based_on_BN_for_{}.csv'.format(chem_1), sep = ',', index = False)
+    df.to_csv(dir_path + '/Bayesian_Network/Probabilities/Marginal/Marginal_probabilities_based_on_BN_for_{}_in_stream_{}.csv'.format(chem_1, stream), sep = ',', index = False)
 
 
 def Building_flows_dataset(dir_path, Years, nbins, df_PCU, CAS_for_search):

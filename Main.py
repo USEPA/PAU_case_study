@@ -62,27 +62,30 @@ if __name__ == '__main__':
     df_inputs = df_inputs.T
     df_inputs.reset_index(inplace = True, drop = True)
     del df_inputs.index.name
-    Columns = set(df_inputs.columns.tolist()) - set(['CAS NUMBER', 'Stream #', 'Chemical flow [kg/yr]'])
-    # for chem_1, chem_2 in CAS_for_search.items():
-    #     Input_dictionary_joint = dict()
-    #     Input_dictionary_marginal = dict()
-    #     for col in Columns:
-    #         df_input_chem = df_inputs[df_inputs['CAS NUMBER'] == chem_1]
-    #         val = df_input_chem[col].values[0]
-    #         Input_dictionary_joint.update({col: val})
-    #         if col != 'Type of waste management':
-    #             Input_dictionary_marginal.update({col: val})
-    #     PCU_model = Building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2)
-    #     Calculating_joint_probabilities(Input_dictionary_joint, chem_1, chem_2, PCU_model, dir_path, df_PCU)
-    #     Calculating_marginal_probabilities(Input_dictionary_marginal, PCU_model, dir_path, chem_1, chem_2, df_PCU)
-    # Fuzzy analysis
+    Columns = set(df_inputs.columns.tolist()) - set(['CAS NUMBER', 'Stream #', 'Chemical flow [kg/yr]',
+                                                    'Flammability', 'Instability', 'Corrosivity'])
     streams = df_inputs['Stream #'].unique().tolist()
     concerning_chemical_in_stream = {stream: df_inputs.loc[df_inputs['Stream #'] == stream, 'CAS NUMBER'].tolist() for stream in streams}
     del streams
+    for stream, chemicals in concerning_chemical_in_stream.items():
+        for chem_1 in chemicals:
+            chem_2 = CAS_for_search[chem_1]
+            Input_dictionary_joint = dict()
+            Input_dictionary_marginal = dict()
+            for col in Columns:
+                df_input_chem = df_inputs.loc[(df_inputs['CAS NUMBER'] == chem_1) & (df_inputs['Stream #'] == stream)]
+                val = df_input_chem[col].values[0]
+                Input_dictionary_joint.update({col: val})
+                if col != 'Type of waste management':
+                    Input_dictionary_marginal.update({col: val})
+            PCU_model = Building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2)
+            Calculating_joint_probabilities(Input_dictionary_joint, chem_1, chem_2, stream, PCU_model, dir_path, df_PCU)
+            Calculating_marginal_probabilities(Input_dictionary_marginal, PCU_model, dir_path, chem_1, chem_2, stream, df_PCU)
+    # Fuzzy analysis
     Prob_PCU_chemical_and_stream = pd.DataFrame()
     for stream, chemicals in concerning_chemical_in_stream.items():
         for chemical in chemicals:
-            Path = '/Bayesian_Network/Probabilities/Marginal/Marginal_probabilities_based_on_BN_for_{}.csv'.format(chemical)
+            Path = '/Bayesian_Network/Probabilities/Marginal/Marginal_probabilities_based_on_BN_for_{}_in_stream_{}.csv'.format(chemical, stream)
             Prob_chem = pd.read_csv(dir_path + Path)
             Prob_chem = Prob_chem[Prob_chem['PCU-probability'] != 0.0]
             if Prob_chem.empty:
