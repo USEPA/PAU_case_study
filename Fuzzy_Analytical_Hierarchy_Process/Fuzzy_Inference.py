@@ -8,8 +8,8 @@ import os
 import networkx as nx
 
 def comparison_matrix(df, cols):
-    Some_criteri = ['WHM importance', 'Flammability',
-                    'Instability', 'Corrosivity']
+    Some_criteri = ['WHM importance', 'T Flammability',
+                    'T Instability', 'T Corrosivity']
     # Based on WMH
     m_criteria = 0
     n = df.shape[0]
@@ -128,26 +128,46 @@ def pairwise_comparison(df, objective):
         else:
             # Based on the objective
             df['Sorted objective'] = df['Objective'].apply(lambda x: Based_on_objective[x])
-            df.sort_values(by = ['Sorted objective'], inplace = True, ascending = True)
-            df['Position'] = np.arange(len(df))
+            df.sort_values(by = ['Sorted objective', 'PCU'], inplace = True, ascending = [True, False])
+            Position_dict = {val: idx + 1 for idx, val in enumerate(df['PCU'].unique())}
+            df['Position'] = df['PCU'].apply(lambda x: Position_dict[x])
             # Checking removal treatments
             df_removal = df.loc[df['Objective'] == 'Removal']
             df = df.loc[df['Objective'] != 'Removal']
             if not df_removal.empty:
                 if df_removal.shape[0] != 1:
                     min = df_removal['Position'].min()
-                    df_removal['T Chemical flow'] = df_removal['Chemical flow']/df_removal['Chemical flow'].max()
-                    df_removal = analysing_position_based_on_PCU_database(df_removal)
-                    criteria_on_columns = ['Flammability', 'Instability',
-                                           'Corrosivity', 'Position database',
+                    # Summing removal flows and searching highest flammability, instability, and corrosivity
+                    Aux_dict = {'Chemical flow': ['T Chemical flow', 'sum'],
+                                'Flammability': ['T Flammability', 'max'],
+                                'Instability': ['T Instability', 'max'],
+                                'Corrosivity': ['T Corrosivity', 'max']}
+                    for key, val in Aux_dict.items():
+                        df_removal[val[0]] = df_removal.groupby('PCU',
+                                                                as_index = False)\
+                                                                [key].transform(val[1])
+                        if key == 'Chemical flow':
+                            df_removal[val[0]] = df_removal[val[0]]/df_removal[val[0]].max()
+                    cols_for_fuzziness = ['PCU', 'T Flammability', 'T Instability',
+                                          'T Corrosivity', 'T Chemical flow']
+                    df_removal_reduce = df_removal[cols_for_fuzziness]
+                    df_removal.drop(columns = ['T Flammability', 'T Instability',
+                                               'T Corrosivity', 'T Chemical flow',
+                                               'Position'],
+                                    inplace = True)
+                    df_removal_reduce.drop_duplicates(keep = 'first', inplace = True)
+                    df_removal_reduce = analysing_position_based_on_PCU_database(df_removal_reduce)
+                    criteria_on_columns = ['T Flammability', 'T Instability',
+                                           'T Corrosivity', 'Position database',
                                            'T Chemical flow']
-                    n_probable_pcu = df_removal['PCU'].nunique()
-                    df_removal = FAHP(n_probable_pcu, criteria_on_columns, df_removal)
-                    df_removal.sort_values(by = ['Weight'], inplace = True, ascending = False)
-                    df_removal['Position'] = pd.Series(np.arange(min, df_removal.shape[0] + min))
-                    df_removal.drop(columns = ['T Chemical flow',
-                                        'Position database', 'Weight'],
-                             inplace = True)
+                    n_probable_pcu = df_removal_reduce['PCU'].nunique()
+                    df_removal_reduce = FAHP(n_probable_pcu, criteria_on_columns, df_removal_reduce)
+                    df_removal_reduce.sort_values(by = ['Weight'], inplace = True, ascending = False)
+                    df_removal_reduce['Position'] = pd.Series(np.arange(min, df_removal_reduce.shape[0] + min))
+                    df_removal_reduce.drop(columns = criteria_on_columns + ['Weight'],
+                                          inplace = True)
+                    df_removal = pd.merge(df_removal, df_removal_reduce, on = 'PCU', how = 'inner')
+                    del df_removal_reduce
                     df = pd.concat([df, df_removal], axis = 0, sort = False, ignore_index = True)
                 else:
                     df = pd.concat([df, df_removal], axis = 0, sort = False, ignore_index = True)

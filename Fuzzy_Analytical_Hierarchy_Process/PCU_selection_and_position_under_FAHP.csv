@@ -1,4 +1,4 @@
 PCU,Objective,Stream,Chemical flow,Chemical,Flammability,Instability,Corrosivity,PCU-probability,Type_of_waste_management,Type_of_waste_management-probability,Position
-R19,Reclamation,1,386227766.01684,50000,4,0,3,0.4999999999999959,Recycling,0.5,1
-F11,Destruction,1,1931138830.0842,100425,3,2,0,0.9999999999999905,Treatment,1.0,2
-P15,Removal,1,1158683298.05052,108883,3,0,0,0.4999999999999957,Treatment,1.0,0
+F11,Removal,1,1931138830.0842,100425,3,2,0,0.9999999999999905,Treatment,1.0,1
+P15,Removal,1,1158683298.05052,108883,3,0,0,0.4999999999999957,Treatment,1.0,2
+R19,Reclamation,1,386227766.01684,50000,4,0,3,0.4999999999999959,Recycling,0.5,3

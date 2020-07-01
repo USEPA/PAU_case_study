@@ -124,6 +124,9 @@ if __name__ == '__main__':
     Prob_PCU_chemical_and_stream =  Prob_PCU_chemical_and_stream\
                                     .groupby('Stream', as_index = False)\
                                     .apply(lambda x: pairwise_comparison(x, objective = 'seq'))
+    Prob_PCU_chemical_and_stream.sort_values(by = ['Stream', 'Position'],
+                                             ascending = [True, True],
+                                             inplace = True)
     Prob_PCU_chemical_and_stream.to_csv(dir_path + '/Fuzzy_Analytical_Hierarchy_Process/PCU_selection_and_position_under_FAHP.csv',
                                         sep = ',', index = False)
     # Chemical flow analysis
