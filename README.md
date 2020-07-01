@@ -21,5 +21,9 @@
 
 ## Selection of Pollution Control Unit for a Concerning Chemical
 
+<p align="center">
+  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/Fuzzy_Analytical_Hierarchy_Process/FAHP_PCU.png width="85%">
+</p>
+
 ## Sequence of Pollution Control Unit for a Waste Stream
 
