@@ -18,7 +18,7 @@ This is a repository with the Python scripts to run the case study for selecting
 ### Structure
 
 <p align="center">
-  <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/bayesian_network/bayesian_network_PCU.png width="85%">
+  <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/bayesian_network/Bayesian_Network_PCU.png width="85%">
 </p>
 
 # Fuzzy Analytical Hierarchy Process (FAHP)
