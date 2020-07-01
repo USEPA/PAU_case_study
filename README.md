@@ -39,6 +39,12 @@ This is a repository with the Python scripts to run the case study for selecting
   <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/chemical_flow_analysis/Pollution_abatement_for_stream_1.pdf width="85%">
 </p>
 
+<object data="https://github.com/jodhernandezbe/PCU_case_study/blob/master/chemical_flow_analysis/Pollution_abatement_for_stream_1.pdf" type="application/pdf" width="700px" height="700px">
+    <embed src="https://github.com/jodhernandezbe/PCU_case_study/blob/master/chemical_flow_analysis/Pollution_abatement_for_stream_1.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="http://yoursite.com/the.pdf">Download PDF</a>.</p>
+    </embed>
+</object>
+
 
 # Disclaimer
 
