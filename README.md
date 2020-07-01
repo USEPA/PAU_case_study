@@ -4,7 +4,7 @@ This is a repository with the Python scripts to run the case study for selecting
 
 # Bayesian Network (BN) for Pollution Control Unit (PCU) Selection
 
-### Factor names
+## Factor names
 
 | Name | Node| Name | Node |
 | ------------- | ------------- | ------------- | ------------- |
@@ -15,7 +15,7 @@ This is a repository with the Python scripts to run the case study for selecting
 | Concentration	| Node-5 | Pollution abatement operating cost	| Node-11 |
 | Efficiency	| Node-6 | Type of waste management	| Node-12 |
 
-### Structure
+## Structure
 
 <p align="center">
   <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/bayesian_network/Bayesian_Network_PCU.png width="85%">
