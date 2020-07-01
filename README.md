@@ -18,7 +18,7 @@ This is a repository with the Python scripts to run the case study for selecting
 ### Structure
 
 <p align="center">
-  <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/Bayesian_Network/Bayesian_Network_PCU.png width="85%">
+  <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/bayesian_network/bayesian_network_PCU.png width="85%">
 </p>
 
 # Fuzzy Analytical Hierarchy Process (FAHP)
@@ -26,12 +26,12 @@ This is a repository with the Python scripts to run the case study for selecting
 ## Selection of PCU for a Concerning Chemical
 
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/Fuzzy_Analytical_Hierarchy_Process/FAHP_PCU.png width="85%">
+  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_PCU.png width="85%">
 </p>
 
 ## Sequence of PCUs for a Waste Stream
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/Fuzzy_Analytical_Hierarchy_Process/FAHP_Seq.png width="85%">
+  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_Seq.png width="85%">
 </p>
 
 ## Disclaimer
