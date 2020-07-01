@@ -1,4 +1,8 @@
-# Bayesian Network for Pollution Control Units Selection
+# Overview
+
+This is a repository with the Python scripts to run the case study for selecting the pollution abatement activities for concerning chemicals and tracking chemical flows at the end-of-life stage. The data was obtained be means of data engineering using different publicly-available databases.
+
+# Bayesian Network (BN) for Pollution Control Unit (PCU) Selection
 
 ### Factor names
 
@@ -17,9 +21,13 @@
   <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/Bayesian_Network/Bayesian_Network_PCU.png width="85%">
 </p>
 
-# Fuzzy Analytical Hierarchy Process
+# Fuzzy Analytical Hierarchy Process (FAHP)
 
-## Selection of Pollution Control Unit for a Concerning Chemical
+## Selection of PCU for a Concerning Chemical
 
-## Sequence of Pollution Control Unit for a Waste Stream
+<p align="center">
+  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/Fuzzy_Analytical_Hierarchy_Process/FAHP_PCU.png width="85%">
+</p>
+
+## Sequence of PCUs for a Waste Stream
 
