@@ -139,8 +139,8 @@ def pairwise_comparison(df, objective):
                     df_removal['T Chemical flow'] = df_removal['Chemical flow']/df_removal['Chemical flow'].max()
                     df_removal = analysing_position_based_on_PCU_database(df_removal)
                     criteria_on_columns = ['Flammability', 'Instability',
-                                           'Corrosivity', 'Chemical flow',
-                                           'Position database', 'T Chemical flow']
+                                           'Corrosivity', 'Position database',
+                                           'T Chemical flow']
                     n_probable_pcu = df_removal['PCU'].nunique()
                     df_removal = FAHP(n_probable_pcu, criteria_on_columns, df_removal)
                     df_removal.sort_values(by = ['Weight'], inplace = True, ascending = False)
