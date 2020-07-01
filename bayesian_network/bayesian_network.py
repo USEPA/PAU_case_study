@@ -112,7 +112,7 @@ def building_dataframe(dir_path, Years, values):
 
 
 def calculating_joint_probabilities(Input_dictionary, chem_1, chem_2, stream, Model, dir_path, df_PCU):
-    TRI_method = pd.read_csv(dir_path + '/bayesian_network/Methods_TRI.csv',
+    TRI_method = pd.read_csv(dir_path + '/Methods_TRI.csv',
                             usecols = ['Code 2004 and prior',
                                        'Type of waste management'])
     TRI_method = {row['Code 2004 and prior']: row['Type of waste management'] \
@@ -138,7 +138,7 @@ def calculating_joint_probabilities(Input_dictionary, chem_1, chem_2, stream, Mo
 
 
 def calculating_marginal_probabilities(Input_dictionary, Model, dir_path, chem_1, chem_2, stream, df_PCU):
-    TRI_method = pd.read_csv(dir_path + '/bayesian_network/Methods_TRI.csv',
+    TRI_method = pd.read_csv(dir_path + '/Methods_TRI.csv',
                             usecols = ['Code 2004 and prior',
                                        'Type of waste management'])
     TRI_method = {row['Code 2004 and prior']: row['Type of waste management'] \

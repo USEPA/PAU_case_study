@@ -1,0 +1,12 @@
+digraph {
+	graph [rankdir=LR ranksep=2]
+	0 [label="Influent stream" color=lightsalmon shape=ellipse style=filled]
+	1 [label=P15 shape=square]
+	2 [label=R19 shape=square]
+	3 [label=F11 shape=square]
+	4 [label="Effluent stream" color=lightblue shape=ellipse style=filled]
+	0 -> 1 [arrowhead=normal arrowsize=2 len=2.00]
+	1 -> 2 [arrowhead=normal arrowsize=2 len=2.00]
+	2 -> 3 [arrowhead=normal arrowsize=2 len=2.00]
+	3 -> 4 [arrowhead=normal arrowsize=2 len=2.00]
+}

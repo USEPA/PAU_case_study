@@ -69,20 +69,20 @@ if __name__ == '__main__':
     streams = df_inputs['Stream #'].unique().tolist()
     concerning_chemical_in_stream = {stream: df_inputs.loc[df_inputs['Stream #'] == stream, 'CAS NUMBER'].tolist() for stream in streams}
     del streams
-    for stream, chemicals in concerning_chemical_in_stream.items():
-        for chem_1 in chemicals:
-            chem_2 = CAS_for_search[chem_1]
-            Input_dictionary_joint = dict()
-            Input_dictionary_marginal = dict()
-            for col in Columns:
-                df_input_chem = df_inputs.loc[(df_inputs['CAS NUMBER'] == chem_1) & (df_inputs['Stream #'] == stream)]
-                val = df_input_chem[col].values[0]
-                Input_dictionary_joint.update({col: val})
-                if col != 'Type of waste management':
-                    Input_dictionary_marginal.update({col: val})
-            PCU_model = building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2)
-            calculating_joint_probabilities(Input_dictionary_joint, chem_1, chem_2, stream, PCU_model, dir_path, df_PCU)
-            calculating_marginal_probabilities(Input_dictionary_marginal, PCU_model, dir_path, chem_1, chem_2, stream, df_PCU)
+    # for stream, chemicals in concerning_chemical_in_stream.items():
+    #     for chem_1 in chemicals:
+    #         chem_2 = CAS_for_search[chem_1]
+    #         Input_dictionary_joint = dict()
+    #         Input_dictionary_marginal = dict()
+    #         for col in Columns:
+    #             df_input_chem = df_inputs.loc[(df_inputs['CAS NUMBER'] == chem_1) & (df_inputs['Stream #'] == stream)]
+    #             val = df_input_chem[col].values[0]
+    #             Input_dictionary_joint.update({col: val})
+    #             if col != 'Type of waste management':
+    #                 Input_dictionary_marginal.update({col: val})
+    #         PCU_model = building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2)
+    #         calculating_joint_probabilities(Input_dictionary_joint, chem_1, chem_2, stream, PCU_model, dir_path, df_PCU)
+    #         calculating_marginal_probabilities(Input_dictionary_marginal, PCU_model, dir_path, chem_1, chem_2, stream, df_PCU)
     # Fuzzy analysis
     Prob_PCU_chemical_and_stream = pd.DataFrame()
     for stream, chemicals in concerning_chemical_in_stream.items():
@@ -108,7 +108,8 @@ if __name__ == '__main__':
     ## Sequence for PCUs
     df_inputs = df_inputs[['Stream #', 'Chemical flow [kg/yr]', 'CAS NUMBER',
                            'Flammability', 'Instability', 'Corrosivity',
-                           'Efficiency [%]']]
+                           'Efficiency [%]', 'As a byproduct',
+                           'As a manufactured impurity', 'As a process impurity']]
     df_inputs.rename(columns = {'Stream #': 'Stream',
                                 'Chemical flow [kg/yr]': 'Chemical flow',
                                 'CAS NUMBER': 'Chemical'}, inplace = True)
@@ -120,7 +121,7 @@ if __name__ == '__main__':
     Prob_PCU_chemical_and_stream = pd.merge(df_inputs, Prob_PCU_chemical_and_stream,
                                             on = ['Chemical', 'Stream'],
                                             how = 'inner')
-    df_TRI_methods = pd.read_csv(dir_path + '/bayesian_network/Methods_TRI.csv',
+    df_TRI_methods = pd.read_csv(dir_path + '/Methods_TRI.csv',
                                 usecols = ['Code 2004 and prior', 'Objective'])
     df_TRI_methods.rename(columns = {'Code 2004 and prior': 'PCU'}, inplace = True)
     Prob_PCU_chemical_and_stream = pd.merge(df_TRI_methods, Prob_PCU_chemical_and_stream,
@@ -133,4 +134,13 @@ if __name__ == '__main__':
                                              inplace = True)
     Prob_PCU_chemical_and_stream.to_csv(dir_path + '/fuzzy_analytical_hierarchy_process/PCU_selection_and_position_under_FAHP.csv',
                                         sep = ',', index = False)
+    print(Prob_PCU_chemical_and_stream.info())
     # Chemical flow analysis
+    for stream in concerning_chemical_in_stream.keys():
+        df_for_stream = Prob_PCU_chemical_and_stream.loc[Prob_PCU_chemical_and_stream['Stream'] == stream,
+                                                        ['Chemical flow [kg/yr]', 'Efficiency [%]',
+                                                         'Chemical', 'As a byproduct',
+                                                         'As a manufactured impurity',
+                                                         'As a process impurity',
+                                                         'Type of waste']]
+        picture(df_for_stream, stream, dir_path)
