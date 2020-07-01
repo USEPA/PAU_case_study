@@ -35,5 +35,5 @@ This is a repository with the Python scripts to run the case study for selecting
 </p>
 
 -----------------------------------------------------------------------------------------------------------------------------
-<a name="myfootnote1">1</a>: https://github.com/jodhernandezbe/Properties_Scraper.
+<a name="myfootnote1">1</a>: Properties_Scraper: https://github.com/jodhernandezbe/Properties_Scraper.
 
