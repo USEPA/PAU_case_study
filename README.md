@@ -4,7 +4,7 @@ This is a repository with the Python scripts to run the case study for selecting
 
 # Bayesian Network (BN) for Pollution Control Unit (PCU) Selection
 
-### Factor names
+## Factor names
 
 | Name | Node| Name | Node |
 | ------------- | ------------- | ------------- | ------------- |
@@ -15,10 +15,10 @@ This is a repository with the Python scripts to run the case study for selecting
 | Concentration	| Node-5 | Pollution abatement operating cost	| Node-11 |
 | Efficiency	| Node-6 | Type of waste management	| Node-12 |
 
-### Structure
+## Structure
 
 <p align="center">
-  <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/Bayesian_Network/Bayesian_Network_PCU.png width="85%">
+  <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/bayesian_network/Bayesian_Network_PCU.png width="85%">
 </p>
 
 # Fuzzy Analytical Hierarchy Process (FAHP)
@@ -26,21 +26,21 @@ This is a repository with the Python scripts to run the case study for selecting
 ## Selection of PCU for a Concerning Chemical
 
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/Fuzzy_Analytical_Hierarchy_Process/FAHP_PCU.png width="85%">
+  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_PCU.png width="85%">
 </p>
 
 ## Sequence of PCUs for a Waste Stream
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/Fuzzy_Analytical_Hierarchy_Process/FAHP_Seq.png width="85%">
+  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_Seq.png width="85%">
 </p>
 
-## Disclaimer
+# Disclaimer
 
 The views expressed in this article are those of the authors and do not necessarily represent the views or policies of
 the U.S. Environmental Protection Agency. Any mention of trade names, products, or services does not imply an endorsement by the U.S.
 Government or the U.S. Environmental Protection Agency. The U.S. Environmental Protection Agency does not endorse any commercial products, service, or enterprises.
 
-## Acknowledgement
+# Acknowledgement
 
 This research was supported in by an appointment for Jose D. Hernandez-Betancur to the Research Participation
 Program at the Center for Environmental Solutions and Emergency Response, Office of Research and Development,
