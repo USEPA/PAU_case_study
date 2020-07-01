@@ -19,7 +19,7 @@
 
 # Fuzzy Analytical Hierarchy Process
 
-## Selection of Pollution Control Unit
+## Selection of Pollution Control Unit for a Concerning Chemical
 
-## Sequence of Pollution Control Unit
+## Sequence of Pollution Control Unit for a Waste Stream
 
