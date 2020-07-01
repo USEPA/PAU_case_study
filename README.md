@@ -1,6 +1,6 @@
 # Overview
 
-This is a repository with the Python scripts to run the case study for selecting the pollution abatement activities for concerning chemicals and tracking chemical flows at the end-of-life stage. The data was obtained be means of data engineering using different publicly-available databases.
+This is a repository with the Python scripts to run the case study for selecting the pollution abatement activities for concerning chemicals and tracking chemical flows at the end-of-life stage. The data was obtained be means of data engineering using different publicly-available databases. The properties of chemicals were obained using the public GitHub repository "Properties_Scraper" <sup>[1](#myfootnote1)</sup>. 
 
 # Bayesian Network (BN) for Pollution Control Unit (PCU) Selection
 
@@ -33,3 +33,7 @@ This is a repository with the Python scripts to run the case study for selecting
 <p align="center">
   <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/Fuzzy_Analytical_Hierarchy_Process/FAHP_Seq.png width="85%">
 </p>
+
+-----------------------------------------------------------------------------------------------------------------------------
+<a name="myfootnote1">1</a>: https://github.com/jodhernandezbe/Properties_Scraper.
+
