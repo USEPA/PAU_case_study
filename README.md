@@ -36,5 +36,6 @@ This is a repository with the Python scripts to run the case study for selecting
 
 -----------------------------------------------------------------------------------------------------------------------------
 <a name="myfootnote1">1</a>: Properties_Scraper: https://github.com/jodhernandezbe/Properties_Scraper (Public).
+
 <a name="myfootnote2">2</a>: PCUs: https://github.com/jodhernandezbe/PCUs (Private).
 
