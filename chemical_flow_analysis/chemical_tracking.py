@@ -134,7 +134,7 @@ def picture(df_for_stream, stream, dir_path):
     for i in range(n_pcus + 1):
         PCU.edge(str(i), str(i + 1),
                 len = '1', arrowhead = 'normal', arrowsize = '1')
-    PCU.view(filename = dir_path + '/chemical_flow_analysis/Pollution_abatement_for_stream_{}'.format(stream))
+    PCU.view(filename = dir_path + '/chemical_flow_analysis/Pollution_abatement_for_stream_{}.png'.format(stream))
 # def picture(F_id, Name_chem, waste_stream, flow, PCU_name, Objective, Efficiency, Fugitive_emission, Carrier_flow, Carrier, Destroyed_converted_degradated_flow, Remanent_flow, Remanent, By_product_flow, By_product):
 #     # Creating graph
 #     PCU = Digraph(filename = 'PCU_' + PCU_name + '_' + F_id +'_' + Name_chem)
