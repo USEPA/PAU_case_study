@@ -17,4 +17,9 @@
   <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/Bayesian_Network/Bayesian_Network_PCU.png width="85%">
 </p>
 
+# Fuzzy Analytical Hierarchy Process
+
+## Selection of Pollution Control Unit
+
+## Sequence of Pollution Control Unit
 
