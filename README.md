@@ -26,7 +26,7 @@ This is a repository with the Python scripts to run the case study for selecting
 ## Selection of PCU for a Concerning Chemical
 
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_PCU.png width="85%">
+  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_PCU.png width="100%">
 </p>
 
 ## Sequence of PCUs for a Waste Stream
