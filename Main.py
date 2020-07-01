@@ -101,4 +101,26 @@ if __name__ == '__main__':
     Prob_PCU_chemical_and_stream.drop(columns = ['Selected'], inplace = True)
     Prob_PCU_chemical_and_stream.reset_index(inplace = True, drop = True)
     ## Sequence for PCUs
+    df_inputs = df_inputs[['Stream #', 'Chemical flow [kg/yr]', 'CAS NUMBER',
+                           'Flammability', 'Instability', 'Corrosivity']]
+    df_inputs.rename(columns = {'Stream #': 'Stream',
+                                'Chemical flow [kg/yr]': 'Chemical flow',
+                                'CAS NUMBER': 'Chemical'}, inplace = True)
+    df_inputs['Chemical flow'] = df_inputs['Chemical flow'].astype('float')
+    df_inputs['Flammability'] = df_inputs['Flammability'].astype('int')
+    df_inputs['Instability'] = df_inputs['Instability'].astype('int')
+    df_inputs['Corrosivity'] = df_inputs['Corrosivity'].astype('int')
+    Prob_PCU_chemical_and_stream = pd.merge(df_inputs, Prob_PCU_chemical_and_stream,
+                                            on = ['Chemical', 'Stream'],
+                                            how = 'inner')
+    df_TRI_methods = pd.read_csv(dir_path + '/Bayesian_Network/Methods_TRI.csv',
+                                usecols = ['Code 2004 and prior', 'Objective'])
+    df_TRI_methods.rename(columns = {'Code 2004 and prior': 'PCU'}, inplace = True)
+    Prob_PCU_chemical_and_stream = pd.merge(df_TRI_methods, Prob_PCU_chemical_and_stream,
+                                            on = ['PCU'], how = 'inner')
+    Prob_PCU_chemical_and_stream =  Prob_PCU_chemical_and_stream\
+                                    .groupby('Stream', as_index = False)\
+                                    .apply(lambda x: pairwise_comparison(x, objective = 'seq'))
+    Prob_PCU_chemical_and_stream.to_csv(dir_path + '/Fuzzy_Analytical_Hierarchy_Process/PCU_selection_and_position_under_FAHP.csv',
+                                        sep = ',', index = False)
     # Chemical flow analysis
