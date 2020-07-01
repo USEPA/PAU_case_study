@@ -34,6 +34,12 @@ This is a repository with the Python scripts to run the case study for selecting
   <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_Seq.png width="85%">
 </p>
 
+# Chemical Flow Tracking
+<p align="center">
+  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/chemical_flow_analysis/Pollution_abatement_for_stream_1.png width="85%">
+</p>
+
+
 # Disclaimer
 
 The views expressed in this article are those of the authors and do not necessarily represent the views or policies of
