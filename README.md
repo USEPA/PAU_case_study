@@ -30,4 +30,6 @@ This is a repository with the Python scripts to run the case study for selecting
 </p>
 
 ## Sequence of PCUs for a Waste Stream
-
+<p align="center">
+  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/Fuzzy_Analytical_Hierarchy_Process/FAHP_Seq.png width="85%">
+</p>
