@@ -109,11 +109,19 @@ if __name__ == '__main__':
     df_inputs = df_inputs[['Stream #', 'Chemical flow [kg/yr]', 'CAS NUMBER',
                            'Flammability', 'Instability', 'Corrosivity',
                            'Efficiency [%]', 'As a byproduct',
-                           'As a manufactured impurity', 'As a process impurity']]
+                           'As a manufactured impurity', 'As a process impurity',
+                           'Type of waste', 'Melting Point [°C]',
+                           'Boiling Point [°C]', 'Water Solubility [mg/L]']]
     df_inputs.rename(columns = {'Stream #': 'Stream',
                                 'Chemical flow [kg/yr]': 'Chemical flow',
-                                'CAS NUMBER': 'Chemical'}, inplace = True)
+                                'CAS NUMBER': 'Chemical',
+                                'Water Solubility [mg/L]': 'Solubility',
+                                'Boiling Point [°C]': 'Tb',
+                                'Melting Point [°C]': 'Tf'}, inplace = True)
     df_inputs['Chemical flow'] = df_inputs['Chemical flow'].astype('float')
+    df_inputs['Tf'] = df_inputs['Tf'].astype('float')
+    df_inputs['Tb'] = df_inputs['Tb'].astype('float')
+    df_inputs['Solubility'] = df_inputs['Solubility'].astype('float')
     df_inputs['Efficiency [%]'] = df_inputs['Efficiency [%]'].astype('float')
     df_inputs['Flammability'] = df_inputs['Flammability'].astype('int')
     df_inputs['Instability'] = df_inputs['Instability'].astype('int')
@@ -134,13 +142,16 @@ if __name__ == '__main__':
                                              inplace = True)
     Prob_PCU_chemical_and_stream.to_csv(dir_path + '/fuzzy_analytical_hierarchy_process/PCU_selection_and_position_under_FAHP.csv',
                                         sep = ',', index = False)
-    print(Prob_PCU_chemical_and_stream.info())
     # Chemical flow analysis
+    Chemical_tracking = pd.DataFrame()
     for stream in concerning_chemical_in_stream.keys():
-        df_for_stream = Prob_PCU_chemical_and_stream.loc[Prob_PCU_chemical_and_stream['Stream'] == stream,
-                                                        ['Chemical flow [kg/yr]', 'Efficiency [%]',
-                                                         'Chemical', 'As a byproduct',
-                                                         'As a manufactured impurity',
-                                                         'As a process impurity',
-                                                         'Type of waste']]
-        picture(df_for_stream, stream, dir_path)
+        df_for_stream = Prob_PCU_chemical_and_stream.loc[Prob_PCU_chemical_and_stream['Stream'] == stream]
+        Chemical_tracking_aux = picture(df_for_stream, stream, dir_path)
+        Chemical_tracking = pd.concat([Chemical_tracking, Chemical_tracking_aux], axis = 0,
+                    sort = False,
+                    ignore_index = True)
+    Chemical_tracking.sort_values(by = ['Stream', 'Position', 'Chemical'],
+                                        ascending = [True, True, True],
+                                        inplace = True)
+    Chemical_tracking.to_csv(dir_path + '/chemical_flow_analysis/Chemical_flow_tracking.csv',
+                                        sep = ',', index = False)
