@@ -1,4 +1,4 @@
 PCU,Objective,Stream,Chemical flow,Chemical,Flammability,Instability,Corrosivity,Efficiency [%],As a byproduct,As a manufactured impurity,As a process impurity,Type of waste,Tf,Tb,Solubility,PCU-probability,Type_of_waste_management,Type_of_waste_management-probability,Position
-P15,Removal,1,1158683298.05052,108883,3,0,0,95.0,No,No,No,L,-94.9,111.0,526.12511,0.4999999999999957,Treatment,1.0,1
-R19,Reclamation,1,386227766.01684,50000,4,0,3,99.99,No,No,No,L,-92.1,-20.1,396343.2,0.4999999999999962,Recycling,0.5,2
-F11,Destruction,1,1931138830.0842,100425,3,2,0,100.0,Yes,No,No,L,-31.0,145.0,310.37296,0.9999999999999912,Treatment,1.0,3
+P15,Removal,1,1158683298.05052,108883,3,0,0,95.0,No,No,No,L,-94.9,111.0,526.12511,0.4999999999999963,Treatment,1.0,1
+F11,Destruction,1,386227766.01684,50000,4,0,3,99.99,No,No,No,L,-92.1,-20.1,396343.2,1.0,Treatment,1.0,2
+F11,Destruction,1,1931138830.0842,100425,3,2,0,100.0,Yes,No,No,L,-31.0,145.0,310.37296,1.0,Treatment,1.0,2

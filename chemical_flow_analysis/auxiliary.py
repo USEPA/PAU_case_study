@@ -81,3 +81,15 @@ def estimating_mass(mu, theta_2):
         Flow = lognorm.rvs(s = 10**-9,
                            scale = np.exp(mu))
     return Flow
+
+
+def non_zero_output_streams(PCU_flows):
+    PCU_flows = PCU_flows.loc[~PCU_flows['Type of stream'].isin(['Effluent', 'Remanent'])]
+    PCU_flows = PCU_flows[['Type of stream', 'Mean quantity [kg/yr]']].groupby('Type of stream', as_index = False).sum()
+    List_of_non_zero = list()
+    for idx, row in PCU_flows.iterrows():
+        Flow = row['Mean quantity [kg/yr]']
+        Type = row['Type of stream']
+        if row['Mean quantity [kg/yr]'] != 0.0:
+            List_of_non_zero.append(Type)
+    return List_of_non_zero

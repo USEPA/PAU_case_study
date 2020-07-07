@@ -77,6 +77,9 @@ def drawing_network(df, dir_path):
 
 
 def building_dataframe(dir_path, Years, values):
+    Excluded_methods = pd.read_csv(dir_path + '/Uncertaint_TRI_Methods_for_excluding.txt',
+                                  header = None)
+    Excluded_methods = Excluded_methods[0].tolist()
     cols_for_using = ['TRIFID', 'CAS NUMBER', 'AS A BYPRODUCT',
                       'AS A MANUFACTURED IMPURITY', 'AS A PROCESS IMPURITY',
                        'WASTE STREAM CODE', 'RANGE INFLUENT CONCENTRATION',
@@ -94,6 +97,7 @@ def building_dataframe(dir_path, Years, values):
         del df_year
     df.drop_duplicates(keep = 'first', inplace = True)
     df = df[~df['METHOD CODE - 2004 AND PRIOR'].str.contains('\+')]
+    df = df[~df['METHOD CODE - 2004 AND PRIOR'].isin(Excluded_methods)]
     cols_for_change = {'WASTE STREAM CODE': 'Type of waste',
                     'RANGE INFLUENT CONCENTRATION': 'Concentration',
                     'METHOD CODE - 2004 AND PRIOR': 'PCU',
