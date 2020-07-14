@@ -1,0 +1,6 @@
+/bayesian_network/chemical_price
+/bayesian_network/final_pcu_datasets
+/bayesian_network/pcu_expenditure_and_cost
+/bayesian_network/waste_flow
+/chemical_flow_analysis/Pollution_abatement_for_stream_[0-9]
+/chemical_flow_analysis/tri_releases/TRI_releases.csv

@@ -1,0 +1,35 @@
+PCU,PCU-probability,Type_of_waste_management,Type_of_waste_management-probability
+P42,0.0,Treatment,1.0
+P21,0.0,Treatment,1.0
+B11,0.0,Treatment,1.0
+P15,0.49999999999999634,Treatment,1.0
+C44,0.0,Treatment,1.0
+P41,0.0,Treatment,1.0
+B31,0.0,Treatment,1.0
+P01,0.0,Treatment,1.0
+C11,0.0,Treatment,1.0
+F01,0.0,Treatment,1.0
+P12,0.0,Treatment,1.0
+F11,0.0,Treatment,1.0
+F71,0.0,Treatment,1.0
+A01,0.0,Treatment,1.0
+A02,0.0,Treatment,1.0
+F81,0.0,Treatment,1.0
+A04,0.0,Treatment,1.0
+A03,0.0,Treatment,1.0
+A05,0.0,Treatment,1.0
+A06,0.0,Treatment,1.0
+F41,0.0,Treatment,1.0
+F51,0.0,Treatment,1.0
+C45,0.0,Treatment,1.0
+P13,0.0,Treatment,1.0
+F83,0.0,Treatment,1.0
+U01,0.0,Energy recovery,0.0
+U03,0.0,Energy recovery,0.0
+U02,0.0,Energy recovery,0.0
+R11,0.0,Recycling,0.0
+R14,0.0,Recycling,0.0
+R12,0.0,Recycling,0.0
+R13,0.0,Recycling,0.0
+P09,0.49999999999999634,Treatment,1.0
+F19,0.0,Treatment,1.0
