@@ -39,6 +39,10 @@ This is a repository with the Python scripts to run the case study for selecting
   <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/chemical_flow_analysis/Pollution_abatement_for_stream_1.png width="85%">
 </p>
 
+# How to use
+
+In order to use the code you need to dowload TRI_releases.csv [TRI_releases.csv](https://drive.google.com/file/d/1BnXNY3glEo2OPuTpkohK1_Enl_Y3CVxH/view?usp=sharing) and save the file in a folder which must be named tri_releases and located in the [chemical_flow_analysis_folder] (https://github.com/jodhernandezbe/PCU_case_study/tree/master/chemical_flow_analysis). 
+
 
 # Disclaimer
 
