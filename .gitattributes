@@ -1,2 +1,0 @@
-/bayesian_network/DB_Bayesian_Network.csv filter=lfs diff=lfs merge=lfs -text
-/chemical_flow_analysis/tri_releases/TRI_releases.csv filter=lfs diff=lfs merge=lfs -text
