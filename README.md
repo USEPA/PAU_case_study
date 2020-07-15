@@ -41,7 +41,7 @@ This is a repository with the Python scripts to run the case study for selecting
 
 # How to use
 
-In order to use the code you need to dowload [TRI_releases.csv](https://drive.google.com/file/d/1BnXNY3glEo2OPuTpkohK1_Enl_Y3CVxH/view?usp=sharing) and save the file in a folder which must be named tri_releases and located in the [chemical_flow_analysis](https://github.com/jodhernandezbe/PCU_case_study/tree/master/chemical_flow_analysis) folder. 
+In order to use the code you need to dowload [TRI_releases.csv](https://drive.google.com/file/d/1sq3AzdCFMJ6Rh3Vx0dJau2YcMuu6T1nO/view?usp=sharing) and save the file in a folder which must be named tri_releases and located in the [chemical_flow_analysis](https://github.com/jodhernandezbe/PCU_case_study/tree/master/chemical_flow_analysis) folder. 
 
 
 # Disclaimer
