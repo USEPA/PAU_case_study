@@ -77,7 +77,7 @@ U.S. Environmental Protection Agency, administered by the Oak Ridge Institute fo
 <a name="myfootnote3">3</a>: If you are using Anaconda distribution, you could have collisions between channels because pomegranate is only in the *anaconda* channel. Thus,if you have collision, activate your environment and run the following line:
 
 ```
-conda install -c anaconda pomegranate
+conda config --set channel_priority false
 ```
 
 
