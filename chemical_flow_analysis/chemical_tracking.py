@@ -1,23 +1,29 @@
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python
+# !/usr/bin/env python
 
 # Importing libraries
 from graphviz import Digraph
-from chemical_flow_analysis.auxiliary import *
+from chemical_flow_analysis.auxiliary import (estimating_mass,
+                                              emission_factor,
+                                              method_of_mements,
+                                              non_zero_output_streams)
 import pandas as pd
 
-def building_pcu_black_box(chemical, Solubility, Tf, Tb, CoU, flow_influents, waste_stream, PCU_code, efficiency, dir_path):
+
+def building_pcu_black_box(chemical, Solubility, Tf, Tb, CoU, flow_influents, waste_stream, PCU_code, efficiency, dir_path, Metal_indicator='NO'):
     Releases = pd.read_csv(dir_path + '/chemical_flow_analysis/tri_releases/TRI_releases.csv')
     Releases = Releases.loc[Releases['CAS NUMBER'] == chemical]
     for key, val in CoU.items():
         Releases = Releases.loc[Releases[key] == val]
-    Releases.drop(columns = ['CAS NUMBER', 'As a byproduct',
-    	                      'As a manufactured impurity',
-                              'As a process impurity'], inplace = True)
-    Duplicated_columns = ['Reporting year', 'TRIFID', 'Maximum amount on-site',
-    	                  'Total waste', 'Total release']
-    Releases = Releases.loc[Releases.duplicated(subset = Duplicated_columns, keep = False)]
-    Releases.sort_values(by = Duplicated_columns, inplace = True)
+    Releases.drop(columns=['CAS NUMBER', 'As a byproduct',
+                           'As a manufactured impurity',
+                           'As a process impurity'], inplace=True)
+    Duplicated_columns = ['Reporting year', 'TRIFID',
+                          'Maximum amount on-site',
+                          'Total waste', 'Total release']
+    Releases = Releases.loc[Releases.duplicated(subset=Duplicated_columns,
+                            keep=False)]
+    Releases.sort_values(by=Duplicated_columns, inplace=True)
     # Allocation
     Allocation = pd.read_csv(dir_path + '/Methods_TRI.csv')
     Allocation = Allocation.where(pd.notnull(Allocation), None)
@@ -301,14 +307,17 @@ def picture(df_for_stream, stream, dir_path):
                                     len = '1', arrowhead = 'normal', arrowsize = '1',
                                     dir = 'back', fontname = 'Comic Sans MS Bold')
                 elif strm in ['Destroyed/converted/degradated', 'Carrier']:
-                    Flow_graph.node(str(n_node), strm, fontname = 'Times New Roman Bold', style = 'filled', color = '#b2df8a', shape = 'ellipse')
-                    Flow_graph.edge(str(i), str(n_node), label = str(n_streams),
-                                    len = '1', arrowhead = 'normal', arrowsize = '1',
-                                    fontname = 'Comic Sans MS Bold')
+                    Flow_graph.node(str(n_node), strm,
+                                    fontname='Times New Roman Bold',
+                                    style='filled', color='#b2df8a',
+                                    shape='ellipse')
+                    Flow_graph.edge(str(i), str(n_node), label=str(n_streams),
+                                    len='1', arrowhead='normal', arrowsize='1',
+                                    fontname='Comic Sans MS Bold')
             PCU.subgraph(Flow_graph)
         n_streams = n_streams + 1
-        PCU.edge(str(i), str(i + 1), label = str(n_streams),
-                len = '0.5', arrowhead = 'normal', arrowsize = '1',
-                fontname = 'Comic Sans MS Bold')
-    PCU.view(filename = dir_path + '/chemical_flow_analysis/Pollution_abatement_for_stream_{}'.format(stream))
+        PCU.edge(str(i), str(i + 1), label=str(n_streams),
+                 len='0.5', arrowhead='normal', arrowsize='1',
+                 fontname='Comic Sans MS Bold')
+    PCU.view(filename=f'{dir_path}/chemical_flow_analysis/Pollution_abatement_for_stream_{stream}')
     return Flows

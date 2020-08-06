@@ -4,7 +4,7 @@
 # Importing libraries
 import argparse
 import os
-import xlrd, xlwt
+import xlrd
 from xlutils.copy import copy
 from bayesian_network.bayesian_network import *
 from fuzzy_analytical_hierarchy_process.fuzzy_inference import *

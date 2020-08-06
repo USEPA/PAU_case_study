@@ -3,14 +3,13 @@
 
 # Importing libraries
 import pandas as pd
-pd.set_option('mode.chained_assignment', None)
 import math
 import itertools
 from pomegranate import *
-import os
 import sys
 import pygraphviz as pgv
 import re
+pd.set_option('mode.chained_assignment', None)
 
 
 def building_network(Probabilities, edges):

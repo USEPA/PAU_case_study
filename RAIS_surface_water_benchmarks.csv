@@ -1,0 +1,59 @@
+Analyte,CAS Number,"Australian and New Zealand Surface Water 
+Screening Benchmark
+mg/L","British Columbia Surface Water 
+Screening Benchmark
+mg/L","Canadian WQG Surface Water 
+Screening Benchmark
+mg/L","EC20 Daphnids Surface Water 
+Screening Benchmark
+mg/L","EC20 Fish Surface Water 
+Screening Benchmark
+mg/L","EC20 Sensitive Species Surface Water 
+Screening Benchmark
+mg/L","EC25 Bass Population Surface Water 
+Screening Benchmark
+mg/L","EPA R4  Acute Surface Water 
+Screening Benchmark
+mg/L","EPA R4  Chronic Surface Water 
+Screening Benchmark
+mg/L","LCV Aquatic Plants Surface Water 
+Screening Benchmark
+mg/L","LCV Daphnids Surface Water 
+Screening Benchmark
+mg/L","LCV Fish Surface Water 
+Screening Benchmark
+mg/L","LCV Non-Daphnid Inverts Surface Water 
+Screening Benchmark
+mg/L","NAWQC  Acute Surface Water 
+Screening Benchmark
+mg/L","NAWQC  Chronic Surface Water 
+Screening Benchmark
+mg/L","OSWER Ambient Water Quality Criteria
+mg/L","OSWER Tier II Secondary Surface Water 
+Screening Benchmark
+mg/L","SW EPA R5 ESL Surface Water 
+Screening Benchmark
+mg/L","SW EPA R6  FW Surface Water 
+Screening Benchmark
+mg/L","SW EPA R6  Mar Surface Water 
+Screening Benchmark
+mg/L","Tier II SAV Surface Water 
+Screening Benchmark
+mg/L","Tier II SCV Surface Water 
+Screening Benchmark
+mg/L","EPA R4  Acute Salt Water 
+Screening Benchmark
+mg/L","EPA R4  Chronic Salt Water 
+Screening Benchmark
+mg/L","EPA R3 BTAG Freshwater 
+Screening Benchmark
+mg/L","EPA R3 BTAG Marine 
+Screening Benchmark
+mg/L",Min_value
+Ammonia,7664-41-7, , ,0.019, , , , , , , , , , , , , , , , , , , ,0.005,0.005,0.005,0.005,0.005
+Ethylene Glycol,107-21-1, , ,192, , , , , , , , , , , , , , , , , , , , , ,192, ,192
+"Hexane, N-",110-54-3, , , , ,29, , , , , , ,65.7, , , , , , ,0.00058, ,0.01,0.00058, , ,0.00058, ,0.00058
+Methanol,67-56-1, , , , , , , , , , , , , , , , , , , , , , , , , , ,530*
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+The table above is from https://rais.ornl.gov/tools/eco_search.php,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Note: * The value for methanol was obtained from http://www.methanol.org/wp-content/uploads/2016/06/White-Paper-The-Fate-Transport-of-Methanol-in-the-Environment-1999.pdf,,,,,,,,,,,,,,,,,,,,,,,,,,,,
