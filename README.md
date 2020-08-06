@@ -2,6 +2,19 @@
 
 This is a repository with the Python scripts to run the case study for selecting the pollution abatement activities for concerning chemicals and tracking chemical flows at the end-of-life stage. The data was obtained be means of data engineering using different publicly-available databases. The properties of chemicals were obained using the public GitHub repository "Properties_Scraper" <sup>[1](#myfootnote1)</sup>, while the PCU database using the private repository "PCUs" <sup>[2](#myfootnote2)</sup>.
 
+# Requirements:
+
+This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. The following python packages are requiered to run the program:
+
+1. pandas (https://anaconda.org/conda-forge/pandas)
+2. graphviz (https://anaconda.org/conda-forge/graphviz)
+3. numpy (https://anaconda.org/conda-forge/numpy)
+4. scipy (https://anaconda.org/conda-forge/scipy)
+5. xlrd (https://anaconda.org/conda-forge/xlrd)
+6. xlutils (https://anaconda.org/anaconda/xlutils)
+7. pygraphviz (https://anaconda.org/conda-forge/pygraphviz)
+8. pomegranate (https://anaconda.org/anaconda/pomegranate)<sup>[3](#myfootnote3)</sup>
+
 # Bayesian Network (BN) for Pollution Control Unit (PCU) Selection
 
 ## Factor names
@@ -60,4 +73,12 @@ U.S. Environmental Protection Agency, administered by the Oak Ridge Institute fo
 <a name="myfootnote1">1</a>: Properties_Scraper: https://github.com/jodhernandezbe/Properties_Scraper (Public).
 
 <a name="myfootnote2">2</a>: PCUs: https://github.com/jodhernandezbe/PCUs (Private).
+
+<a name="myfootnote3">3</a>: If you are using Anaconda distribution, you could have collisions between channels because pomegranate is only in the *anaconda* channel. Thus,if you have collision, activate your environment and run the following line:
+
+```
+conda install -c anaconda pomegranate
+```
+
+
 
