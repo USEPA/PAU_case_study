@@ -1,7 +1,7 @@
 digraph {
 	graph [rankdir=LR ranksep=1]
 	0 [label="Influent stream" color=lightsalmon fontname="Times New Roman Bold" shape=ellipse style=filled]
-	1 [label=R13 fontname="Times New Roman Bold" shape=square]
+	1 [label=R11 fontname="Times New Roman Bold" shape=square]
 	2 [label="Effluent stream" color=lightblue fontname="Times New Roman Bold" shape=ellipse style=filled]
 	0 -> 1 [label=1 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=0.5]
 	{

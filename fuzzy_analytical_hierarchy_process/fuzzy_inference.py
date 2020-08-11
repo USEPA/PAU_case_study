@@ -49,7 +49,7 @@ def analysing_intersection(df, n_concerning_constituents):
 
 def analysing_position_based_on_PCU_database(df):
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    df_order = pd.read_csv(dir_path + '/PCU_positions/Positions.csv')
+    df_order = pd.read_csv(dir_path + '/pcu_positions/Positions.csv')
     PCUs = df['PCU'].unique().tolist()
     df_order = df_order.loc[(df_order['First'].isin(PCUs)) & (df_order['Second'].isin(PCUs))]
     if not df_order.empty:
@@ -135,7 +135,8 @@ def pairwise_comparison(df, objective):
             df_removal = df.loc[df['Objective'] == 'Removal']
             df = df.loc[df['Objective'] != 'Removal']
             if not df_removal.empty:
-                if df_removal.shape[0] != 1:
+                n_removal = df_removal['PCU'].nunique()
+                if n_removal != 1:
                     min = df_removal['Position'].min()
                     # Summing removal flows and searching highest flammability, instability, and corrosiveness
                     Aux_dict = {'Chemical flow': ['T Chemical flow', 'sum'],

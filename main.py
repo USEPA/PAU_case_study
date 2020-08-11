@@ -39,10 +39,12 @@ if __name__ == '__main__':
 
     # # Bayesian Network
     # df_PCU, CAS_for_search, Options = building_bayesian_network_db(CAS, Years, dir_path)
+    #
     # # Building models
     # for chem_1, chem_2 in CAS_for_search.items():
     #     building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2)
-    # # Filling excel file which will be used to enter the information
+
+    # Filling excel file which will be used to enter the information
     # read_book = xlrd.open_workbook(dir_path + '/Inputs.xls', formatting_info = True)
     # write_book = copy(read_book)
     # write_specifications = write_book.get_sheet(3)
@@ -119,6 +121,7 @@ if __name__ == '__main__':
                 Prob_PCU_chemical_and_stream = pd.concat([Prob_PCU_chemical_and_stream, Prob_chem],
                                                         axis = 0, sort = False, ignore_index = True)
     del Prob_chem
+
     ## Selecting PCUs
     Prob_PCU_chemical_and_stream = Prob_PCU_chemical_and_stream\
                                     .groupby('Stream', as_index = False)\
@@ -126,6 +129,7 @@ if __name__ == '__main__':
     Prob_PCU_chemical_and_stream = Prob_PCU_chemical_and_stream[Prob_PCU_chemical_and_stream['Selected'] == 'Yes']
     Prob_PCU_chemical_and_stream.drop(columns = ['Selected'], inplace = True)
     Prob_PCU_chemical_and_stream.reset_index(inplace = True, drop = True)
+
     ## Sequence for PCUs
     df_input_for_chems =  pd.read_excel(dir_path + '/Inputs.xls',
                                 sheet_name = 'Chemical',
@@ -193,17 +197,30 @@ if __name__ == '__main__':
     Prob_PCU_chemical_and_stream.sort_values(by = ['Stream', 'Position'],
                                              ascending = [True, True],
                                              inplace = True)
-    Cols_for_saving = ['Stream', 'PCU', 'PCU name', 'Position', 'Chemical']
+    Cols_for_saving = ['Stream', 'PCU', 'PCU name', 'Objective', 'Position', 'Chemical']
     Prob_PCU_chemical_and_stream[Cols_for_saving].to_csv(dir_path + '/fuzzy_analytical_hierarchy_process/PCU_selection_and_position_under_FAHP.csv',
                                                          sep = ',', index = False)
     # Chemical flow analysis
     Chemical_tracking = pd.DataFrame()
+    PCUs = list()
     for stream in concerning_chemical_in_stream.keys():
         df_for_stream = Prob_PCU_chemical_and_stream.loc[Prob_PCU_chemical_and_stream['Stream'] == stream]
-        Chemical_tracking_aux = picture(df_for_stream, stream, dir_path)
+        pcus_stream = '_'.join(df_for_stream['PCU'].tolist())
+        if pcus_stream not in PCUs:
+            drawing = True
+            PCUs.append(pcus_stream)
+        else:
+            drawing = False
+        Chemical_tracking_aux = picture(df_for_stream, stream, dir_path, drawing, pcus_stream)
         Chemical_tracking = pd.concat([Chemical_tracking, Chemical_tracking_aux], axis = 0,
                     sort = False,
                     ignore_index = True)
+    cols = ['Stream', 'PCU', 'PCU name', 'Objective', 'Position', 'Type of stream', 'Phase',
+            'Chemical', 'Mean quantity [kg/yr]', 'Std [kg/yr]', 'Number of data',
+            'The influent is in the interval?']
+    Chemical_tracking = pd.merge(df_TRI_methods, Chemical_tracking,
+                                            on = ['PCU'], how = 'right')
+    Chemical_tracking = Chemical_tracking[cols]
     Chemical_tracking.sort_values(by = ['Stream', 'Position', 'Chemical'],
                                         ascending = [True, True, True],
                                         inplace = True)

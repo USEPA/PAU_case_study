@@ -209,7 +209,7 @@ def building_pcu_black_box(chemical, Solubility, Tf, Tb, CoU, flow_influents, wa
 
 
 
-def picture(df_for_stream, stream, dir_path):
+def picture(df_for_stream, stream, dir_path, drawing, pcus_stream):
     # Organizing information
     n_pcus = df_for_stream['PCU'].nunique()
     PCU_position = {row['Position']: row['PCU'] for idx, row in df_for_stream[['PCU', 'Position']].drop_duplicates(keep = 'first').iterrows()}
@@ -302,7 +302,8 @@ def picture(df_for_stream, stream, dir_path):
                 n_node = n_node + 1
                 n_streams = n_streams + 1
                 if strm in ['Fugitive emission', 'By-product']:
-                    Flow_graph.node(str(n_node), strm, fontname = 'Times New Roman Bold', style = 'filled', color = 'lightgray', shape = 'ellipse')
+                    Flow_graph.node(str(n_node), strm, fontname = 'Times New Roman Bold',
+                                    style = 'filled', color = 'lightgray', shape = 'ellipse')
                     Flow_graph.edge(str(n_node), str(i), label = str(n_streams),
                                     len = '1', arrowhead = 'normal', arrowsize = '1',
                                     dir = 'back', fontname = 'Comic Sans MS Bold')
@@ -319,5 +320,6 @@ def picture(df_for_stream, stream, dir_path):
         PCU.edge(str(i), str(i + 1), label=str(n_streams),
                  len='0.5', arrowhead='normal', arrowsize='1',
                  fontname='Comic Sans MS Bold')
-    PCU.view(filename=f'{dir_path}/chemical_flow_analysis/Pollution_abatement_for_stream_{stream}')
+    if drawing:
+        PCU.view(filename=f'{dir_path}/chemical_flow_analysis/pcu_draws/Pollution_abatement_for_stream_{pcus_stream}')
     return Flows

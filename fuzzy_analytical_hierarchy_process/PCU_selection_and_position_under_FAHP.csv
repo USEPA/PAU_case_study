@@ -1,29 +1,33 @@
-Stream,PCU,PCU name,Position,Chemical
-1,R11,Solvents/Organics Recovery - Batch Still Distillation,1,67561
-1,F01,Liquid Injection,2,67630
-10,B11,Aerobic,1,7664417
-11,R13,Solvents/Organics Recovery - Fractionation,1,7664417
-12,R13,Solvents/Organics Recovery - Fractionation,1,7664417
-13,C11,Neutralization,1,7664417
-14,B11,Aerobic,1,7664417
-15,R13,Solvents/Organics Recovery - Fractionation,1,7664417
-16,R13,Solvents/Organics Recovery - Fractionation,1,7664417
-17,C11,Neutralization,1,7664417
-18,B11,Aerobic,1,107211
-19,B11,Aerobic,1,107211
-2,R11,Solvents/Organics Recovery - Batch Still Distillation,1,67561
-2,F01,Liquid Injection,2,67630
-20,P15,Oil Skimming,1,110543
-21,B11,Aerobic,1,110543
-22,R14,Solvents/Organics Recovery - Solvent Extraction,1,110543
-23,B11,Aerobic,1,110543
-24,B11,Aerobic,1,110543
-25,F01,Liquid Injection,1,110543
-3,R11,Solvents/Organics Recovery - Batch Still Distillation,1,67561
-3,F01,Liquid Injection,2,67630
-4,R11,Solvents/Organics Recovery - Batch Still Distillation,1,67561
-5,B11,Aerobic,1,67561
-6,F01,Liquid Injection,1,67561
-7,R11,Solvents/Organics Recovery - Batch Still Distillation,1,67561
-8,B11,Aerobic,1,67561
-9,F01,Liquid Injection,1,67561
+Stream,PCU,PCU name,Objective,Position,Chemical
+1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,67561
+1,F01,Liquid Injection,Destruction,2,67630
+10,B11,Aerobic,Degradation,1,7664417
+11,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,7664417
+12,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,7664417
+13,C11,Neutralization,Conversion,1,7664417
+14,B11,Aerobic,Degradation,1,7664417
+15,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,7664417
+16,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,7664417
+17,C11,Neutralization,Conversion,1,7664417
+18,B11,Aerobic,Degradation,1,107211
+19,B11,Aerobic,Degradation,1,107211
+2,B11,Aerobic,Degradation,1,67561
+2,F01,Liquid Injection,Destruction,2,67630
+20,P15,Oil Skimming,Removal,1,110543
+21,B11,Aerobic,Degradation,1,110543
+22,R14,Solvents/Organics Recovery - Solvent Extraction,Reclamation,1,110543
+23,B11,Aerobic,Degradation,1,110543
+24,B11,Aerobic,Degradation,1,110543
+25,F01,Liquid Injection,Destruction,1,110543
+26,A03,Scrubber,Removal,1,67561
+26,A03,Scrubber,Removal,1,68122
+26,A03,Scrubber,Removal,1,75092
+26,F71,Fume/Vapor,Destruction,2,108883
+3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,67561
+3,F01,Liquid Injection,Destruction,2,67630
+4,B11,Aerobic,Degradation,1,67561
+5,B11,Aerobic,Degradation,1,67561
+6,F01,Liquid Injection,Destruction,1,67561
+7,B11,Aerobic,Degradation,1,67561
+8,B11,Aerobic,Degradation,1,67561
+9,F01,Liquid Injection,Destruction,1,67561
