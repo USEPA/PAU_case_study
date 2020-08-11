@@ -12,7 +12,7 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 4. scipy (https://anaconda.org/conda-forge/scipy)
 5. xlrd (https://anaconda.org/conda-forge/xlrd)
 6. xlutils (https://anaconda.org/anaconda/xlutils)
-7. pygraphviz (https://anaconda.org/conda-forge/pygraphviz)
+7. python-graphviz (https://anaconda.org/conda-forge/python-graphviz)
 8. pomegranate (https://anaconda.org/anaconda/pomegranate)<sup>[3](#myfootnote3)</sup>
 
 # Bayesian Network (BN) for Pollution Control Unit (PCU) Selection
