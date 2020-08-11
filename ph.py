@@ -9,11 +9,11 @@ def corrosiveness_score(pKa, pKb, w_w, pho, MW):
     pH = ph_calculator(pKa, pKb, w_w, pho, MW)
     if (2 <= pH) and (pH >= 12.5):
         return 4
-    elif ((2 < pH) and (pH <= 4)) and ((9 <= pH) and (pH < 12.5)):
+    elif ((2 < pH) and (pH <= 4)) or ((9 <= pH) and (pH < 12.5)):
         return 3
-    elif ((4 < pH) and (pH <= 5.5)) and ((8 <= pH) and (pH < 9)):
+    elif ((4 < pH) and (pH <= 5.5)) or ((8 <= pH) and (pH < 9)):
         return 2
-    elif ((5.5 < pH) and (pH < 7)) and ((7 < pH) and (pH < 8)):
+    elif ((5.5 < pH) and (pH < 7)) or ((7 < pH) and (pH < 8)):
         return 1
     elif pH == 7:
         return 0
@@ -52,7 +52,7 @@ def f_pho_sln(w_w, pho):
     # % w/w
     # pho_sln in g/L
     pho_water = 0.997
-    pho_sln = 10*((1 - w_w)*pho_water + w_w*pho)
+    pho_sln = 1000*((1 - w_w/100)*pho_water + w_w*pho)
     return pho_sln
 
 
@@ -65,7 +65,9 @@ def f_molarity(w_w, pho_sln, MW):
 def quadratic_formula(a, b, c, molarity):
     solution_1 = (-b - (b**2 - 4*a*c)**0.5)/(2*a)
     solution_2 = (-b + (b**2 - 4*a*c)**0.5)/(2*a)
-    if solution_2 == solution_1:
+    if isinstance(solution_1, complex):
+        return None
+    elif solution_2 == solution_1:
         return solution_1
     elif (solution_2 < 0) and (solution_1 < 0):
         return None
@@ -73,7 +75,5 @@ def quadratic_formula(a, b, c, molarity):
         return solution_1
     elif solution_1 < 0:
         return solution_2
-    elif isinstance(solution_1, complex):
-        return None
     else:
         return max([s for s in [solution_1, solution_2] if s <= molarity])

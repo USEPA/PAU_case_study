@@ -43,10 +43,10 @@ def building_pcu_black_box(chemical, Solubility, Tf, Tb, CoU, flow_influents, wa
                                                     x['Total release']),
                                                     axis = 1)
 
-        Fugitive_emissions_factors = pd.DataFrame(Releases.loc[Releases['Compartment'] == 'Indoor air', 'Emission_factor'])
+        Fugitive_emissions_factors = pd.DataFrame(Releases.loc[Releases['Compartment'] == 'Fugitive air emission', 'Emission_factor'])
         Fugitive_emissions_factors.reset_index(inplace = True)
         n_rows = Fugitive_emissions_factors.shape[0]
-        Stack_emission_factors = pd.DataFrame(Releases.loc[Releases['Compartment'] == 'Outdoor air', 'Emission_factor'])
+        Stack_emission_factors = pd.DataFrame(Releases.loc[Releases['Compartment'] == 'Stack air emission', 'Emission_factor'])
         Stack_emission_factors.reset_index(inplace = True)
         Discharge_emission_factors = pd.DataFrame(Releases.loc[Releases['Compartment'] == 'On-site surface water', 'Emission_factor'])
         Discharge_emission_factors.reset_index(inplace = True)

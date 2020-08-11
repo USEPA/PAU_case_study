@@ -3,12 +3,18 @@
 
 # Importing libraries
 import pandas as pd
+import numpy as np
 import math
+import matplotlib.pyplot as plt
 import itertools
 from pomegranate import *
 import sys
 import pygraphviz as pgv
 import re
+import json
+from scipy import stats
+import warnings
+warnings.simplefilter(action = 'ignore', category = RuntimeWarning)
 pd.set_option('mode.chained_assignment', None)
 
 
@@ -89,6 +95,7 @@ def building_dataframe(dir_path, Years, values):
         df_year = pd.read_csv(dir_path + '/bayesian_network/final_pcu_datasets/PCUs_DB_filled_{}.csv'.format(year),
                             usecols = cols_for_using, low_memory = False,
                             dtype = {'PRIMARY NAICS CODE': 'object'})
+        df_year = df_year.loc[pd.notnull(df_year).all(axis=1)]
         df_year['REPORTING YEAR'] = str(year)
         df = pd.concat([df, df_year], axis = 0,
                         sort = False,
@@ -164,10 +171,21 @@ def calculating_marginal_probabilities(Input_dictionary, Model, dir_path, chem_1
     df = df[['PCU', 'PCU-probability',\
              'Type_of_waste_management',\
              'Type_of_waste_management-probability']]
+    df.loc[df['Type_of_waste_management-probability'] == 0.0, 'PCU-probability'] = 0.0
+    df['PCU-probability'] = df['PCU-probability']/df['PCU-probability'].sum()
     df.to_csv(dir_path + '/bayesian_network/probabilities/marginal/Marginal_probabilities_based_on_BN_for_{}_in_stream_{}.csv'.format(chem_1, stream), sep = ',', index = False)
 
 
-def building_flows_dataset(dir_path, Years, nbins, df_PCU, CAS_for_search):
+def checking_outliers(df):
+    if df.shape[0] != 1:
+        df['SCORE'] = stats.zscore(df['MIDDLE WASTE FLOW']).round(0)
+        df['SCORE'] = np.abs(df['SCORE'])
+        df = df.loc[df['SCORE'] < 3]
+        df.drop(columns=['SCORE'], inplace=True)
+        df['MIDDLE WASTE FLOW'] = df['MIDDLE WASTE FLOW'].median()
+    return df
+
+def building_flows_dataset(dir_path, Years, df_PCU, CAS_for_search):
     df =  pd.DataFrame()
     for Year in Years:
         df_year = pd.read_csv(dir_path + '/bayesian_network/waste_flow/Waste_flow_to_PCUs_{}_10.csv'.format(Year),
@@ -176,11 +194,10 @@ def building_flows_dataset(dir_path, Years, nbins, df_PCU, CAS_for_search):
                                 'CAS NUMBER'],
                      low_memory = False, dtype = {'PRIMARY NAICS CODE': 'object'})
         df_year['REPORTING YEAR'] = str(Year)
-        df_year['MIDDLE WASTE FLOW'] = df_year.groupby(['TRIFID', 'METHOD CODE',\
-                                                        'WASTE STREAM CODE',
-                                                        'PRIMARY NAICS CODE'],\
-                                                        as_index = False)['MIDDLE WASTE FLOW']\
-                                             .transform('mean')
+        df_year = df_year.groupby(['TRIFID', 'METHOD CODE',\
+                                   'WASTE STREAM CODE',
+                                   'PRIMARY NAICS CODE'],\
+                                  as_index = False).apply(lambda x: checking_outliers(x))
         df = pd.concat([df, df_year], axis = 0,
                         sort = False,
                         ignore_index = True)
@@ -195,26 +212,21 @@ def building_flows_dataset(dir_path, Years, nbins, df_PCU, CAS_for_search):
                                          'REPORTING YEAR'],
                          how = 'left')
     df['MIDDLE WASTE FLOW'] = df['MIDDLE WASTE FLOW'].fillna(df.groupby(['PCU', 'PRIMARY NAICS CODE'])\
-                                                            ['MIDDLE WASTE FLOW'].transform('mean'))
+                                                            ['MIDDLE WASTE FLOW'].transform('median'))
     df['MIDDLE WASTE FLOW'] = df['MIDDLE WASTE FLOW'].fillna(df.groupby(['PCU'])\
-                                                            ['MIDDLE WASTE FLOW'].transform('mean'))
+                                                            ['MIDDLE WASTE FLOW'].transform('median'))
     df = df.loc[pd.notnull(df).all(axis = 1)]
-    Max_value = df['MIDDLE WASTE FLOW'].max()
-    Min_value = df['MIDDLE WASTE FLOW'].min()
-    Order_max = int(math.log10(Max_value)) - 1
-    Order_min = math.ceil(math.log10(Min_value))
-    Delta = (Order_max - Order_min)/(nbins - 2)
-    Bin_values = [Min_value - 10**(math.log10(Min_value) - 1)]
-    Bin_values = Bin_values + [10**(Order_min + Delta*n) for n in range(nbins - 1)]
-    Bin_values = Bin_values + [Max_value]
-    Bin_values.sort()
-    Bin_labels = [str(val) for val in range(1, len(Bin_values))]
+    Bin_values = [1.0090000000000001, 3292794.425,
+                  29384972.646, 120538597.067,
+                  3813599984.661, 7.00e+14,
+                  df['MIDDLE WASTE FLOW'].max()]
+    Bin_labels = ['1', '2', '3', '4', '5', '6']
     df['MIDDLE WASTE FLOW INTERVAL'] = pd.cut(df['MIDDLE WASTE FLOW'],
-                                              bins = Bin_values)
+                                              bins=Bin_values)
     df['MIDDLE WASTE FLOW INTERVAL CODE'] = pd.cut(df['MIDDLE WASTE FLOW'],
-                                                   bins = Bin_values,
-                                                   labels = Bin_labels,
-                                                   precision = 0)
+                                                   bins=Bin_values,
+                                                   labels=Bin_labels,
+                                                   precision=0)
     df['MIDDLE WASTE FLOW INTERVAL CODE'] = df['MIDDLE WASTE FLOW INTERVAL CODE'].astype('object')
     df_intervals = df[['MIDDLE WASTE FLOW INTERVAL', 'MIDDLE WASTE FLOW INTERVAL CODE']]
     df_intervals.drop_duplicates(keep = 'first', inplace = True)
@@ -233,7 +245,7 @@ def building_flows_dataset(dir_path, Years, nbins, df_PCU, CAS_for_search):
     return df
 
 
-def building_price_dataset(dir_path, Years, nbins, df_PCU):
+def building_price_dataset(dir_path, Years, df_PCU):
     df =  pd.DataFrame()
     for Year in Years:
         df_year = pd.read_csv(dir_path + '/bayesian_network/chemical_price/Chemical_price_vs_PCU_{}.csv'.format(Year),
@@ -241,7 +253,7 @@ def building_price_dataset(dir_path, Years, nbins, df_PCU):
                      usecols = ['METHOD CODE - 2004 AND PRIOR', 'TRIFID',
                                 'UNIT PRICE (USD/g)'])
         df_year = df_year.groupby(['METHOD CODE - 2004 AND PRIOR', 'TRIFID'],
-                        as_index = False).mean()
+                        as_index = False).median()
         df = pd.concat([df, df_year], axis = 0,
                         sort = False,
                         ignore_index = True)
@@ -251,18 +263,10 @@ def building_price_dataset(dir_path, Years, nbins, df_PCU):
               inplace = True)
     df = pd.merge(df_PCU, df, how = 'left', on = ['PCU', 'TRIFID'])
     df['UNIT PRICE (USD/g)'] = df['UNIT PRICE (USD/g)'].fillna(df.groupby(['PCU'])\
-                                                            ['UNIT PRICE (USD/g)'].transform('mean'))
+                                                            ['UNIT PRICE (USD/g)'].transform('median'))
     df = df.loc[pd.notnull(df).all(axis = 1)]
-    Max_value = df['UNIT PRICE (USD/g)'].max()
-    Min_value = df['UNIT PRICE (USD/g)'].min()
-    Order_max = int(math.log10(Max_value)) - 1
-    Order_min = math.ceil(math.log10(Min_value))
-    Delta = (Order_max - Order_min)/(nbins - 2)
-    Bin_values = [Min_value - 10**(math.log10(Min_value) - 1)]
-    Bin_values = Bin_values + [10**(Order_min + Delta*n) for n in range(nbins - 1)]
-    Bin_values = Bin_values + [Max_value]
-    Bin_values.sort()
-    Bin_labels = [str(val) for val in range(1, len(Bin_values))]
+    Bin_values = [0, 0.00611, 0.0186, 100, 1000, df['UNIT PRICE (USD/g)'].max()]
+    Bin_labels = ['1', '2', '3', '4', '5']
     df['PRICE INTERVAL'] = pd.cut(df['UNIT PRICE (USD/g)'],
                                   bins = Bin_values)
     df['PRICE INTERVAL CODE'] = pd.cut(df['UNIT PRICE (USD/g)'],
@@ -285,35 +289,29 @@ def building_price_dataset(dir_path, Years, nbins, df_PCU):
     return df
 
 
-def building_PAOC_and_PACE_dataset(dir_path, nbins, df_PCU):
+def building_PAOC_and_PACE_dataset(dir_path, df_PCU):
     df_PAOC = pd.read_csv(dir_path + '/bayesian_network/pcu_expenditure_and_cost/PAOC.csv',
                           usecols = ['Activity', 'Media', 'Mean PAOC', 'NAICS code'],
                           dtype = {'NAICS code': 'object'})
     df_PAOC.rename(columns = {'Activity': 'Type of waste management',
                               'Media': 'Type of waste'},
                     inplace = True)
-    df_PAOC = pd.merge(df_PAOC, df_PCU, how = 'right', on = ['Type of waste management',
+    df_PAOC = pd.merge(df_PAOC, df_PCU, how = 'outer', on = ['Type of waste management',
                                                    'Type of waste',
                                                     'NAICS code'])
     df_PAOC['Mean PAOC'] = df_PAOC['Mean PAOC'].fillna(df_PAOC\
                                                     .groupby(['Type of waste', 'Type of waste management'])\
                                                     ['Mean PAOC']\
-                                                    .transform('mean'))
+                                                    .transform('median'))
     df_PAOC['Mean PAOC'] = df_PAOC['Mean PAOC'].fillna(df_PAOC\
                                                     .groupby(['Type of waste management'])\
                                                     ['Mean PAOC']\
-                                                    .transform('mean'))
+                                                    .transform('median'))
+    df_PAOC['Mean PAOC'].fillna(df_PAOC['Mean PAOC'].median(),
+                                 inplace=True)
     df_PAOC = df_PAOC.loc[pd.notnull(df_PAOC).all(axis = 1)]
-    Max_value = df_PAOC['Mean PAOC'].max()
-    Min_value = df_PAOC['Mean PAOC'].min()
-    Order_max = int(math.log10(Max_value)) - 1
-    Order_min = math.ceil(math.log10(Min_value))
-    Delta = (Order_max - Order_min)/(nbins - 2)
-    Bin_values = [Min_value - 10**(math.log10(Min_value) - 1)]
-    Bin_values = Bin_values + [10**(Order_min + Delta*n) for n in range(nbins - 1)]
-    Bin_values = Bin_values + [Max_value]
-    Bin_values.sort()
-    Bin_labels = [str(val) for val in range(1, len(Bin_values))]
+    Bin_values = [0, 0.000251, 0.000788, 0.0174, 1865.518, 3731.02, df_PAOC['Mean PAOC'].max()]
+    Bin_labels = ['1', '2', '3', '4', '5', '6']
     df_PAOC['MEAN PAOC INTERVAL'] = pd.cut(df_PAOC['Mean PAOC'],
                                   bins = Bin_values)
     df_PAOC['MEAN PAOC INTERVAL CODE'] = pd.cut(df_PAOC['Mean PAOC'],
@@ -337,28 +335,22 @@ def building_PAOC_and_PACE_dataset(dir_path, nbins, df_PCU):
     df_PACE.rename(columns = {'Activity': 'Type of waste management',
                               'Media': 'Type of waste'},
                     inplace = True)
-    df_PACE = pd.merge(df_PAOC, df_PACE, how = 'left', on = ['Type of waste management',
+    df_PACE = pd.merge(df_PAOC, df_PACE, how = 'outer', on = ['Type of waste management',
                                                    'Type of waste',
                                                     'NAICS code'])
     df_PACE['Mean PACE'] = df_PACE['Mean PACE'].fillna(df_PACE\
                                                     .groupby(['Type of waste', 'Type of waste management'])\
                                                     ['Mean PACE']\
-                                                    .transform('mean'))
+                                                    .transform('median'))
     df_PACE['Mean PACE'] = df_PACE['Mean PACE'].fillna(df_PACE\
                                                     .groupby(['Type of waste management'])\
                                                     ['Mean PACE']\
-                                                    .transform('mean'))
+                                                    .transform('median'))
+    df_PACE['Mean PACE'].fillna(df_PACE['Mean PACE'].median(),
+                                 inplace=True)
     df_PACE = df_PACE.loc[pd.notnull(df_PACE).all(axis = 1)]
-    Max_value = df_PACE['Mean PACE'].max()
-    Min_value = df_PACE['Mean PACE'].min()
-    Order_max = int(math.log10(Max_value)) - 1
-    Order_min = math.ceil(math.log10(Min_value))
-    Delta = (Order_max - Order_min)/(nbins - 2)
-    Bin_values = [Min_value - 10**(math.log10(Min_value) - 1)]
-    Bin_values = Bin_values + [10**(Order_min + Delta*n) for n in range(nbins - 1)]
-    Bin_values = Bin_values + [Max_value]
-    Bin_values.sort()
-    Bin_labels = [str(val) for val in range(1, len(Bin_values))]
+    Bin_values = [0, 6.2e-05, 0.000219, 0.00283, 10, 35, df_PACE['Mean PACE'].max()]
+    Bin_labels = ['1', '2', '3', '4', '5', '6']
     df_PACE['MEAN PACE INTERVAL'] = pd.cut(df_PACE['Mean PACE'],
                                   bins = Bin_values)
     df_PACE['MEAN PACE INTERVAL CODE'] = pd.cut(df_PACE['Mean PACE'],
@@ -379,7 +371,7 @@ def building_PAOC_and_PACE_dataset(dir_path, nbins, df_PCU):
     return df_PACE
 
 
-def building_bayesian_network_db(CAS, Years, N_Bins, dir_path):
+def building_bayesian_network_db(CAS, Years, dir_path):
     df_chemicals = pd.read_csv(dir_path + '/bayesian_network/chemicals/Chemicals.csv',
                                 usecols = ['CAS NUMBER'])
     df_categories = pd.read_csv(dir_path + '/bayesian_network/chemicals/Chemicals_in_categories.csv',
@@ -410,12 +402,12 @@ def building_bayesian_network_db(CAS, Years, N_Bins, dir_path):
                 # PCU
                 df_PCU = building_dataframe(dir_path, Years, values)
                 # Waste flows
-                df_PCU = building_flows_dataset(dir_path, Years, N_Bins, df_PCU, list(CAS_for_search.values()))
+                df_PCU = building_flows_dataset(dir_path, Years, df_PCU, list(CAS_for_search.values()))
                 # Chemical prices
-                df_PCU = building_price_dataset(dir_path, Years, N_Bins, df_PCU)
+                df_PCU = building_price_dataset(dir_path, Years, df_PCU)
                 # Pollution abatement operating cost (PAOC)
                 # Pollution abatement capital expenditure(PACE)
-                df_PCU = building_PAOC_and_PACE_dataset(dir_path, N_Bins, df_PCU)
+                df_PCU = building_PAOC_and_PACE_dataset(dir_path, df_PCU)
                 df_PCU.to_csv(dir_path + '/bayesian_network/DB_Bayesian_Network.csv',
                               sep = ',', index = False)
             except NameError:
@@ -458,4 +450,7 @@ def building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2):
     Inputs_list = {col: df_PCU_chem[col].unique().tolist() for col in columns}
     Probabilities = buidling_probabilities(df_PCU_chem, edges, Inputs_list)
     PCU_model = building_network(Probabilities, edges)
-    return PCU_model
+    json_object = PCU_model.to_json()
+    with open(f'{dir_path}/bayesian_network/models/BN_for_{chem_1}.json', 'w') as output_file:
+        json.dump(json_object, output_file, indent=6,
+                  separators=(',', ':'))

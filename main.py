@@ -5,11 +5,14 @@
 import argparse
 import os
 import xlrd
+import re
 from xlutils.copy import copy
 from bayesian_network.bayesian_network import *
 from fuzzy_analytical_hierarchy_process.fuzzy_inference import *
 from chemical_flow_analysis.chemical_tracking import *
+from ph import corrosiveness_score
 import pandas as pd
+import json
 
 if __name__ == '__main__':
 
@@ -31,67 +34,85 @@ if __name__ == '__main__':
 
     CAS = args.CAS
     Years = args.Year
-    N_Bins = 10
     dir_path = os.path.dirname(os.path.realpath(__file__)) # Current directory
 
 
-    # Bayesian Network
-    df_PCU, CAS_for_search, Options = building_bayesian_network_db(CAS, Years, N_Bins, dir_path)
-    # Filling excel file which will be used to enter the information
-    read_book = xlrd.open_workbook(dir_path + '/Inputs.xls', formatting_info = True)
-    write_book = copy(read_book)
-    write_sheet1 = write_book.get_sheet(1)
-    initial_pos = {'Chemical price': 22, 'Waste flow': 32, 'PACE': 42, 'PAOC': 52}
-    for key, values in Options.items():
-        list_position = list()
-        pos = initial_pos[key]
-        for val in values:
-            write_sheet1.write(pos, 1, val)
-            pos = pos + 1
-    write_book.save(dir_path + '/Inputs.xls')
-    print('-'*120)
-    print('Fill out the required information in the "Input.xls". Check the options in the sheet called "Specifications"')
-    print()
-    input('When you finish filling out the sheet "Input", please press enter')
-    print('-'*120)
-    print()
+    # # Bayesian Network
+    # df_PCU, CAS_for_search, Options = building_bayesian_network_db(CAS, Years, dir_path)
+    # # Building models
+    # for chem_1, chem_2 in CAS_for_search.items():
+    #     building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2)
+    # # Filling excel file which will be used to enter the information
+    # read_book = xlrd.open_workbook(dir_path + '/Inputs.xls', formatting_info = True)
+    # write_book = copy(read_book)
+    # write_specifications = write_book.get_sheet(3)
+    # initial_pos = {'Chemical price': 29, 'Waste flow': 39, 'PACE': 49, 'PAOC': 59}
+    # idx = 0
+    # for chem_1, chem_2 in CAS_for_search.items():
+    #     write_specifications.write(28, idx + 1, chem_1)
+    #     for key, values in Options.items():
+    #         df_PCU_chem = df_PCU[df_PCU['CAS NUMBER'] == chem_2]
+    #         states = df_PCU_chem[key].unique().tolist()
+    #         list_position = list()
+    #         pos = initial_pos[key]
+    #         for val in values:
+    #             number = re.search(r'(^\d{1,2}):*', val).group(1)
+    #             if number in states:
+    #                 write_specifications.write(pos, idx + 1, val)
+    #                 pos = pos + 1
+    #     idx = idx + 1
+    # write_book.save(dir_path + '/Inputs.xls')
+    # print('-'*120)
+    # print('Fill out the required information in the "Input.xls". Check the options in the sheet called "Specifications"')
+    # print()
+    # input('When you finish filling out the sheet "Input", please press enter')
+    # print('-'*120)
+    # print()
+
+    # Calling the inputs
     df_inputs = pd.read_excel(dir_path + '/Inputs.xls',
                                 sheet_name = 'Input',
-                                header = None)
+                                header = None,
+                                skiprows=[0, 1, 2, 15, 19, 20])
     df_inputs[df_inputs.notnull()] = df_inputs[df_inputs.notnull()].astype(str)
     df_inputs.set_index(0, inplace = True)
     df_inputs = df_inputs.T
+    df_inputs.rename_axis(None, axis=1, inplace=True)
     df_inputs.reset_index(inplace = True, drop = True)
-    del df_inputs.index.name
-    Columns = set(df_inputs.columns.tolist()) - set(['CAS NUMBER', 'Stream #', 'Chemical flow [kg/yr]',
-                                                    'Flammability', 'Instability', 'Corrosivity',
-                                                    'Efficiency [%]'])
+    # Columns = set(df_inputs.columns.tolist()) - set(['CAS NUMBER', 'Stream #',
+    #                                                  'Chemical flow [kg/yr]',
+    #                                                  'Efficiency [%]',
+    #                                                  'Concentration [%wt/wt]'])
     streams = df_inputs['Stream #'].unique().tolist()
     concerning_chemical_in_stream = {stream: df_inputs.loc[df_inputs['Stream #'] == stream, 'CAS NUMBER'].tolist() for stream in streams}
-    del streams
-    for stream, chemicals in concerning_chemical_in_stream.items():
-        for chem_1 in chemicals:
-            chem_2 = CAS_for_search[chem_1]
-            Input_dictionary_joint = dict()
-            Input_dictionary_marginal = dict()
-            for col in Columns:
-                df_input_chem = df_inputs.loc[(df_inputs['CAS NUMBER'] == chem_1) & (df_inputs['Stream #'] == stream)]
-                val = df_input_chem[col].values[0]
-                Input_dictionary_joint.update({col: val})
-                if col != 'Type of waste management':
-                    Input_dictionary_marginal.update({col: val})
-            PCU_model = building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2)
-            calculating_joint_probabilities(Input_dictionary_joint, chem_1, chem_2, stream, PCU_model, dir_path, df_PCU)
-            calculating_marginal_probabilities(Input_dictionary_marginal, PCU_model, dir_path, chem_1, chem_2, stream, df_PCU)
+    # del streams
+    #
+    # # Assesing the Bayesian Network under the input evidence
+    # for stream, chemicals in concerning_chemical_in_stream.items():
+    #     for chem_1 in chemicals:
+    #         chem_2 = CAS_for_search[chem_1]
+    #         Input_dictionary_joint = dict()
+    #         Input_dictionary_marginal = dict()
+    #         for col in Columns:
+    #             df_input_chem = df_inputs.loc[(df_inputs['CAS NUMBER'] == chem_1) & (df_inputs['Stream #'] == stream)]
+    #             val = df_input_chem[col].values[0]
+    #             Input_dictionary_joint.update({col: val})
+    #             Input_dictionary_marginal.update({col: val})
+    #         with open(f'{dir_path}/bayesian_network/models/BN_for_{chem_1}.json', 'r') as openfile:
+    #             json_object = json.load(openfile)
+    #             PCU_model = from_json(json_object)
+    #         calculating_joint_probabilities(Input_dictionary_joint, chem_1, chem_2, stream, PCU_model, dir_path, df_PCU)
+    #         calculating_marginal_probabilities(Input_dictionary_marginal, PCU_model, dir_path, chem_1, chem_2, stream, df_PCU)
+
     # Fuzzy analysis
     Prob_PCU_chemical_and_stream = pd.DataFrame()
     for stream, chemicals in concerning_chemical_in_stream.items():
         for chemical in chemicals:
-            Path = '/bayesian_network/probabilities/marginal/Marginal_probabilities_based_on_BN_for_{}_in_stream_{}.csv'.format(chemical, stream)
+            Path = f'/bayesian_network/probabilities/marginal/Marginal_probabilities_based_on_BN_for_{chemical}_in_stream_{stream}.csv'
             Prob_chem = pd.read_csv(dir_path + Path)
             Prob_chem = Prob_chem[Prob_chem['PCU-probability'] != 0.0]
             if Prob_chem.empty:
-                print('Based on the information, there is not chance to isolate the chemical under the input conditions')
+                print(f'Based on the information, there is not chance to isolate the chemical {chemical} in stream {stream} under the input conditions')
             else:
                 Prob_chem['Stream'] = stream
                 Prob_chem['Chemical'] = chemical
@@ -100,14 +121,33 @@ if __name__ == '__main__':
     del Prob_chem
     ## Selecting PCUs
     Prob_PCU_chemical_and_stream = Prob_PCU_chemical_and_stream\
-                                   .groupby('Stream', as_index = False)\
-                                   .apply(lambda x: pairwise_comparison(x, objective = 'pcu'))
+                                    .groupby('Stream', as_index = False)\
+                                    .apply(lambda x: pairwise_comparison(x, objective = 'pcu'))
     Prob_PCU_chemical_and_stream = Prob_PCU_chemical_and_stream[Prob_PCU_chemical_and_stream['Selected'] == 'Yes']
     Prob_PCU_chemical_and_stream.drop(columns = ['Selected'], inplace = True)
     Prob_PCU_chemical_and_stream.reset_index(inplace = True, drop = True)
     ## Sequence for PCUs
+    df_input_for_chems =  pd.read_excel(dir_path + '/Inputs.xls',
+                                sheet_name = 'Chemical',
+                                header = None,
+                                skiprows=[0, 11])
+    df_input_for_chems.set_index(0, inplace = True)
+    df_input_for_chems = df_input_for_chems.T
+    df_input_for_chems.rename_axis(None, axis=1, inplace=True)
+    df_input_for_chems.reset_index(inplace = True, drop = True)
+    df_input_for_chems[['CAS NUMBER', 'Flammability', 'Instability']] =\
+        df_input_for_chems[['CAS NUMBER', 'Flammability', 'Instability']].applymap(lambda x: str(int(x)))
+    df_inputs = pd.merge(df_inputs, df_input_for_chems, on='CAS NUMBER', how='inner')
+    del df_input_for_chems
+    df_inputs['Corrosiveness'] = df_inputs.apply(lambda x: corrosiveness_score(
+                                                x['pKa Acidic Apparent'],
+                                                x['pKa Basic Apparent'],
+                                                float(x['Concentration [%wt/wt]']),
+                                                x['Density [g/cm3]'],
+                                                x['Molecular Mass'])
+                                                , axis=1)
     df_inputs = df_inputs[['Stream #', 'Chemical flow [kg/yr]', 'CAS NUMBER',
-                           'Flammability', 'Instability', 'Corrosivity',
+                           'Flammability', 'Instability', 'Corrosiveness',
                            'Efficiency [%]', 'As a byproduct',
                            'As a manufactured impurity', 'As a process impurity',
                            'Type of waste', 'Melting Point [°C]',
@@ -125,23 +165,37 @@ if __name__ == '__main__':
     df_inputs['Efficiency [%]'] = df_inputs['Efficiency [%]'].astype('float')
     df_inputs['Flammability'] = df_inputs['Flammability'].astype('int')
     df_inputs['Instability'] = df_inputs['Instability'].astype('int')
-    df_inputs['Corrosivity'] = df_inputs['Corrosivity'].astype('int')
+    df_inputs['Corrosiveness'] = df_inputs['Corrosiveness'].astype('int')
     Prob_PCU_chemical_and_stream = pd.merge(df_inputs, Prob_PCU_chemical_and_stream,
                                             on = ['Chemical', 'Stream'],
                                             how = 'inner')
     df_TRI_methods = pd.read_csv(dir_path + '/Methods_TRI.csv',
-                                usecols = ['Code 2004 and prior', 'Objective'])
-    df_TRI_methods.rename(columns = {'Code 2004 and prior': 'PCU'}, inplace = True)
+                                usecols = ['Code 2004 and prior', 'Objective',
+                                           'Method 2004 and prior'])
+    df_TRI_methods.rename(columns = {'Code 2004 and prior': 'PCU',
+                                    'Method 2004 and prior': 'PCU name'}, inplace = True)
     Prob_PCU_chemical_and_stream = pd.merge(df_TRI_methods, Prob_PCU_chemical_and_stream,
                                             on = ['PCU'], how = 'inner')
-    Prob_PCU_chemical_and_stream =  Prob_PCU_chemical_and_stream\
-                                    .groupby('Stream', as_index = False)\
-                                    .apply(lambda x: pairwise_comparison(x, objective = 'seq'))
+    Result = Prob_PCU_chemical_and_stream.copy()
+    Prob_PCU_chemical_and_stream = pd.DataFrame()
+    for stream in Result['Stream'].unique():
+        df = Result.loc[Result['Stream'] == stream]
+        if df.shape[0] == 1:
+            df['Position'] = 1
+            Prob_PCU_chemical_and_stream = pd.concat([Prob_PCU_chemical_and_stream, df], axis = 0,
+                                                    sort = False,
+                                                    ignore_index = True)
+        else:
+            df = pairwise_comparison(df, objective = 'seq')
+            Prob_PCU_chemical_and_stream = pd.concat([Prob_PCU_chemical_and_stream, df], axis = 0,
+                                                    sort = False,
+                                                    ignore_index = True)
     Prob_PCU_chemical_and_stream.sort_values(by = ['Stream', 'Position'],
                                              ascending = [True, True],
                                              inplace = True)
-    Prob_PCU_chemical_and_stream.to_csv(dir_path + '/fuzzy_analytical_hierarchy_process/PCU_selection_and_position_under_FAHP.csv',
-                                        sep = ',', index = False)
+    Cols_for_saving = ['Stream', 'PCU', 'PCU name', 'Position', 'Chemical']
+    Prob_PCU_chemical_and_stream[Cols_for_saving].to_csv(dir_path + '/fuzzy_analytical_hierarchy_process/PCU_selection_and_position_under_FAHP.csv',
+                                                         sep = ',', index = False)
     # Chemical flow analysis
     Chemical_tracking = pd.DataFrame()
     for stream in concerning_chemical_in_stream.keys():

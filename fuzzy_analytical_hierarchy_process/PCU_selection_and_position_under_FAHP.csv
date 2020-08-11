@@ -1,4 +1,29 @@
-PCU,Objective,Stream,Chemical flow,Chemical,Flammability,Instability,Corrosivity,Efficiency [%],As a byproduct,As a manufactured impurity,As a process impurity,Type of waste,Tf,Tb,Solubility,PCU-probability,Type_of_waste_management,Type_of_waste_management-probability,Position
-P15,Removal,1,1158683298.05052,108883,3,0,0,95.0,No,No,No,L,-94.9,111.0,526.12511,0.4999999999999963,Treatment,1.0,1
-F11,Destruction,1,386227766.01684,50000,4,0,3,99.99,No,No,No,L,-92.1,-20.1,396343.2,1.0,Treatment,1.0,2
-F11,Destruction,1,1931138830.0842,100425,3,2,0,100.0,Yes,No,No,L,-31.0,145.0,310.37296,1.0,Treatment,1.0,2
+Stream,PCU,PCU name,Position,Chemical
+1,R11,Solvents/Organics Recovery - Batch Still Distillation,1,67561
+1,F01,Liquid Injection,2,67630
+10,B11,Aerobic,1,7664417
+11,R13,Solvents/Organics Recovery - Fractionation,1,7664417
+12,R13,Solvents/Organics Recovery - Fractionation,1,7664417
+13,C11,Neutralization,1,7664417
+14,B11,Aerobic,1,7664417
+15,R13,Solvents/Organics Recovery - Fractionation,1,7664417
+16,R13,Solvents/Organics Recovery - Fractionation,1,7664417
+17,C11,Neutralization,1,7664417
+18,B11,Aerobic,1,107211
+19,B11,Aerobic,1,107211
+2,R11,Solvents/Organics Recovery - Batch Still Distillation,1,67561
+2,F01,Liquid Injection,2,67630
+20,P15,Oil Skimming,1,110543
+21,B11,Aerobic,1,110543
+22,R14,Solvents/Organics Recovery - Solvent Extraction,1,110543
+23,B11,Aerobic,1,110543
+24,B11,Aerobic,1,110543
+25,F01,Liquid Injection,1,110543
+3,R11,Solvents/Organics Recovery - Batch Still Distillation,1,67561
+3,F01,Liquid Injection,2,67630
+4,R11,Solvents/Organics Recovery - Batch Still Distillation,1,67561
+5,B11,Aerobic,1,67561
+6,F01,Liquid Injection,1,67561
+7,R11,Solvents/Organics Recovery - Batch Still Distillation,1,67561
+8,B11,Aerobic,1,67561
+9,F01,Liquid Injection,1,67561

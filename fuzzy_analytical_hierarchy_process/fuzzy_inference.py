@@ -9,7 +9,7 @@ import networkx as nx
 
 def comparison_matrix(df, cols):
     Some_criteri = ['WHM importance', 'T Flammability',
-                    'T Instability', 'T Corrosivity']
+                    'T Instability', 'T Corrosiveness']
     # Based on WMH
     m_criteria = 0
     n = df.shape[0]
@@ -137,11 +137,11 @@ def pairwise_comparison(df, objective):
             if not df_removal.empty:
                 if df_removal.shape[0] != 1:
                     min = df_removal['Position'].min()
-                    # Summing removal flows and searching highest flammability, instability, and corrosivity
+                    # Summing removal flows and searching highest flammability, instability, and corrosiveness
                     Aux_dict = {'Chemical flow': ['T Chemical flow', 'sum'],
                                 'Flammability': ['T Flammability', 'max'],
                                 'Instability': ['T Instability', 'max'],
-                                'Corrosivity': ['T Corrosivity', 'max']}
+                                'Corrosiveness': ['T Corrosiveness', 'max']}
                     for key, val in Aux_dict.items():
                         df_removal[val[0]] = df_removal.groupby('PCU',
                                                                 as_index = False)\
@@ -149,16 +149,16 @@ def pairwise_comparison(df, objective):
                         if key == 'Chemical flow':
                             df_removal[val[0]] = df_removal[val[0]]/df_removal[val[0]].max()
                     cols_for_fuzziness = ['PCU', 'T Flammability', 'T Instability',
-                                          'T Corrosivity', 'T Chemical flow']
+                                          'T Corrosiveness', 'T Chemical flow']
                     df_removal_reduce = df_removal[cols_for_fuzziness]
                     df_removal.drop(columns = ['T Flammability', 'T Instability',
-                                               'T Corrosivity', 'T Chemical flow',
+                                               'T Corrosiveness', 'T Chemical flow',
                                                'Position'],
                                     inplace = True)
                     df_removal_reduce.drop_duplicates(keep = 'first', inplace = True)
                     df_removal_reduce = analysing_position_based_on_PCU_database(df_removal_reduce)
                     criteria_on_columns = ['T Flammability', 'T Instability',
-                                           'T Corrosivity', 'Position database',
+                                           'T Corrosiveness', 'Position database',
                                            'T Chemical flow']
                     n_probable_pcu = df_removal_reduce['PCU'].nunique()
                     df_removal_reduce = fahp(n_probable_pcu, criteria_on_columns, df_removal_reduce)
