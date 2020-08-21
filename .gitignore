@@ -1,6 +1,6 @@
 /bayesian_network/chemical_price
-/bayesian_network/final_pcu_datasets
-/bayesian_network/pcu_expenditure_and_cost
+/bayesian_network/final_pau_datasets/*.csv
+/bayesian_network/pau_expenditure_and_cost
 /bayesian_network/waste_flow
 /bayesian_network/models/*.json
 /chemical_flow_analysis/Pollution_abatement_for_stream_[0-9]

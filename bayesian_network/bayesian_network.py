@@ -19,18 +19,18 @@ pd.set_option('mode.chained_assignment', None)
 
 
 def building_network(Probabilities, edges):
-    PCU_model = BayesianNetwork('PCU Selection')
+    PAU_model = BayesianNetwork('PAU Selection')
     # Adding states
     nodes =  dict()
     for Name, Prob in Probabilities.items():
         s = Node(Prob, name = Name)
         nodes.update({Name: s})
-        PCU_model.add_node(s)
+        PAU_model.add_node(s)
     # Adding edges
     for idx, row in edges.iterrows():
-        PCU_model.add_edge(nodes[row['Source']], nodes[row['Target']])
-    PCU_model.bake()
-    return PCU_model
+        PAU_model.add_edge(nodes[row['Source']], nodes[row['Target']])
+    PAU_model.bake()
+    return PAU_model
 
 
 def buidling_probabilities(df, edges, Inputs_list):
@@ -78,7 +78,7 @@ def drawing_network(df, dir_path):
         color = 'black'
         Graph_bayesian.add_edge(*tuple(row.values) , color = color, alpha = '0.2',
                             arrowsize = '2', arrowType = 'open', style = 'bold')
-    Graph_bayesian.draw(dir_path + '/bayesian_network/Bayesian_Network_PCU.png' ,prog = 'dot')
+    Graph_bayesian.draw(dir_path + '/bayesian_network/Bayesian_Network_PAU.png' ,prog = 'dot')
 
 
 def building_dataframe(dir_path, Years, values):
@@ -92,7 +92,7 @@ def building_dataframe(dir_path, Years, values):
                        'TYPE OF MANAGEMENT', 'PRIMARY NAICS CODE']
     df = pd.DataFrame()
     for year in Years:
-        df_year = pd.read_csv(dir_path + '/bayesian_network/final_pcu_datasets/PCUs_DB_filled_{}.csv'.format(year),
+        df_year = pd.read_csv(dir_path + '/bayesian_network/final_pau_datasets/PAUs_DB_filled_{}.csv'.format(year),
                             usecols = cols_for_using, low_memory = False,
                             dtype = {'PRIMARY NAICS CODE': 'object'})
         df_year = df_year.loc[pd.notnull(df_year).all(axis=1)]
@@ -106,7 +106,7 @@ def building_dataframe(dir_path, Years, values):
     df = df[~df['METHOD CODE - 2004 AND PRIOR'].isin(Excluded_methods)]
     cols_for_change = {'WASTE STREAM CODE': 'Type of waste',
                     'RANGE INFLUENT CONCENTRATION': 'Concentration',
-                    'METHOD CODE - 2004 AND PRIOR': 'PCU',
+                    'METHOD CODE - 2004 AND PRIOR': 'PAU',
                     'EFFICIENCY RANGE CODE': 'Efficiency',
                     'TYPE OF MANAGEMENT': 'Type of waste management'}
     cols_for_change.update({col: col.capitalize() for col in set(cols_for_using) - set(cols_for_change.keys()) if not col in \
@@ -121,58 +121,56 @@ def building_dataframe(dir_path, Years, values):
     return df
 
 
-def calculating_joint_probabilities(Input_dictionary, chem_1, chem_2, stream, Model, dir_path, df_PCU):
+def calculating_joint_probabilities(Input_dictionary, chem_1, chem_2, stream, Model, dir_path, df_PAU):
     TRI_method = pd.read_csv(dir_path + '/Methods_TRI.csv',
                             usecols = ['Code 2004 and prior',
                                        'Type of waste management'])
     TRI_method = {row['Code 2004 and prior']: row['Type of waste management'] \
                   for idx, row in TRI_method.iterrows()}
-    df_PCU_chem = df_PCU[df_PCU['CAS NUMBER'] == chem_2]
-    Levels_for_PCU = df_PCU_chem['PCU'].unique().tolist()
+    df_PAU_chem = df_PAU[df_PAU['CAS NUMBER'] == chem_2]
+    Levels_for_PAU = df_PAU_chem['PAU'].unique().tolist()
     values_to_assess = list()
-    for PCU in Levels_for_PCU:
+    for PAU in Levels_for_PAU:
         values_to_include = list()
         for state in Model.states:
-            if state.name == 'PCU':
-                values_to_include.append(PCU)
+            if state.name == 'PAU':
+                values_to_include.append(PAU)
             elif state.name == 'Type of waste management':
-                values_to_include.append(TRI_method[PCU])
+                values_to_include.append(TRI_method[PAU])
             else:
                 values_to_include.append(Input_dictionary[state.name])
         values_to_assess.append(values_to_include)
     Probabilities = Model.probability(values_to_assess)
-    df_values = {key: [value]*len(Levels_for_PCU) for key, value in Input_dictionary.items()}
-    df_values.update({'PCU': list(Levels_for_PCU), 'Probability': Probabilities})
+    df_values = {key: [value]*len(Levels_for_PAU) for key, value in Input_dictionary.items()}
+    df_values.update({'PAU': list(Levels_for_PAU), 'Probability': Probabilities})
     df = pd.DataFrame(df_values)
     df.to_csv(dir_path + '/bayesian_network/probabilities/joint/Joint_probabilities_based_on_BN_for_{}_in_stream_{}.csv'.format(chem_1, stream), sep = ',', index = False)
 
 
-def calculating_marginal_probabilities(Input_dictionary, Model, dir_path, chem_1, chem_2, stream, df_PCU):
+def calculating_marginal_probabilities(Input_dictionary, Model, dir_path, chem_1, chem_2, stream, df_PAU):
     TRI_method = pd.read_csv(dir_path + '/Methods_TRI.csv',
                             usecols = ['Code 2004 and prior',
                                        'Type of waste management'])
-    TRI_method = {row['Code 2004 and prior']: row['Type of waste management'] \
-                  for idx, row in TRI_method.iterrows()}
-    df_PCU_chem = df_PCU[df_PCU['CAS NUMBER'] == chem_2]
-    Levels_for_PCU = df_PCU_chem['PCU'].unique().tolist()
+    TRI_method.rename(columns={'Code 2004 and prior': 'PAU',
+                               'Type of waste management': 'Type_of_waste_management'},
+                      inplace=True)
+    df_PAU_chem = df_PAU[df_PAU['CAS NUMBER'] == chem_2]
+    Levels_for_PAU = df_PAU_chem['PAU'].unique().tolist()
     Marginal = Model.predict_proba(Input_dictionary)
     df =  pd.DataFrame()
     for item in Marginal:
         try:
             params = item.parameters[0]
             if len(list(params.keys())[0]) == 3:
-                df['PCU'] = pd.Series(Levels_for_PCU)
-                df['PCU-probability'] = pd.Series([params[val] for val in Levels_for_PCU])
-            else:
-                df['Type_of_waste_management'] = pd.Series([TRI_method[val] for val in Levels_for_PCU])
-                df['Type_of_waste_management-probability'] = pd.Series([params[TRI_method[val]] for val in Levels_for_PCU])
+                df['PAU'] = pd.Series(Levels_for_PAU)
+                df['PAU-probability'] = pd.Series([params[val] for val in Levels_for_PAU])
         except AttributeError:
             pass
-    df = df[['PCU', 'PCU-probability',\
+    df = pd.merge(df, TRI_method, on='PAU', how='left')
+    df['Type_of_waste_management-probability'] = df.groupby('Type_of_waste_management')['PAU-probability'].transform('sum')
+    df = df[['PAU', 'PAU-probability',\
              'Type_of_waste_management',\
              'Type_of_waste_management-probability']]
-    df.loc[df['Type_of_waste_management-probability'] == 0.0, 'PCU-probability'] = 0.0
-    df['PCU-probability'] = df['PCU-probability']/df['PCU-probability'].sum()
     df.to_csv(dir_path + '/bayesian_network/probabilities/marginal/Marginal_probabilities_based_on_BN_for_{}_in_stream_{}.csv'.format(chem_1, stream), sep = ',', index = False)
 
 
@@ -185,10 +183,10 @@ def checking_outliers(df):
         df['MIDDLE WASTE FLOW'] = df['MIDDLE WASTE FLOW'].median()
     return df
 
-def building_flows_dataset(dir_path, Years, df_PCU, CAS_for_search):
+def building_flows_dataset(dir_path, Years, df_PAU, CAS_for_search):
     df =  pd.DataFrame()
     for Year in Years:
-        df_year = pd.read_csv(dir_path + '/bayesian_network/waste_flow/Waste_flow_to_PCUs_{}_10.csv'.format(Year),
+        df_year = pd.read_csv(dir_path + '/bayesian_network/waste_flow/Waste_flow_to_PAUs_{}_10.csv'.format(Year),
                      usecols = ['METHOD CODE', 'MIDDLE WASTE FLOW', 'TRIFID',
                                 'WASTE STREAM CODE', 'PRIMARY NAICS CODE',
                                 'CAS NUMBER'],
@@ -203,17 +201,17 @@ def building_flows_dataset(dir_path, Years, df_PCU, CAS_for_search):
                         ignore_index = True)
         del df_year
     df.drop_duplicates(keep = 'first', inplace = True)
-    df.rename(columns = {'METHOD CODE': 'PCU',
+    df.rename(columns = {'METHOD CODE': 'PAU',
                          'WASTE STREAM CODE': 'Type of waste'},
               inplace = True)
-    df = pd.merge(df_PCU, df, on = ['TRIFID', 'CAS NUMBER',
+    df = pd.merge(df_PAU, df, on = ['TRIFID', 'CAS NUMBER',
                                          'PRIMARY NAICS CODE',
-                                         'PCU', 'Type of waste',
+                                         'PAU', 'Type of waste',
                                          'REPORTING YEAR'],
                          how = 'left')
-    df['MIDDLE WASTE FLOW'] = df['MIDDLE WASTE FLOW'].fillna(df.groupby(['PCU', 'PRIMARY NAICS CODE'])\
+    df['MIDDLE WASTE FLOW'] = df['MIDDLE WASTE FLOW'].fillna(df.groupby(['PAU', 'PRIMARY NAICS CODE'])\
                                                             ['MIDDLE WASTE FLOW'].transform('median'))
-    df['MIDDLE WASTE FLOW'] = df['MIDDLE WASTE FLOW'].fillna(df.groupby(['PCU'])\
+    df['MIDDLE WASTE FLOW'] = df['MIDDLE WASTE FLOW'].fillna(df.groupby(['PAU'])\
                                                             ['MIDDLE WASTE FLOW'].transform('median'))
     df = df.loc[pd.notnull(df).all(axis = 1)]
     Bin_values = [1.0090000000000001, 3292794.425,
@@ -245,10 +243,10 @@ def building_flows_dataset(dir_path, Years, df_PCU, CAS_for_search):
     return df
 
 
-def building_price_dataset(dir_path, Years, df_PCU):
+def building_price_dataset(dir_path, Years, df_PAU):
     df =  pd.DataFrame()
     for Year in Years:
-        df_year = pd.read_csv(dir_path + '/bayesian_network/chemical_price/Chemical_price_vs_PCU_{}.csv'.format(Year),
+        df_year = pd.read_csv(dir_path + '/bayesian_network/chemical_price/Chemical_price_vs_PAU_{}.csv'.format(Year),
                      low_memory = False,
                      usecols = ['METHOD CODE - 2004 AND PRIOR', 'TRIFID',
                                 'UNIT PRICE (USD/g)'])
@@ -259,10 +257,10 @@ def building_price_dataset(dir_path, Years, df_PCU):
                         ignore_index = True)
         del df_year
     df.drop_duplicates(keep = 'first', inplace = True)
-    df.rename(columns = {'METHOD CODE - 2004 AND PRIOR': 'PCU'},
+    df.rename(columns = {'METHOD CODE - 2004 AND PRIOR': 'PAU'},
               inplace = True)
-    df = pd.merge(df_PCU, df, how = 'left', on = ['PCU', 'TRIFID'])
-    df['UNIT PRICE (USD/g)'] = df['UNIT PRICE (USD/g)'].fillna(df.groupby(['PCU'])\
+    df = pd.merge(df_PAU, df, how = 'left', on = ['PAU', 'TRIFID'])
+    df['UNIT PRICE (USD/g)'] = df['UNIT PRICE (USD/g)'].fillna(df.groupby(['PAU'])\
                                                             ['UNIT PRICE (USD/g)'].transform('median'))
     df = df.loc[pd.notnull(df).all(axis = 1)]
     Bin_values = [0, 0.00611, 0.0186, 100, 1000, df['UNIT PRICE (USD/g)'].max()]
@@ -289,14 +287,14 @@ def building_price_dataset(dir_path, Years, df_PCU):
     return df
 
 
-def building_PAOC_and_PACE_dataset(dir_path, df_PCU):
-    df_PAOC = pd.read_csv(dir_path + '/bayesian_network/pcu_expenditure_and_cost/PAOC.csv',
+def building_PAOC_and_PACE_dataset(dir_path, df_PAU):
+    df_PAOC = pd.read_csv(dir_path + '/bayesian_network/pau_expenditure_and_cost/PAOC.csv',
                           usecols = ['Activity', 'Media', 'Mean PAOC', 'NAICS code'],
                           dtype = {'NAICS code': 'object'})
     df_PAOC.rename(columns = {'Activity': 'Type of waste management',
                               'Media': 'Type of waste'},
                     inplace = True)
-    df_PAOC = pd.merge(df_PAOC, df_PCU, how = 'outer', on = ['Type of waste management',
+    df_PAOC = pd.merge(df_PAOC, df_PAU, how = 'outer', on = ['Type of waste management',
                                                    'Type of waste',
                                                     'NAICS code'])
     df_PAOC['Mean PAOC'] = df_PAOC['Mean PAOC'].fillna(df_PAOC\
@@ -329,7 +327,7 @@ def building_PAOC_and_PACE_dataset(dir_path, df_PCU):
     df_PAOC.rename(columns = {'MEAN PAOC INTERVAL CODE': 'PAOC'},
                     inplace = True)
     df_PAOC.drop(columns = ['Mean PAOC', 'MEAN PAOC INTERVAL'], inplace = True)
-    df_PACE = pd.read_csv(dir_path + '/bayesian_network/pcu_expenditure_and_cost/PACE.csv',
+    df_PACE = pd.read_csv(dir_path + '/bayesian_network/pau_expenditure_and_cost/PACE.csv',
                           usecols = ['Activity', 'Media', 'Mean PACE', 'NAICS code'],
                           dtype = {'NAICS code': 'object'})
     df_PACE.rename(columns = {'Activity': 'Type of waste management',
@@ -399,23 +397,25 @@ def building_bayesian_network_db(CAS, Years, dir_path):
         values = {val: edges.loc[edges['Source'] == val, 'Target'].tolist()  for val in values}
         try:
             try:
-                # PCU
-                df_PCU = building_dataframe(dir_path, Years, values)
+                # PAU
+                df_PAU = building_dataframe(dir_path, Years, values)
                 # Waste flows
-                df_PCU = building_flows_dataset(dir_path, Years, df_PCU, list(CAS_for_search.values()))
+                df_PAU = building_flows_dataset(dir_path, Years, df_PAU, list(CAS_for_search.values()))
                 # Chemical prices
-                df_PCU = building_price_dataset(dir_path, Years, df_PCU)
+                df_PAU = building_price_dataset(dir_path, Years, df_PAU)
                 # Pollution abatement operating cost (PAOC)
                 # Pollution abatement capital expenditure(PACE)
-                df_PCU = building_PAOC_and_PACE_dataset(dir_path, df_PCU)
-                df_PCU.to_csv(dir_path + '/bayesian_network/DB_Bayesian_Network.csv',
+                df_PAU = building_PAOC_and_PACE_dataset(dir_path, df_PAU)
+                df_PAU.to_csv(dir_path + '/bayesian_network/DB_Bayesian_Network.csv',
                               sep = ',', index = False)
             except NameError:
                 print('There is not enough information to build the Bayesian Network')
                 sys.exit(1)
         except FileNotFoundError:
-            df_PCU = pd.read_csv(dir_path + '/bayesian_network/DB_Bayesian_Network.csv', low_memory = False)
-        df_PCU[df_PCU.notnull()] = df_PCU[df_PCU.notnull()].astype(str)
+            df_PAU = pd.read_csv(dir_path + '/bayesian_network/DB_Bayesian_Network.csv', low_memory = False)
+        df_PAU = df_PAU.loc[df_PAU.notnull().all(axis=1)]
+        cols_non_categorical = df_PAU.select_dtypes(exclude='object').columns.tolist()
+        df_PAU[cols_non_categorical] = df_PAU[cols_non_categorical].astype(int).astype(str)
         df_1 = pd.read_csv(dir_path + '/bayesian_network/Relationship_chemical_prices_and_codes.csv',
                             dtype = {'PRICE INTERVAL CODE': 'object'})
         Option_prices = [str(row['PRICE INTERVAL CODE']) + ': ' + str(row['PRICE INTERVAL']) for idx, row in df_1.iterrows()]
@@ -435,22 +435,22 @@ def building_bayesian_network_db(CAS, Years, dir_path):
         Options = {'Chemical price': Option_prices, 'Waste flow': Option_flow, 'PACE': Option_PACE, 'PAOC': Option_PAOC}
     else:
         Options = None
-        df_PCU = pd.DataFrame()
-    return (df_PCU, CAS_for_search, Options)
+        df_PAU = pd.DataFrame()
+    return (df_PAU, CAS_for_search, Options)
 
 
-def building_bayesian_network_model(dir_path, df_PCU, chem_1, chem_2):
+def building_bayesian_network_model(dir_path, df_PAU, chem_1, chem_2):
     edges = pd.read_csv(dir_path + '/bayesian_network/Graph.csv')
     drawing_network(edges, dir_path)
-    df_PCU_chem = df_PCU[df_PCU['CAS NUMBER'] == chem_2]
-    df_PCU_chem.drop(columns = ['CAS NUMBER'], inplace = True)
+    df_PAU_chem = df_PAU[df_PAU['CAS NUMBER'] == chem_2]
+    df_PAU_chem.drop(columns = ['CAS NUMBER'], inplace = True)
     df_names = pd.read_csv(dir_path + '/bayesian_network/Node_names.csv')
     columns = df_names['Name'].tolist()
-    df_PCU_chem = df_PCU_chem[columns]
-    Inputs_list = {col: df_PCU_chem[col].unique().tolist() for col in columns}
-    Probabilities = buidling_probabilities(df_PCU_chem, edges, Inputs_list)
-    PCU_model = building_network(Probabilities, edges)
-    json_object = PCU_model.to_json()
+    df_PAU_chem = df_PAU_chem[columns]
+    Inputs_list = {col: df_PAU_chem[col].unique().tolist() for col in columns}
+    Probabilities = buidling_probabilities(df_PAU_chem, edges, Inputs_list)
+    PAU_model = building_network(Probabilities, edges)
+    json_object = PAU_model.to_json()
     with open(f'{dir_path}/bayesian_network/models/BN_for_{chem_1}.json', 'w') as output_file:
         json.dump(json_object, output_file, indent=6,
                   separators=(',', ':'))

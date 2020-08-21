@@ -34,31 +34,31 @@ def comparison_matrix(df, cols):
 
 
 def analysing_intersection(df, n_concerning_constituents):
-    PCUs = df['PCU'].unique().tolist()
+    PAUs = df['PAU'].unique().tolist()
     df['P-based_on_intersection'] = 1/n_concerning_constituents
-    for PCU in PCUs:
-        n = len(df.loc[df['PCU'] == PCU, 'Chemical'].tolist())
+    for PAU in PAUs:
+        n = len(df.loc[df['PAU'] == PAU, 'Chemical'].tolist())
         if n != 1:
-            df.loc[df['PCU'] == PCU, 'P-based_on_intersection'] = n/n_concerning_constituents
+            df.loc[df['PAU'] == PAU, 'P-based_on_intersection'] = n/n_concerning_constituents
         else:
-            chem = df.loc[df['PCU'] == PCU, 'Chemical'].values[0]
-            n_pcu = len(df.loc[df['Chemical'] == chem, 'PCU'].tolist())
-            n_pcu_false = len(df.loc[(df['Chemical'] == chem) & (~ df['Intersection']), 'PCU'].tolist())
-            df.loc[(df['PCU'] == PCU) & (df['Chemical'] == chem), 'P-based_on_intersection'] =  n_pcu_false/n_pcu
+            chem = df.loc[df['PAU'] == PAU, 'Chemical'].values[0]
+            n_pau = len(df.loc[df['Chemical'] == chem, 'PAU'].tolist())
+            n_pau_false = len(df.loc[(df['Chemical'] == chem) & (~ df['Intersection']), 'PAU'].tolist())
+            df.loc[(df['PAU'] == PAU) & (df['Chemical'] == chem), 'P-based_on_intersection'] =  n_pau_false/n_pau
     return df
 
-def analysing_position_based_on_PCU_database(df):
+def analysing_position_based_on_PAU_database(df):
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    df_order = pd.read_csv(dir_path + '/pcu_positions/Positions.csv')
-    PCUs = df['PCU'].unique().tolist()
-    df_order = df_order.loc[(df_order['First'].isin(PCUs)) & (df_order['Second'].isin(PCUs))]
+    df_order = pd.read_csv(dir_path + '/pau_positions/Positions.csv')
+    PAUs = df['PAU'].unique().tolist()
+    df_order = df_order.loc[(df_order['First'].isin(PAUs)) & (df_order['Second'].isin(PAUs))]
     if not df_order.empty:
         G = nx.from_pandas_edgelist(df_order, 'First', 'Second',
                                      create_using = nx.DiGraph())
         if nx.is_directed_acyclic_graph(G):
             Order = list(reversed(list(nx.topological_sort(G))))
             Position = {val: idx for idx, val in enumerate(Order)}
-            df['Position database'] = df['PCU'].apply(lambda x: Position[x])
+            df['Position database'] = df['PAU'].apply(lambda x: Position[x])
         else:
             df['Position database'] = 1
     else:
@@ -82,60 +82,60 @@ def pairwise_comparison(df, objective):
                           'Destruction': 6,
                           'Energy': 6} # The order is inverse
     # objective:
-    ## pcu: for selecting PCU
+    ## pau: for selecting PAU
     ## seq: for selecting sequence
-    if objective == 'pcu':
+    if objective == 'pau':
         df['WHM importance'] = df['Type_of_waste_management'].apply(lambda x: WHM_importance[x])
         n_concerning_constituents = df['Chemical'].nunique()
         if n_concerning_constituents == 1:
-            n_probable_pcu = len(df['PCU'].tolist())
-            if n_probable_pcu == 1:
+            n_probable_pau = len(df['PAU'].tolist())
+            if n_probable_pau == 1:
                 # Only a concerning chemical in the stream
                 df['Selected'] = 'Yes'
                 df.drop(columns = ['WHM importance'], inplace = True)
             else:
-                # Call fuzzy function to make decision based on WMH, PCU-probability, and WMH probability
-                criteria_on_columns = ['WHM importance', 'PCU-probability', 'Type_of_waste_management-probability']
-                df = fahp(n_probable_pcu, criteria_on_columns, df)
+                # Call fuzzy function to make decision based on WMH, PAU-probability, and WMH probability
+                criteria_on_columns = ['WHM importance', 'PAU-probability', 'Type_of_waste_management-probability']
+                df = fahp(n_probable_pau, criteria_on_columns, df)
                 df['Selected'] = 'No'
                 df.loc[df['Weight'].idxmax(), 'Selected'] = 'Yes'
                 df.drop(columns = ['Weight', 'WHM importance'], inplace = True)
         else:
-            df['Intersection'] = df.duplicated(subset = ['PCU'], keep = False)
+            df['Intersection'] = df.duplicated(subset = ['PAU'], keep = False)
             # Analyzing importance based on intersections
             df = analysing_intersection(df, n_concerning_constituents)
             chemicals = df['Chemical'].unique().tolist()
-            criteria_on_columns = ['WHM importance', 'PCU-probability', 'Type_of_waste_management-probability', 'P-based_on_intersection']
+            criteria_on_columns = ['WHM importance', 'PAU-probability', 'Type_of_waste_management-probability', 'P-based_on_intersection']
             df_aux = df.copy()
             df = pd.DataFrame()
             for chemical in chemicals:
                 df_chem = df_aux.loc[df_aux['Chemical'] == chemical]
                 if df_chem.shape[0] == 1:
-                    df_chem = pairwise_comparison(df_chem, objective = 'pcu')
+                    df_chem = pairwise_comparison(df_chem, objective = 'pau')
                     df_chem.drop(columns = ['P-based_on_intersection', 'Intersection'], inplace = True)
                 else:
-                    n_probable_pcu =  len(df_chem['PCU'].tolist())
-                    df_chem = fahp(n_probable_pcu, criteria_on_columns, df_chem)
+                    n_probable_pau =  len(df_chem['PAU'].tolist())
+                    df_chem = fahp(n_probable_pau, criteria_on_columns, df_chem)
                     df_chem['Selected'] = 'No'
                     df_chem.loc[df_chem['Weight'].idxmax(), 'Selected'] = 'Yes'
                     df_chem.drop(columns = ['Weight', 'WHM importance', 'P-based_on_intersection', 'Intersection'], inplace = True)
                 df = pd.concat([df, df_chem], axis = 0, sort = False, ignore_index = True)
             del df_chem
     else:
-        n_pcus = df['PCU'].nunique()
-        if n_pcus == 1:
+        n_paus = df['PAU'].nunique()
+        if n_paus == 1:
             df['Position'] = 1
         else:
             # Based on the objective
             df['Sorted objective'] = df['Objective'].apply(lambda x: Based_on_objective[x])
-            df.sort_values(by = ['Sorted objective', 'PCU'], inplace = True, ascending = [True, False])
-            Position_dict = {val: idx + 1 for idx, val in enumerate(df['PCU'].unique())}
-            df['Position'] = df['PCU'].apply(lambda x: Position_dict[x])
+            df.sort_values(by = ['Sorted objective', 'PAU'], inplace = True, ascending = [True, False])
+            Position_dict = {val: idx + 1 for idx, val in enumerate(df['PAU'].unique())}
+            df['Position'] = df['PAU'].apply(lambda x: Position_dict[x])
             # Checking removal treatments
             df_removal = df.loc[df['Objective'] == 'Removal']
             df = df.loc[df['Objective'] != 'Removal']
             if not df_removal.empty:
-                n_removal = df_removal['PCU'].nunique()
+                n_removal = df_removal['PAU'].nunique()
                 if n_removal != 1:
                     min = df_removal['Position'].min()
                     # Summing removal flows and searching highest flammability, instability, and corrosiveness
@@ -144,12 +144,12 @@ def pairwise_comparison(df, objective):
                                 'Instability': ['T Instability', 'max'],
                                 'Corrosiveness': ['T Corrosiveness', 'max']}
                     for key, val in Aux_dict.items():
-                        df_removal[val[0]] = df_removal.groupby('PCU',
+                        df_removal[val[0]] = df_removal.groupby('PAU',
                                                                 as_index = False)\
                                                                 [key].transform(val[1])
                         if key == 'Chemical flow':
                             df_removal[val[0]] = df_removal[val[0]]/df_removal[val[0]].max()
-                    cols_for_fuzziness = ['PCU', 'T Flammability', 'T Instability',
+                    cols_for_fuzziness = ['PAU', 'T Flammability', 'T Instability',
                                           'T Corrosiveness', 'T Chemical flow']
                     df_removal_reduce = df_removal[cols_for_fuzziness]
                     df_removal.drop(columns = ['T Flammability', 'T Instability',
@@ -157,17 +157,17 @@ def pairwise_comparison(df, objective):
                                                'Position'],
                                     inplace = True)
                     df_removal_reduce.drop_duplicates(keep = 'first', inplace = True)
-                    df_removal_reduce = analysing_position_based_on_PCU_database(df_removal_reduce)
+                    df_removal_reduce = analysing_position_based_on_PAU_database(df_removal_reduce)
                     criteria_on_columns = ['T Flammability', 'T Instability',
                                            'T Corrosiveness', 'Position database',
                                            'T Chemical flow']
-                    n_probable_pcu = df_removal_reduce['PCU'].nunique()
-                    df_removal_reduce = fahp(n_probable_pcu, criteria_on_columns, df_removal_reduce)
+                    n_probable_pau = df_removal_reduce['PAU'].nunique()
+                    df_removal_reduce = fahp(n_probable_pau, criteria_on_columns, df_removal_reduce)
                     df_removal_reduce.sort_values(by = ['Weight'], inplace = True, ascending = False)
                     df_removal_reduce['Position'] = pd.Series(np.arange(min, df_removal_reduce.shape[0] + min))
                     df_removal_reduce.drop(columns = criteria_on_columns + ['Weight'],
                                           inplace = True)
-                    df_removal = pd.merge(df_removal, df_removal_reduce, on = 'PCU', how = 'inner')
+                    df_removal = pd.merge(df_removal, df_removal_reduce, on = 'PAU', how = 'inner')
                     del df_removal_reduce
                     df = pd.concat([df, df_removal], axis = 0, sort = False, ignore_index = True)
                 else:
@@ -188,7 +188,7 @@ def fahp(n, cols_criteri, df):
     theta = np.zeros((1, m_criteria)) # criteria' uncertainty degrees
     sumphi = 0 # Initial value of diversification degree
     # Triangular fuzzy numbers (TFN)
-    # n is number of PCUs
+    # n is number of PAUs
     # TFN is a vector with n segments and each one has 3 different numbers
     # The segments are the linguistic scales
     # The 3 differente numbers in the segments are a triangular fuzzy number (l,m,u)
