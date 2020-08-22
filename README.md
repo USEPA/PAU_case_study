@@ -60,7 +60,9 @@ In order to use the code you need to dowload [TRI_releases.csv](https://drive.go
 python main.py -CAS 67630 67561 7664417 107211 110543 108883 68122 75092 -Y 1987 1988 1989 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004
 ```
 
-The flag -CAS is for the chemical used in the case study and -Y for the PAU dataset years used. The folder [Inputs.xls](https://github.com/jodhernandezbe/PAU_case_study/blob/master/Inputs.xls) has all the input information for the case study. The sheet Input contains the information for the streams, Chemical for the chemical substances, Industry_sector for the industry sectors, and Specifications for the factors in the Bayesian Network. When the following lines appear on your terminal, only press enter so that the program can continue running.
+The flag -CAS is for the chemicals used in the case study and -Y for the PAU dataset years used. The folder [Inputs.xls](https://github.com/jodhernandezbe/PAU_case_study/blob/master/Inputs.xls) has all the input information for the case study. The sheet ***Input*** contains the information for the streams, ***Chemical*** for the chemical substances, ***Industry_sector*** for the industry sectors, and ***Specifications*** for the guidelines about the factors in the Bayesian Network. 
+
+When the following lines appear on your terminal, only press enter so that the program can continue running.
 
 ```
 ------------------------------------------------------------------------------------------------------------------------
@@ -69,7 +71,6 @@ Fill out the required information in the "Input.xls". Check the options in the s
 When you finish filling out the sheet "Input", please press enter
 ------------------------------------------------------------------------------------------------------------------------
 ```
-
 
 # Disclaimer
 
