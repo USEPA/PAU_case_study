@@ -49,7 +49,29 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 
 # Chemical Flow Tracking
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/Pollution_abatement_for_stream_1.png width="85%">
+  digraph {
+	graph [rankdir=LR ranksep=1]
+	0 [label="Input stream" color=lightsalmon fontname="Times New Roman Bold" shape=ellipse style=filled]
+	1 [label=A03 fontname="Times New Roman Bold" shape=square]
+	2 [label=F71 fontname="Times New Roman Bold" shape=square]
+	3 [label="Remaining stream" color=lightblue fontname="Times New Roman Bold" shape=ellipse style=filled]
+	0 -> 1 [label=1 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=0.5]
+	{
+		graph [rank=same ranksep=2]
+		4 [label=Carrier color="#b2df8a" fontname="Times New Roman Bold" shape=ellipse style=filled]
+		1 -> 4 [label=2 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=1]
+		5 [label="Fugitive emission" color=lightgray fontname="Times New Roman Bold" shape=ellipse style=filled]
+		5 -> 1 [label=3 arrowhead=normal arrowsize=1 dir=back fontname="Comic Sans MS Bold" len=1]
+	}
+	1 -> 2 [label=5 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=0.5]
+	{
+		graph [rank=same ranksep=2]
+		7 [label="Destroyed/converted/degradated" color="#b2df8a" fontname="Times New Roman Bold" shape=ellipse style=filled]
+		2 -> 7 [label=6 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=1]
+		8 [label="Fugitive emission" color=lightgray fontname="Times New Roman Bold" shape=ellipse style=filled]
+		8 -> 2 [label=7 arrowhead=normal arrowsize=1 dir=back fontname="Comic Sans MS Bold" len=1]
+	}
+	2 -> 3 [label=9 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=0.5]
 </p>
 
 # How to use
