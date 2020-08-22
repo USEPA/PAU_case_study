@@ -49,7 +49,7 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 
 # Chemical Flow Tracking
 <p align="center">
- <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/pau_draws/PAU_sequence.png width="85%">
+ <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/pau_draws/PAU_sequence.png width="95%">
 </p>
 
 # How to use
