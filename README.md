@@ -31,7 +31,7 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 ## Structure
 
 <p align="center">
-  <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/bayesian_network/Bayesian_Network_PCU.png width="85%">
+  <img src=https://github.com/jodhernandezbe/PAU_case_study/blob/master/bayesian_network/Bayesian_Network_PAU.png width="85%">
 </p>
 
 # Fuzzy Analytical Hierarchy Process (FAHP)
@@ -39,17 +39,17 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 ## Selection of PAU for a Concerning Chemical
 
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_PAU.png width="100%">
+  <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_PAU.png width="100%">
 </p>
 
 ## Sequence of PAUs for a Waste Stream
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_Seq.png width="85%">
+  <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_Seq.png width="85%">
 </p>
 
 # Chemical Flow Tracking
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/chemical_flow_analysis/Pollution_abatement_for_stream_1.png width="85%">
+  <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/Pollution_abatement_for_stream_1.png width="85%">
 </p>
 
 # How to use
