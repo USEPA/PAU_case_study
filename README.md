@@ -1,19 +1,19 @@
 # Overview
 
-This is a repository with the Python scripts to run the case study for selecting the pollution abatement activities for concerning chemicals and tracking chemical flows at the end-of-life stage. The data was obtained by means of data engineering using different publicly-available databases. The properties of chemicals were obained using the GitHub repository "Properties_Scraper" <sup>[1](#myfootnote1)</sup>, while the PAU dataset using the repository "PAU4Chem" <sup>[2](#myfootnote2)</sup>.
+This is a repository with the Python scripts to run the case study for selecting the pollution abatement activities for concerning chemicals and tracking chemical flows at the end-of-life stage. The data was obtained by means of data engineering using different publicly-available databases. The properties of chemicals were obained using the GitHub repository [Properties_Scraper](https://github.com/jodhernandezbe/Properties_Scraper), while the PAU dataset using the repository [PAU4Chem](https://github.com/jodhernandezbe/PAU4Chem).
 
 # Requirements:
 
 This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. The following python packages are requiered to run the program:
 
-1. pandas (https://anaconda.org/conda-forge/pandas)
-2. graphviz (https://anaconda.org/conda-forge/graphviz)
-3. numpy (https://anaconda.org/conda-forge/numpy)
-4. scipy (https://anaconda.org/conda-forge/scipy)
-5. xlrd (https://anaconda.org/conda-forge/xlrd)
-6. xlutils (https://anaconda.org/anaconda/xlutils)
-7. python-graphviz (https://anaconda.org/conda-forge/python-graphviz)
-8. pomegranate (https://anaconda.org/anaconda/pomegranate)<sup>[3](#myfootnote3)</sup>
+1. [pandas](https://anaconda.org/conda-forge/pandas)
+2. [graphviz](https://anaconda.org/conda-forge/graphviz)
+3. [numpy](https://anaconda.org/conda-forge/numpy)
+4. [scipy](https://anaconda.org/conda-forge/scipy)
+5. [xlrd](https://anaconda.org/conda-forge/xlrd)
+6. [xlutils](https://anaconda.org/anaconda/xlutils)
+7. [python-graphviz](https://anaconda.org/conda-forge/python-graphviz)
+8. [pomegranate](https://anaconda.org/anaconda/pomegranate)<sup>[1](#myfootnote1)</sup>
 
 # Bayesian Network (BN) for Pollution Abatement Unit (PAU) Selection
 
@@ -85,11 +85,8 @@ Program at the Center for Environmental Solutions and Emergency Response, Office
 U.S. Environmental Protection Agency, administered by the Oak Ridge Institute for Science and Education through an Interagency Agreement No. DW-89-92433001 between the U.S. Department of Energy and the U.S. Environmental Protection Agency.
 
 -----------------------------------------------------------------------------------------------------------------------------
-<a name="myfootnote1">1</a>: Properties_Scraper: https://github.com/jodhernandezbe/Properties_Scraper.
 
-<a name="myfootnote2">2</a>: PCUs: https://github.com/jodhernandezbe/PAU4Chem.
-
-<a name="myfootnote3">3</a>: If you are using Anaconda distribution, you could have collisions between channels because pomegranate is only in the *anaconda* channel. Thus,if you have collision, activate your environment and run the following line:
+<a name="myfootnote1">1</a>: If you are using Anaconda distribution, you could have collisions between channels because pomegranate is only in the *anaconda* channel. Thus,if you have collision, activate your environment and run the following line:
 
 ```
 conda config --set channel_priority false
