@@ -1,19 +1,19 @@
 # Overview
 
-This is a repository with the Python scripts to run the case study for selecting the pollution abatement activities for concerning chemicals and tracking chemical flows at the end-of-life stage. The data was obtained be means of data engineering using different publicly-available databases. The properties of chemicals were obained using the GitHub repository "Properties_Scraper" <sup>[1](#myfootnote1)</sup>, while the PAU dataset using the repository "PAU4Chem" <sup>[2](#myfootnote2)</sup>.
+This is a repository with the Python scripts to run the case study for selecting the pollution abatement activities for concerning chemicals and tracking chemical flows at the end-of-life stage. The data was obtained by means of data engineering using different publicly-available databases. The properties of chemicals were obained using the GitHub repository [Properties_Scraper](https://github.com/jodhernandezbe/Properties_Scraper), while the PAU dataset using the repository [PAU4Chem](https://github.com/jodhernandezbe/PAU4Chem).
 
 # Requirements:
 
 This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. The following python packages are requiered to run the program:
 
-1. pandas (https://anaconda.org/conda-forge/pandas)
-2. graphviz (https://anaconda.org/conda-forge/graphviz)
-3. numpy (https://anaconda.org/conda-forge/numpy)
-4. scipy (https://anaconda.org/conda-forge/scipy)
-5. xlrd (https://anaconda.org/conda-forge/xlrd)
-6. xlutils (https://anaconda.org/anaconda/xlutils)
-7. python-graphviz (https://anaconda.org/conda-forge/python-graphviz)
-8. pomegranate (https://anaconda.org/anaconda/pomegranate)<sup>[3](#myfootnote3)</sup>
+1. [pandas](https://anaconda.org/conda-forge/pandas)
+2. [graphviz](https://anaconda.org/conda-forge/graphviz)
+3. [numpy](https://anaconda.org/conda-forge/numpy)
+4. [scipy](https://anaconda.org/conda-forge/scipy)
+5. [xlrd](https://anaconda.org/conda-forge/xlrd)
+6. [xlutils](https://anaconda.org/anaconda/xlutils)
+7. [python-graphviz](https://anaconda.org/conda-forge/python-graphviz)
+8. [pomegranate](https://anaconda.org/anaconda/pomegranate)<sup>[1](#myfootnote1)</sup>
 
 # Bayesian Network (BN) for Pollution Abatement Unit (PAU) Selection
 
@@ -31,7 +31,7 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 ## Structure
 
 <p align="center">
-  <img src=https://github.com/jodhernandezbe/PCU_case_study/blob/master/bayesian_network/Bayesian_Network_PCU.png width="85%">
+  <img src=https://github.com/jodhernandezbe/PAU_case_study/blob/master/bayesian_network/Bayesian_Network_PAU.png width="85%">
 </p>
 
 # Fuzzy Analytical Hierarchy Process (FAHP)
@@ -39,23 +39,65 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 ## Selection of PAU for a Concerning Chemical
 
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_PAU.png width="100%">
+  <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_PAU.png width="100%">
 </p>
 
 ## Sequence of PAUs for a Waste Stream
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_Seq.png width="85%">
+  <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_Seq.png width="85%">
 </p>
 
 # Chemical Flow Tracking
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PCU_case_study/blob/master/chemical_flow_analysis/Pollution_abatement_for_stream_1.png width="85%">
+<details> 
+<summary></summary>
+custom_mark10
+  digraph {
+	graph [rankdir=LR ranksep=1]
+	0 [label="Input stream" color=lightsalmon fontname="Times New Roman Bold" shape=ellipse style=filled]
+	1 [label=A03 fontname="Times New Roman Bold" shape=square]
+	2 [label=F71 fontname="Times New Roman Bold" shape=square]
+	3 [label="Remaining stream" color=lightblue fontname="Times New Roman Bold" shape=ellipse style=filled]
+	0 -> 1 [label=1 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=0.5]
+	{
+		graph [rank=same ranksep=2]
+		4 [label=Carrier color="#b2df8a" fontname="Times New Roman Bold" shape=ellipse style=filled]
+		1 -> 4 [label=2 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=1]
+		5 [label="Fugitive emission" color=lightgray fontname="Times New Roman Bold" shape=ellipse style=filled]
+		5 -> 1 [label=3 arrowhead=normal arrowsize=1 dir=back fontname="Comic Sans MS Bold" len=1]
+	}
+	1 -> 2 [label=5 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=0.5]
+	{
+		graph [rank=same ranksep=2]
+		7 [label="Destroyed/converted/degradated" color="#b2df8a" fontname="Times New Roman Bold" shape=ellipse style=filled]
+		2 -> 7 [label=6 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=1]
+		8 [label="Fugitive emission" color=lightgray fontname="Times New Roman Bold" shape=ellipse style=filled]
+		8 -> 2 [label=7 arrowhead=normal arrowsize=1 dir=back fontname="Comic Sans MS Bold" len=1]
+	}
+	2 -> 3 [label=9 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=0.5]
+custom_mark10
+</details>
 </p>
 
 # How to use
 
-In order to use the code you need to dowload [TRI_releases.csv](https://drive.google.com/file/d/1sq3AzdCFMJ6Rh3Vx0dJau2YcMuu6T1nO/view?usp=sharing) and save the file in a folder which must be named tri_releases and located in the [chemical_flow_analysis](https://github.com/jodhernandezbe/PCU_case_study/tree/master/chemical_flow_analysis) folder. 
+In order to use the code you need to dowload [TRI_releases.csv](https://drive.google.com/file/d/1sq3AzdCFMJ6Rh3Vx0dJau2YcMuu6T1nO/view?usp=sharing) and save the file in a folder which must be named tri_releases and located in the [chemical_flow_analysis](https://github.com/jodhernandezbe/PCU_case_study/tree/master/chemical_flow_analysis) folder. To run the case studies in the paper, navigate to the folder which contains main.py and write on the terminal:
 
+```
+python main.py -CAS 67630 67561 7664417 107211 110543 108883 68122 75092 -Y 1987 1988 1989 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004
+```
+
+The flag -CAS is for the chemicals used in the case study and -Y for the PAU dataset years used. The folder [Inputs.xls](https://github.com/jodhernandezbe/PAU_case_study/blob/master/Inputs.xls) has all the input information for the case study. The sheet ***Input*** contains the information for the streams, ***Chemical*** for the chemical substances, ***Industry_sector*** for the industry sectors, and ***Specifications*** for the guidelines about the factors in the Bayesian Network. 
+
+When the following lines appear on your terminal, only press enter so that the program can continue running.
+
+```
+------------------------------------------------------------------------------------------------------------------------
+Fill out the required information in the "Input.xls". Check the options in the sheet called "Specifications"
+
+When you finish filling out the sheet "Input", please press enter
+------------------------------------------------------------------------------------------------------------------------
+```
 
 # Disclaimer
 
@@ -70,11 +112,8 @@ Program at the Center for Environmental Solutions and Emergency Response, Office
 U.S. Environmental Protection Agency, administered by the Oak Ridge Institute for Science and Education through an Interagency Agreement No. DW-89-92433001 between the U.S. Department of Energy and the U.S. Environmental Protection Agency.
 
 -----------------------------------------------------------------------------------------------------------------------------
-<a name="myfootnote1">1</a>: Properties_Scraper: https://github.com/jodhernandezbe/Properties_Scraper.
 
-<a name="myfootnote2">2</a>: PCUs: https://github.com/jodhernandezbe/PAU4Chem.
-
-<a name="myfootnote3">3</a>: If you are using Anaconda distribution, you could have collisions between channels because pomegranate is only in the *anaconda* channel. Thus,if you have collision, activate your environment and run the following line:
+<a name="myfootnote1">1</a>: If you are using Anaconda distribution, you could have collisions between channels because pomegranate is only in the *anaconda* channel. Thus,if you have collision, activate your environment and run the following line:
 
 ```
 conda config --set channel_priority false
