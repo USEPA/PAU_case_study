@@ -54,8 +54,12 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 
 # How to use
 
-In order to use the code you need to dowload [TRI_releases.csv](https://drive.google.com/file/d/1sq3AzdCFMJ6Rh3Vx0dJau2YcMuu6T1nO/view?usp=sharing) and save the file in a folder which must be named tri_releases and located in the [chemical_flow_analysis](https://github.com/jodhernandezbe/PCU_case_study/tree/master/chemical_flow_analysis) folder. 
+In order to use the code you need to dowload [TRI_releases.csv](https://drive.google.com/file/d/1sq3AzdCFMJ6Rh3Vx0dJau2YcMuu6T1nO/view?usp=sharing) and save the file in a folder which must be named tri_releases and located in the [chemical_flow_analysis](https://github.com/jodhernandezbe/PCU_case_study/tree/master/chemical_flow_analysis) folder. To run the case studies in the paper, navigate to the folder which contains main.py and write on the terminal:
 
+```
+python main.py -CAS 67630 67561 7664417 107211 110543 108883 68122 75092 -Y 1987 1988 1989 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004
+```
+The flag -CAS is for the chemical used in the case study and -Y for the years.
 
 # Disclaimer
 
