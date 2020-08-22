@@ -49,6 +49,9 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 
 # Chemical Flow Tracking
 <p align="center">
+<details> 
+<summary></summary>
+custom_mark10
   digraph {
 	graph [rankdir=LR ranksep=1]
 	0 [label="Input stream" color=lightsalmon fontname="Times New Roman Bold" shape=ellipse style=filled]
@@ -72,6 +75,8 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 		8 -> 2 [label=7 arrowhead=normal arrowsize=1 dir=back fontname="Comic Sans MS Bold" len=1]
 	}
 	2 -> 3 [label=9 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=0.5]
+custom_mark10
+</details>
 </p>
 
 # How to use
