@@ -15,7 +15,7 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 7. [python-graphviz](https://anaconda.org/conda-forge/python-graphviz)
 8. [pomegranate](https://anaconda.org/anaconda/pomegranate)<sup>[1](#myfootnote1)</sup>
 
-# Bayesian Network (BN) for Pollution Abatement Unit (PAU) Selection
+# Data-driven model: Bayesian Network (BN) for Pollution Abatement Unit (PAU) Selection
 
 ## Factor names
 
@@ -34,7 +34,7 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
   <img src=https://github.com/jodhernandezbe/PAU_case_study/blob/master/bayesian_network/Bayesian_Network_PAU.png width="85%">
 </p>
 
-# Fuzzy Analytical Hierarchy Process (FAHP)
+# Decision-making: Fuzzy Analytical Hierarchy Process (FAHP)
 
 ## Selection of PAU for a Concerning Chemical
 
@@ -48,6 +48,7 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 </p>
 
 # Chemical Flow Tracking
+
 <p align="center">
  <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/pau_draws/PAU_sequence.png width="95%">
 </p>
@@ -71,6 +72,15 @@ Fill out the required information in the "Input.xls". Check the options in the s
 When you finish filling out the sheet "Input", please press enter
 ------------------------------------------------------------------------------------------------------------------------
 ```
+
+# Output
+
+The following are the program output:
+
+1. In the folder [marginal](https://github.com/jodhernandezbe/PAU_case_study/tree/master/bayesian_network/probabilities/marginal), the marginal proabilities under the BN will be obtained. The files Marginal_probabilities_based_on_BN_for_**CAS**_in_stream_**#**.csv has these probabilities, where **CAS** is for the chemical and **#** for the waste stream number that contains the chemical.
+2. The file [PAU_selection_and_position_under_FAHP.csv](https://github.com/jodhernandezbe/PAU_case_study/tree/master/fuzzy_analytical_hierarchy_process/PAU_selection_and_position_under_FAHP.csv) has the PAU methods and sequences selected under the FAHP will appear.
+3. The file [chemical_flow_analysis/Chemical_flow_tracking.csv](https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/Chemical_flow_tracking.csv) has material flow analysis and allocation for the PAU methods and sequences. 
+
 
 # Disclaimer
 
