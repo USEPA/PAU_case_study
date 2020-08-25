@@ -80,7 +80,7 @@ The following are the program output:
 1. In the folder [marginal](https://github.com/jodhernandezbe/PAU_case_study/tree/master/bayesian_network/probabilities/marginal), the marginal proabilities under the BN will be obtained. The files Marginal_probabilities_based_on_BN_for_**CAS**_in_stream_**#**.csv has these probabilities, where **CAS** is for the chemical and **#** for the waste stream number that contains the chemical.
 2. The file [PAU_selection_and_position_under_FAHP.csv](https://github.com/jodhernandezbe/PAU_case_study/tree/master/fuzzy_analytical_hierarchy_process/PAU_selection_and_position_under_FAHP.csv) has the PAU methods and sequences selected under the FAHP will appear.
 3. The file [Chemical_flow_tracking.csv](https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/Chemical_flow_tracking.csv) has material flow analysis and allocation for the PAU methods and sequences. 
-4. The folder [pau_draws](https://github.com/jodhernandezbe/PAU_case_study/tree/master/chemical_flow_analysis/pau_draws) has the draw for the PAU methods and sequences allocation.
+4. The folder [pau_draws](https://github.com/jodhernandezbe/PAU_case_study/tree/master/chemical_flow_analysis/pau_draws) has the draws that represent the flow allocation for the PAU methods and sequences.
 
 
 # Disclaimer
