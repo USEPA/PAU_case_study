@@ -78,7 +78,7 @@ When you finish filling out the sheet "Input", please press enter
 
 # Output
 
-The following are the program output:
+The following are the program outputs:
 
 1. In the folder [marginal](https://github.com/jodhernandezbe/PAU_case_study/tree/master/bayesian_network/probabilities/marginal), the marginal proabilities under the BN will be obtained. The files Marginal_probabilities_based_on_BN_for_**CAS**_in_stream_**#**.csv has these probabilities, where **CAS** is for the chemical and **#** for the waste stream number that contains the chemical.
 2. The file [PAU_selection_and_position_under_FAHP.csv](https://github.com/jodhernandezbe/PAU_case_study/tree/master/fuzzy_analytical_hierarchy_process/PAU_selection_and_position_under_FAHP.csv) has the PAU methods and sequences selected under the FAHP.
