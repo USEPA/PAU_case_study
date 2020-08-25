@@ -15,7 +15,7 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 7. [python-graphviz](https://anaconda.org/conda-forge/python-graphviz)
 8. [pomegranate](https://anaconda.org/anaconda/pomegranate)<sup>[1](#myfootnote1)</sup>
 
-# Bayesian Network (BN) for Pollution Abatement Unit (PAU) Selection
+# Data-driven model: Bayesian Network (BN) for Pollution Abatement Unit (PAU) Selection
 
 ## Factor names
 
@@ -34,7 +34,7 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
   <img src=https://github.com/jodhernandezbe/PAU_case_study/blob/master/bayesian_network/Bayesian_Network_PAU.png width="85%">
 </p>
 
-# Fuzzy Analytical Hierarchy Process (FAHP)
+# Decision-making: Fuzzy Analytical Hierarchy Process (FAHP)
 
 ## Selection of PAU for a Concerning Chemical
 
@@ -48,46 +48,20 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 </p>
 
 # Chemical Flow Tracking
+
 <p align="center">
-<details> 
-<summary></summary>
-custom_mark10
-  digraph {
-	graph [rankdir=LR ranksep=1]
-	0 [label="Input stream" color=lightsalmon fontname="Times New Roman Bold" shape=ellipse style=filled]
-	1 [label=A03 fontname="Times New Roman Bold" shape=square]
-	2 [label=F71 fontname="Times New Roman Bold" shape=square]
-	3 [label="Remaining stream" color=lightblue fontname="Times New Roman Bold" shape=ellipse style=filled]
-	0 -> 1 [label=1 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=0.5]
-	{
-		graph [rank=same ranksep=2]
-		4 [label=Carrier color="#b2df8a" fontname="Times New Roman Bold" shape=ellipse style=filled]
-		1 -> 4 [label=2 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=1]
-		5 [label="Fugitive emission" color=lightgray fontname="Times New Roman Bold" shape=ellipse style=filled]
-		5 -> 1 [label=3 arrowhead=normal arrowsize=1 dir=back fontname="Comic Sans MS Bold" len=1]
-	}
-	1 -> 2 [label=5 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=0.5]
-	{
-		graph [rank=same ranksep=2]
-		7 [label="Destroyed/converted/degradated" color="#b2df8a" fontname="Times New Roman Bold" shape=ellipse style=filled]
-		2 -> 7 [label=6 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=1]
-		8 [label="Fugitive emission" color=lightgray fontname="Times New Roman Bold" shape=ellipse style=filled]
-		8 -> 2 [label=7 arrowhead=normal arrowsize=1 dir=back fontname="Comic Sans MS Bold" len=1]
-	}
-	2 -> 3 [label=9 arrowhead=normal arrowsize=1 fontname="Comic Sans MS Bold" len=0.5]
-custom_mark10
-</details>
+ <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/pau_draws/PAU_sequence.png width="95%">
 </p>
 
 # How to use
 
-In order to use the code you need to dowload [TRI_releases.csv](https://drive.google.com/file/d/1sq3AzdCFMJ6Rh3Vx0dJau2YcMuu6T1nO/view?usp=sharing) and save the file in a folder which must be named tri_releases and located in the [chemical_flow_analysis](https://github.com/jodhernandezbe/PCU_case_study/tree/master/chemical_flow_analysis) folder. To run the case studies in the paper, navigate to the folder which contains main.py and write on the terminal:
+In order to use the code you need to dowload [TRI_releases.csv](https://drive.google.com/file/d/1sq3AzdCFMJ6Rh3Vx0dJau2YcMuu6T1nO/view?usp=sharing) and save the file in a folder which must be named tri_releases and located in the [chemical_flow_analysis](https://github.com/jodhernandezbe/PCU_case_study/tree/master/chemical_flow_analysis) folder. To run the case studies in the paper, navigate to the folder which contains main.py and write the following line on your terminal:
 
 ```
 python main.py -CAS 67630 67561 7664417 107211 110543 108883 68122 75092 -Y 1987 1988 1989 1990 1991 1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004
 ```
 
-The flag -CAS is for the chemicals used in the case study and -Y for the PAU dataset years used. The folder [Inputs.xls](https://github.com/jodhernandezbe/PAU_case_study/blob/master/Inputs.xls) has all the input information for the case study. The sheet ***Input*** contains the information for the streams, ***Chemical*** for the chemical substances, ***Industry_sector*** for the industry sectors, and ***Specifications*** for the guidelines about the factors in the Bayesian Network. 
+The flag -CAS is for the CAS number for the chemicals used in the case study and -Y for the PAU dataset years used. The folder [Inputs.xls](https://github.com/jodhernandezbe/PAU_case_study/blob/master/Inputs.xls) has all the input information for the case study. The sheet ***Input*** contains the information for the streams, ***Chemical*** for the chemical substances, ***Industry_sector*** for the industry sectors, and ***Specifications*** for the guidelines about the factors in the Bayesian Network. 
 
 When the following lines appear on your terminal, only press enter so that the program can continue running.
 
@@ -98,6 +72,16 @@ Fill out the required information in the "Input.xls". Check the options in the s
 When you finish filling out the sheet "Input", please press enter
 ------------------------------------------------------------------------------------------------------------------------
 ```
+
+# Output
+
+The following are the program output:
+
+1. In the folder [marginal](https://github.com/jodhernandezbe/PAU_case_study/tree/master/bayesian_network/probabilities/marginal), the marginal proabilities under the BN will be obtained. The files Marginal_probabilities_based_on_BN_for_**CAS**_in_stream_**#**.csv has these probabilities, where **CAS** is for the chemical and **#** for the waste stream number that contains the chemical.
+2. The file [PAU_selection_and_position_under_FAHP.csv](https://github.com/jodhernandezbe/PAU_case_study/tree/master/fuzzy_analytical_hierarchy_process/PAU_selection_and_position_under_FAHP.csv) has the PAU methods and sequences selected under the FAHP.
+3. The file [Chemical_flow_tracking.csv](https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/Chemical_flow_tracking.csv) has the material flow analysis and allocation for the PAU methods and sequences. 
+4. The folder [pau_draws](https://github.com/jodhernandezbe/PAU_case_study/tree/master/chemical_flow_analysis/pau_draws) has the draws that represent the flow allocation for the PAU methods and sequences.
+
 
 # Disclaimer
 
