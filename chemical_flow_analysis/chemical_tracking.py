@@ -63,7 +63,7 @@ def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste
             ## Carrier
             if Objective == 'Removal':
                 Carrier_flow = (1 - Fugitive_emission_factor)*flow_input*efficiency/100
-                Destroyed_converted_degradated_flow = 0.0
+                Destroyed_converted_degraded_flow = 0.0
                 # Carrier analysis
                 if '/' in Carrier_for_PAU:
                     if Carrier_for_PAU == 'L/W':
@@ -88,7 +88,7 @@ def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste
                     Carrier = Carrier_for_PAU
             elif Objective == 'Reclamation':
                 Carrier_flow = (1 - Fugitive_emission_factor)*flow_input*efficiency/100
-                Destroyed_converted_degradated_flow = 0.0
+                Destroyed_converted_degraded_flow = 0.0
                 if PAU_code in ['R11', 'R12', 'R13','R14', 'H20']: # Solvent recovery
                     Carrier = 'L'
                 elif PAU_code in ['R21', 'R22', 'R23', 'R24', 'R26', 'R27', 'R28', 'R29', 'H10']: # Metal recovery
@@ -101,11 +101,11 @@ def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste
             elif (Objective == 'Safer disposal (RCRA Subtitle C)') | (Objective == 'Controlling flow rate and composition'):
                 Carrier_flow = 0.0
                 Carrier = None
-                Destroyed_converted_degradated_flow = 0.0
+                Destroyed_converted_degraded_flow = 0.0
             else:
                 Carrier_flow = 0.0
                 Carrier = None
-                Destroyed_converted_degradated_flow = (1 - Fugitive_emission_factor)*flow_input*efficiency/100
+                Destroyed_converted_degraded_flow = (1 - Fugitive_emission_factor)*flow_input*efficiency/100
             if efficiency == 0.0:
                 Carrier = None
             F_out_hidden = (1 - Fugitive_emission_factor)*(1 - efficiency/100)*flow_input
@@ -162,7 +162,7 @@ def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste
                     Remaining = waste_stream
                     By_product_flow = 0.0
                     By_product = None
-            Flows_out_aux = df_result_aux = pd.DataFrame({'Destroyed/converted/degradated': [Destroyed_converted_degradated_flow],
+            Flows_out_aux = df_result_aux = pd.DataFrame({'Destroyed/converted/degraded': [Destroyed_converted_degraded_flow],
                                                           'Carrier': [[Carrier_flow, Carrier]],
                                                           'Remaining': [[Remaining_flow, Remaining]],
                                                           'By-product': [[By_product_flow, By_product]],
@@ -174,9 +174,9 @@ def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste
         df_result = pd.DataFrame(columns = Cols)
         for col in Flows_out.columns:
             Result = {'Type of stream': [col]}
-            if col in ['Destroyed/converted/degradated', 'Fugitive emission']:
+            if col in ['Destroyed/converted/degraded', 'Fugitive emission']:
                 Val =  Flows_out[col]
-                if col == 'Destroyed/converted/degradated':
+                if col == 'Destroyed/converted/degraded':
                     Phase = 'NA'
                 else:
                     Phase = 'A'
@@ -285,7 +285,7 @@ def picture(df_for_stream, stream, dir_path, drawing, paus_stream):
                     Flow_graph.edge(str(n_node), str(i), label = str(n_streams),
                                     len = '1', arrowhead = 'normal', arrowsize = '1',
                                     dir = 'back', fontname = 'Comic Sans MS Bold')
-                elif strm in ['Destroyed/converted/degradated', 'Carrier']:
+                elif strm in ['Destroyed/converted/degraded', 'Carrier']:
                     Flow_graph.node(str(n_node), strm,
                                     fontname='Times New Roman Bold',
                                     style='filled', color='#b2df8a',

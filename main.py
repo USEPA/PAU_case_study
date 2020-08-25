@@ -200,7 +200,7 @@ if __name__ == '__main__':
     PAUs = list()
     for stream in concerning_chemical_in_stream.keys():
         df_for_stream = Prob_PAU_chemical_and_stream.loc[Prob_PAU_chemical_and_stream['Stream'] == stream]
-        paus_stream = '_'.join(df_for_stream['PAU'].tolist())
+        paus_stream = '_'.join(set(df_for_stream['PAU'].tolist()))
         if paus_stream not in PAUs:
             drawing = True
             PAUs.append(paus_stream)
