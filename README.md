@@ -53,6 +53,9 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
  <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/pau_draws/PAU_sequence.png width="95%">
 </p>
 
+1. A03: Scrubber
+2. F71: Fume/Vapor
+
 # How to use
 
 In order to use the code you need to dowload [TRI_releases.csv](https://drive.google.com/file/d/1sq3AzdCFMJ6Rh3Vx0dJau2YcMuu6T1nO/view?usp=sharing) and save the file in a folder which must be named tri_releases and located in the [chemical_flow_analysis](https://github.com/jodhernandezbe/PCU_case_study/tree/master/chemical_flow_analysis) folder. To run the case studies in the paper, navigate to the folder which contains main.py and write the following line on your terminal:
