@@ -42,19 +42,16 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
   <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_PAU.png width="100%">
 </p>
 
-## Sequence of PAUs for a Waste Stream
+## Sequence of PAUs for a Waste Stream<sup>[2](#myfootnote2)</sup>
 <p align="center">
   <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_Seq.png width="85%">
 </p>
 
-# Chemical Flow Tracking
+# Chemical Flow Tracking<sup>[3](#myfootnote3)</sup>
 
 <p align="center">
  <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/pau_draws/PAU_sequence.png width="95%">
 </p>
-
-1. A03: Scrubber
-2. F71: Fume/Vapor
 
 # How to use
 
@@ -105,6 +102,10 @@ U.S. Environmental Protection Agency, administered by the Oak Ridge Institute fo
 ```
 conda config --set channel_priority false
 ```
+<a name="myfootnote2">2</a>: NFPA: National Fire Protection Association
+
+<a name="myfootnote3">3</a>: A03 is a code that represents Scrubber, while F71 Fume/Vapor incinerator. The list of codes for the PAU methos can be found in [Methods_TRI.csv](https://github.com/jodhernandezbe/PAU_case_study/blob/master/Methods_TRI.csv).
+
 
 
 
