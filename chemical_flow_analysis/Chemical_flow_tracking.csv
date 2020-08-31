@@ -1,127 +1,127 @@
 Stream,PAU,PAU name,Objective,Position,Type of stream,Phase,Chemical,Mean quantity [kg/yr],Std [kg/yr],CV,Number of data
-1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Carrier,L,67561,50710.1543,470.3541,0.009275343498609706,689
-1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,L,67561,5284.1684,418.8039,0.07925634996795333,679
-1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,By-product,W,67561,4.3098,12.2164,2.834563088774421,690
-1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67561,343.9077,412.1604,1.1984622618219947,679
-1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,L,67630,3147574.7508,482596.9509,0.153323428070244,28
-1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67630,811667.1929,501706.197,0.6181181171157817,28
-1,F01,Liquid Injection,Destruction,2,Remaining,A,67561,4941.3675,577.9121,0.11695387966994966,676
-1,F01,Liquid Injection,Destruction,2,Fugitive emission,A,67561,319.9537,384.7188,1.20242022517633,673
-1,F01,Liquid Injection,Destruction,2,Destroyed/converted/degraded,NA,67630,2451269.726,616017.4945,0.2513054715954176,26
-1,F01,Liquid Injection,Destruction,2,Remaining,A,67630,12317.9383,3095.5653,0.25130547211784626,26
-1,F01,Liquid Injection,Destruction,2,Fugitive emission,A,67630,3126.5603,2198.8657,0.7032858761751691,26
-10,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,7664417,1140.7395,173.9724,0.15250843860495758,180
-10,B11,Aerobic,Degradation,1,Remaining,W,7664417,11.511,1.7555,0.1525062983233429,180
-10,B11,Aerobic,Degradation,1,Fugitive emission,A,7664417,1.4991,1.7431,1.1627643252618238,180
-11,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Carrier,L,7664417,131353.9335,1244.2065,0.009472167805313571,179
-11,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Remaining,W,7664417,11.7429,1.2566,0.1070093418150542,175
-11,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,By-product,W,7664417,0.0783,0.1545,1.9731800766283527,178
-11,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Fugitive emission,A,7664417,1.1779,1.3029,1.106121062908566,176
-12,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Carrier,L,7664417,13151572.2722,111883.5603,0.008507238373049984,177
-12,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Remaining,W,7664417,11.5543,1.6986,0.14701020399331852,179
-12,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,By-product,W,7664417,0.09,0.1993,2.2144444444444447,179
-12,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Fugitive emission,A,7664417,1.2479,1.5672,1.2558698613670967,179
-13,C11,Neutralization,Conversion,1,Destroyed/converted/degraded,NA,7664417,600710106.5117,69647340.9847,0.11594168340056632,176
-13,C11,Neutralization,Conversion,1,Remaining,W,7664417,8.7751,1.0174,0.11594169867010064,176
-13,C11,Neutralization,Conversion,1,Fugitive emission,A,7664417,0.9208,1.0199,1.1076238053866205,176
-14,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,7664417,1192.2948,140.7208,0.11802517296896708,1142
-14,B11,Aerobic,Degradation,1,Remaining,W,7664417,12.0312,1.42,0.11802646452556685,1142
-14,B11,Aerobic,Degradation,1,Fugitive emission,A,7664417,0.976,1.419,1.4538934426229508,1142
-15,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Carrier,L,7664417,131378.4537,1275.4669,0.009708341543678861,1132
-15,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Remaining,W,7664417,12.0918,1.0663,0.08818372781554443,1128
-15,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,By-product,W,7664417,0.038,0.0844,2.2210526315789476,1130
-15,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Fugitive emission,A,7664417,0.8559,1.0341,1.2082018927444795,1128
-16,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Carrier,L,7664417,13138852.3327,123073.5704,0.009367147699323347,1132
-16,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Remaining,W,7664417,11.9234,1.4346,0.12031803009208783,1137
-16,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,By-product,W,7664417,0.0344,0.0849,2.4680232558139537,1139
-16,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Fugitive emission,A,7664417,0.9611,1.3935,1.4499011549266465,1137
-17,C11,Neutralization,Conversion,1,Destroyed/converted/degraded,NA,7664417,618699117.6124,54284229.675,0.08773930353171724,1129
-17,C11,Neutralization,Conversion,1,Remaining,W,7664417,9.0379,0.793,0.08774162139435046,1129
-17,C11,Neutralization,Conversion,1,Fugitive emission,A,7664417,0.6556,0.7822,1.193105552165955,1129
-18,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,107211,41222580.5624,1637571.9281,0.039725119237044186,467
-18,B11,Aerobic,Degradation,1,Remaining,W,107211,1620989.3071,64393.9935,0.039725119233021244,467
-18,B11,Aerobic,Degradation,1,Fugitive emission,A,107211,40934.0904,61266.1591,1.4967025894876118,466
-19,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,107211,2159511398.1576,100125320.4537,0.04636480295455839,468
-19,B11,Aerobic,Degradation,1,Remaining,W,107211,1212271.6335,56206.7354,0.046364802942491685,468
-19,B11,Aerobic,Degradation,1,Fugitive emission,A,107211,33226.0582,53056.9168,1.5968465618350118,467
-2,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Carrier,L,67561,611858.6584,5656.4522,0.009244704021663315,690
-2,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,W,67561,63562.848,5684.1672,0.08942593635829534,685
-2,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,By-product,W,67561,54.4161,153.7958,2.8262922186632267,689
-2,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67561,4328.4303,5550.2012,1.2822665066363665,685
-2,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,W,67630,2218165.9337,431889.1283,0.1947055095105485,27
-2,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67630,554816.8531,438724.096,0.7907548113375795,27
-2,F01,Liquid Injection,Destruction,2,Remaining,A,67561,59163.0792,7762.4382,0.13120409392079105,684
-2,F01,Liquid Injection,Destruction,2,Fugitive emission,A,67561,4316.5451,5720.2523,1.3251922932532316,683
-2,F01,Liquid Injection,Destruction,2,Destroyed/converted/degraded,NA,67630,1730859.3501,406151.2532,0.23465295038359685,26
-2,F01,Liquid Injection,Destruction,2,Remaining,A,67630,8697.7857,2040.9611,0.23465295310736387,26
-2,F01,Liquid Injection,Destruction,2,Fugitive emission,A,67630,2375.9292,1549.0982,0.6519967850893873,26
-20,P15,Oil Skimming,Removal,1,Carrier,L,110543,0.2267,0.0022,0.009704455227172474,225
-20,P15,Oil Skimming,Removal,1,Remaining,W,110543,0.2911,0.0263,0.09034695980762623,222
-20,P15,Oil Skimming,Removal,1,Fugitive emission,A,110543,0.0221,0.0263,1.1900452488687783,222
-21,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,110543,250.7145,24.0172,0.09579501783901609,223
-21,B11,Aerobic,Degradation,1,Remaining,W,110543,0.2909,0.0279,0.09590924716397388,223
-21,B11,Aerobic,Degradation,1,Fugitive emission,A,110543,0.0224,0.0276,1.2321428571428572,223
-22,R14,Solvents/Organics Recovery - Solvent Extraction,Reclamation,1,Carrier,L,110543,27240.4059,243.2705,0.008930502023099442,224
-22,R14,Solvents/Organics Recovery - Solvent Extraction,Reclamation,1,Remaining,W,110543,0.2908,0.0264,0.0907840440165062,223
-22,R14,Solvents/Organics Recovery - Solvent Extraction,Reclamation,1,By-product,W,110543,0.0003,0.0009,3.0,226
-22,R14,Solvents/Organics Recovery - Solvent Extraction,Reclamation,1,Fugitive emission,A,110543,0.0212,0.0259,1.221698113207547,223
-23,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,110543,2542152.4956,242938.505,0.09556409594643989,222
-23,B11,Aerobic,Degradation,1,Remaining,W,110543,0.2905,0.0278,0.09569707401032702,222
-23,B11,Aerobic,Degradation,1,Fugitive emission,A,110543,0.0209,0.0277,1.3253588516746413,222
-24,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,110543,125753939.0555,13118302.1164,0.10431722628275202,224
-24,B11,Aerobic,Degradation,1,Remaining,W,110543,0.2131,0.0222,0.10417644298451431,224
-24,B11,Aerobic,Degradation,1,Fugitive emission,A,110543,0.0199,0.0221,1.1105527638190955,224
-25,F01,Liquid Injection,Destruction,1,Destroyed/converted/degraded,NA,110543,373919399.222,38600543.6002,0.10323225722044561,220
-25,F01,Liquid Injection,Destruction,1,Remaining,A,110543,0.0723,0.0075,0.10373443983402489,220
-25,F01,Liquid Injection,Destruction,1,Fugitive emission,A,110543,0.006,0.0074,1.2333333333333334,220
-26,A03,Scrubber,Removal,1,Remaining,A,108883,1378907.1003,249886.1668,0.1812204511425272,1391
-26,A03,Scrubber,Removal,1,Fugitive emission,A,108883,226857.8071,249078.9634,1.0979519135094382,1391
-26,A03,Scrubber,Removal,1,Carrier,W,67561,1525347.0501,14065.3624,0.009221089980196894,690
-26,A03,Scrubber,Removal,1,Remaining,A,67561,75050.2223,6519.3722,0.08686679399749093,687
-26,A03,Scrubber,Removal,1,Fugitive emission,A,67561,5234.5816,6452.4709,1.2326622055141905,687
-26,A03,Scrubber,Removal,1,Carrier,W,68122,1523876.9373,14363.3118,0.009425506383375594,24
-26,A03,Scrubber,Removal,1,Remaining,A,68122,80103.4925,757.942,0.009462034380086488,24
-26,A03,Scrubber,Removal,1,Fugitive emission,A,68122,100.5568,100.3677,0.99811947078666,24
-26,A03,Scrubber,Removal,1,Carrier,W,75092,1524531.94,14768.9769,0.009687548363204512,383
-26,A03,Scrubber,Removal,1,Remaining,A,75092,65210.7122,13704.766,0.21016126856532016,374
-26,A03,Scrubber,Removal,1,Fugitive emission,A,75092,15052.629,13675.1581,0.9084896797762039,374
-26,F71,Fume/Vapor,Destruction,2,Destroyed/converted/degraded,NA,108883,1132752.0585,288295.4396,0.254508863997796,1398
-26,F71,Fume/Vapor,Destruction,2,Remaining,A,108883,59618.5294,15173.4442,0.254508864151889,1398
-26,F71,Fume/Vapor,Destruction,2,Fugitive emission,A,108883,9279.6856,9811.8522,1.057347481686233,1390
-26,F71,Fume/Vapor,Destruction,2,Remaining,A,67561,70836.0809,7729.6166,0.10911976639294849,677
-26,F71,Fume/Vapor,Destruction,2,Fugitive emission,A,67561,4375.8152,4814.0452,1.1001481963863555,671
-26,F71,Fume/Vapor,Destruction,2,Remaining,A,68122,79951.439,754.3415,0.009434995910455095,23
-26,F71,Fume/Vapor,Destruction,2,Fugitive emission,A,68122,32.703,37.8871,1.1585206250191111,23
-26,F71,Fume/Vapor,Destruction,2,Remaining,A,75092,53125.0307,16875.0446,0.31764771478993237,383
-26,F71,Fume/Vapor,Destruction,2,Fugitive emission,A,75092,12603.5868,12812.4227,1.0165695609760865,382
-3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Carrier,L,67561,34029.0281,325.8166,0.009574666635865512,689
-3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,L,67561,3498.09,394.1424,0.11267360187988303,687
-3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,By-product,W,67561,2.2815,5.8868,2.5802323033092267,690
-3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67561,278.5847,390.9839,1.4034650862017908,687
-3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,L,67630,3178933.1699,532318.2927,0.16745186647530094,26
-3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67630,888042.2479,556095.2291,0.6262035735518524,26
-3,F01,Liquid Injection,Destruction,2,Remaining,A,67561,3278.9206,450.0276,0.1372487031250467,686
-3,F01,Liquid Injection,Destruction,2,Fugitive emission,A,67561,221.5047,294.6179,1.3300751631906682,683
-3,F01,Liquid Injection,Destruction,2,Destroyed/converted/degraded,NA,67630,2383729.894,752613.0909,0.3157291825698772,27
-3,F01,Liquid Injection,Destruction,2,Remaining,A,67630,11978.5422,3781.9753,0.31572917946559476,27
-3,F01,Liquid Injection,Destruction,2,Fugitive emission,A,67630,4166.0372,2997.8615,0.7195954707269537,27
-4,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Carrier,L,67561,37505.6509,367.692,0.009803642682548405,71
-4,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,W,67561,4110.1638,374.7566,0.09117802069104886,70
-4,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,By-product,W,67561,3.2966,5.9655,1.80959170053995,71
-4,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67561,255.4842,379.2954,1.4846139213305558,70
-5,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,67561,2006140.616,138998.0633,0.06928630136462978,69
-5,B11,Aerobic,Degradation,1,Remaining,W,67561,3112.8409,215.6772,0.06928629086054477,69
-5,B11,Aerobic,Degradation,1,Fugitive emission,A,67561,161.8174,209.2194,1.2929351231696964,69
-6,F01,Liquid Injection,Destruction,1,Destroyed/converted/degraded,NA,67561,5882349.7172,460763.0946,0.07832976901266649,71
-6,F01,Liquid Injection,Destruction,1,Remaining,A,67561,1039.95,81.459,0.07832972739073994,71
-6,F01,Liquid Injection,Destruction,1,Fugitive emission,A,67561,60.7595,80.132,1.318839029287601,71
-7,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Carrier,L,67561,37462.0152,356.855,0.009525782264911365,689
-7,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,W,67561,4093.1187,341.2294,0.08336660258594504,681
-7,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,By-product,W,67561,2.9165,6.7227,2.3050574318532484,690
-7,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67561,274.626,336.1825,1.2241466576362035,681
-8,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,67561,1950517.3697,222927.682,0.11429156461923098,690
-8,B11,Aerobic,Degradation,1,Remaining,W,67561,3026.5327,345.9072,0.11429157861073166,690
-8,B11,Aerobic,Degradation,1,Fugitive emission,A,67561,246.9721,344.4995,1.3948923785318261,690
-9,F01,Liquid Injection,Destruction,1,Destroyed/converted/degraded,NA,67561,5851567.5235,458101.6005,0.07828698868469958,679
-9,F01,Liquid Injection,Destruction,1,Remaining,A,67561,1034.508,80.9885,0.07828697313118893,679
-9,F01,Liquid Injection,Destruction,1,Fugitive emission,A,67561,64.1561,80.1885,1.2498967362417606,679
+1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Carrier,L,67561,50674.7839,484.6006,0.009562953459383178,691
+1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,L,67561,5262.1675,442.9891,0.08418377028097263,676
+1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,By-product,W,67561,2.7913,6.6877,2.395908716368717,688
+1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67561,367.105,449.2795,1.223844676591166,677
+1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,L,67630,3950786.4592,47433.349,0.012006052336628907,27
+1,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67630,19853.1983,238.3585,0.012006050430675444,27
+1,F01,Liquid Injection,Destruction,2,Remaining,A,67561,4896.3216,651.5115,0.13306141900483007,687
+1,F01,Liquid Injection,Destruction,2,Fugitive emission,A,67561,379.3739,514.3063,1.355671278387891,689
+1,F01,Liquid Injection,Destruction,2,Destroyed/converted/degraded,NA,67630,3927551.3379,43517.4306,0.01108004119005815,28
+1,F01,Liquid Injection,Destruction,2,Remaining,A,67630,15198.1143,3672.2243,0.24162367959030287,27
+1,F01,Liquid Injection,Destruction,2,Fugitive emission,A,67630,4547.9935,3578.2526,0.786776102472442,27
+10,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,7664417,1290.1782,12.815,0.009932736423542112,180
+10,B11,Aerobic,Degradation,1,Remaining,W,7664417,11.7908,1.4402,0.12214607999457203,178
+10,B11,Aerobic,Degradation,1,Fugitive emission,A,7664417,1.2301,1.4356,1.167059588651329,178
+11,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Carrier,L,7664417,131540.626,1224.8317,0.009311432804037288,180
+11,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Remaining,W,7664417,11.4197,1.9491,0.17067873937143707,176
+11,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,By-product,W,7664417,0.1289,0.33,2.5601241272304116,179
+11,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Fugitive emission,A,7664417,1.3203,1.6336,1.2372945542679694,176
+12,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Carrier,L,7664417,13123996.4783,133583.0226,0.010178532341186935,180
+12,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Remaining,W,7664417,11.399,1.6661,0.1461619440301781,180
+12,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,By-product,W,7664417,0.041,0.0635,1.548780487804878,174
+12,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Fugitive emission,A,7664417,1.4615,1.6715,1.1436879917892575,180
+13,C11,Neutralization,Conversion,1,Destroyed/converted/degraded,NA,7664417,664199807.8297,6568096.4736,0.009888735883651523,180
+13,C11,Neutralization,Conversion,1,Remaining,W,7664417,8.6374,1.4185,0.16422766110172043,179
+13,C11,Neutralization,Conversion,1,Fugitive emission,A,7664417,1.0606,1.4318,1.3499905713746936,179
+14,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,7664417,1289.1101,12.5233,0.009714686123396286,1135
+14,B11,Aerobic,Degradation,1,Remaining,W,7664417,12.1645,1.0267,0.0844013317440092,1121
+14,B11,Aerobic,Degradation,1,Fugitive emission,A,7664417,0.844,1.0188,1.2071090047393365,1121
+15,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Carrier,L,7664417,131426.9772,1209.7871,0.009205013504639899,1137
+15,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Remaining,W,7664417,12.0378,1.2494,0.10378972902025287,1124
+15,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,By-product,W,7664417,0.0391,0.1022,2.6138107416879794,1134
+15,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Fugitive emission,A,7664417,0.8894,1.1741,1.3201034405217,1123
+16,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Carrier,L,7664417,13139560.0846,128717.006,0.009796142730140608,1135
+16,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Remaining,W,7664417,12.0373,1.0911,0.09064325056283386,1127
+16,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,By-product,W,7664417,0.0345,0.0818,2.371014492753623,1130
+16,R13,Solvents/Organics Recovery - Fractionation,Reclamation,1,Fugitive emission,A,7664417,0.8371,1.0403,1.2427428025325529,1126
+17,C11,Neutralization,Conversion,1,Destroyed/converted/degraded,NA,7664417,663517393.1552,6267365.8558,0.00944566927778189,1131
+17,C11,Neutralization,Conversion,1,Remaining,W,7664417,9.0533,0.8035,0.08875216771784873,1129
+17,C11,Neutralization,Conversion,1,Fugitive emission,A,7664417,0.6394,0.7941,1.2419455739756022,1129
+18,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,107211,42255680.9768,396182.5736,0.009375841648783734,471
+18,B11,Aerobic,Degradation,1,Remaining,W,107211,1626251.662,60243.4486,0.03704435789840257,462
+18,B11,Aerobic,Degradation,1,Fugitive emission,A,107211,35023.4751,54116.6011,1.5451522427595996,461
+19,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,107211,2218026684.9113,22000832.042,0.00991910160128656,471
+19,B11,Aerobic,Degradation,1,Remaining,W,107211,1218756.9102,38322.9232,0.03144427151901124,468
+19,B11,Aerobic,Degradation,1,Fugitive emission,A,107211,25727.7292,35423.5568,1.3768629374410546,466
+2,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Carrier,L,67561,611850.9584,5771.8611,0.009433442933706451,688
+2,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,W,67561,63941.3773,4996.0067,0.07813417400378705,677
+2,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,By-product,W,67561,41.6138,116.7208,2.804858003835266,683
+2,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67561,3987.0921,5005.0445,1.255311985394067,678
+2,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,W,67630,2765456.2781,28819.3069,0.010421176110511583,28
+2,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67630,13896.7652,144.8206,0.010421173410917242,28
+2,F01,Liquid Injection,Destruction,2,Remaining,A,67561,59906.9783,7433.3967,0.12408231746851435,679
+2,F01,Liquid Injection,Destruction,2,Fugitive emission,A,67561,4458.9448,5961.5864,1.336994887220851,681
+2,F01,Liquid Injection,Destruction,2,Destroyed/converted/degraded,NA,67630,2753234.3415,22504.9383,0.008174000287871972,27
+2,F01,Liquid Injection,Destruction,2,Remaining,A,67630,10657.1274,2613.1317,0.24520038110832756,27
+2,F01,Liquid Injection,Destruction,2,Fugitive emission,A,67630,3196.832,2618.4049,0.8190624030289987,27
+20,P15,Oil Skimming,Removal,1,Carrier,L,110543,0.2266,0.0022,0.00970873786407767,227
+20,P15,Oil Skimming,Removal,1,Remaining,W,110543,0.2873,0.0322,0.11207796728158718,227
+20,P15,Oil Skimming,Removal,1,Fugitive emission,A,110543,0.0257,0.032,1.245136186770428,227
+21,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,110543,269.678,2.6408,0.009792419107231588,224
+21,B11,Aerobic,Degradation,1,Remaining,W,110543,0.2888,0.0281,0.09729916897506925,222
+21,B11,Aerobic,Degradation,1,Fugitive emission,A,110543,0.0241,0.0277,1.1493775933609958,222
+22,R14,Solvents/Organics Recovery - Solvent Extraction,Reclamation,1,Carrier,L,110543,27243.3263,286.5427,0.010517904342686672,228
+22,R14,Solvents/Organics Recovery - Solvent Extraction,Reclamation,1,Remaining,W,110543,0.2868,0.0326,0.11366806136680613,225
+22,R14,Solvents/Organics Recovery - Solvent Extraction,Reclamation,1,By-product,W,110543,0.0003,0.0007,2.3333333333333335,227
+22,R14,Solvents/Organics Recovery - Solvent Extraction,Reclamation,1,Fugitive emission,A,110543,0.0253,0.0322,1.2727272727272727,225
+23,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,110543,2724475.5955,25640.0088,0.009410988610927347,226
+23,B11,Aerobic,Degradation,1,Remaining,W,110543,0.29,0.0271,0.09344827586206897,225
+23,B11,Aerobic,Degradation,1,Fugitive emission,A,110543,0.0213,0.0273,1.2816901408450705,225
+24,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,110543,137722816.517,1358653.4296,0.00986512956937889,228
+24,B11,Aerobic,Degradation,1,Remaining,W,110543,0.2136,0.0287,0.1343632958801498,223
+24,B11,Aerobic,Degradation,1,Fugitive emission,A,110543,0.0197,0.0287,1.4568527918781726,223
+25,F01,Liquid Injection,Destruction,1,Destroyed/converted/degraded,NA,110543,404917920.0365,4045070.9396,0.00998985409002242,228
+25,F01,Liquid Injection,Destruction,1,Remaining,A,110543,0.0722,0.0087,0.12049861495844874,222
+25,F01,Liquid Injection,Destruction,1,Fugitive emission,A,110543,0.0061,0.0086,1.4098360655737705,222
+26,A03,Scrubber,Removal,1,Remaining,A,108883,1525749.2969,14975.3126,0.009815054563961896,1401
+26,A03,Scrubber,Removal,1,Fugitive emission,A,108883,80302.5946,788.1743,0.009815053970871323,1401
+26,A03,Scrubber,Removal,1,Carrier,W,67561,1525722.6866,13836.5913,0.009068876946985813,687
+26,A03,Scrubber,Removal,1,Remaining,A,67561,75301.2144,5936.8701,0.07884162489682238,678
+26,A03,Scrubber,Removal,1,Fugitive emission,A,67561,4998.7072,5913.9141,1.1830887194192932,678
+26,A03,Scrubber,Removal,1,Carrier,W,68122,1524377.2152,13491.8359,0.008850719995988562,23
+26,A03,Scrubber,Removal,1,Remaining,A,68122,80103.583,717.4943,0.00895708123318279,23
+26,A03,Scrubber,Removal,1,Fugitive emission,A,68122,70.6398,82.9145,1.1737646482577813,22
+26,A03,Scrubber,Removal,1,Carrier,W,75092,1525319.7431,15549.063,0.010193969540051119,385
+26,A03,Scrubber,Removal,1,Remaining,A,75092,66206.8582,12518.0111,0.1890742355147733,380
+26,A03,Scrubber,Removal,1,Fugitive emission,A,75092,14204.5406,12739.7533,0.8968789388373462,381
+26,F71,Fume/Vapor,Destruction,2,Destroyed/converted/degraded,NA,108883,1450247.0488,13546.8584,0.009341069448277301,1409
+26,F71,Fume/Vapor,Destruction,2,Remaining,A,108883,66511.1284,9440.3003,0.1419356508767336,1377
+26,F71,Fume/Vapor,Destruction,2,Fugitive emission,A,108883,9813.625,9417.0489,0.9595892343552969,1377
+26,F71,Fume/Vapor,Destruction,2,Remaining,A,67561,69839.6671,9345.5732,0.13381468709778543,690
+26,F71,Fume/Vapor,Destruction,2,Fugitive emission,A,67561,5231.9511,7754.2336,1.4820921395844084,690
+26,F71,Fume/Vapor,Destruction,2,Remaining,A,68122,79881.149,577.3176,0.007227207009753952,23
+26,F71,Fume/Vapor,Destruction,2,Fugitive emission,A,68122,47.7817,56.535,1.1831935657375103,23
+26,F71,Fume/Vapor,Destruction,2,Remaining,A,75092,52932.2452,18526.2416,0.3499991645923986,384
+26,F71,Fume/Vapor,Destruction,2,Fugitive emission,A,75092,13252.6624,13540.365,1.021709041648869,382
+3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Carrier,L,67561,34052.381,341.9042,0.010040537253474287,690
+3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,L,67561,3555.7871,300.2118,0.08442907057061994,676
+3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,By-product,W,67561,2.8357,10.2291,3.6072574672920266,692
+3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67561,222.5381,297.6711,1.3376185920523274,677
+3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,L,67630,4065280.676,35969.4996,0.008847974461480947,28
+3,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67630,20428.5461,180.7513,0.008847976704519369,28
+3,F01,Liquid Injection,Destruction,2,Remaining,A,67561,3314.5449,425.8665,0.12848415479301548,686
+3,F01,Liquid Injection,Destruction,2,Fugitive emission,A,67561,236.9762,323.4371,1.3648505630523233,685
+3,F01,Liquid Injection,Destruction,2,Destroyed/converted/degraded,NA,67630,4047873.6775,33727.1743,0.008332071844897634,28
+3,F01,Liquid Injection,Destruction,2,Remaining,A,67630,14476.8966,5318.4741,0.36737667242853694,27
+3,F01,Liquid Injection,Destruction,2,Fugitive emission,A,67630,5863.2518,5338.6778,0.9105318997215845,27
+4,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Carrier,L,67561,37458.8503,361.3896,0.009647642602634817,72
+4,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,W,67561,4190.5701,211.6879,0.050515298622495305,69
+4,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,By-product,W,67561,4.0002,6.5608,1.640117994100295,70
+4,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67561,173.1829,205.7897,1.1882795587786092,69
+5,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,67561,2110844.6247,18989.6964,0.008996254948276394,71
+5,B11,Aerobic,Degradation,1,Remaining,W,67561,3077.1036,279.926,0.09097061275414971,71
+5,B11,Aerobic,Degradation,1,Fugitive emission,A,67561,197.1023,275.8567,1.3995610401299223,71
+6,F01,Liquid Injection,Destruction,1,Destroyed/converted/degraded,NA,67561,6211463.9381,51546.9349,0.008298677318855608,70
+6,F01,Liquid Injection,Destruction,1,Remaining,A,67561,1027.891,98.3165,0.09564876042304096,71
+6,F01,Liquid Injection,Destruction,1,Fugitive emission,A,67561,71.2338,97.4083,1.367444948886624,71
+7,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Carrier,L,67561,37470.0078,350.6082,0.009357035682282404,684
+7,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Remaining,W,67561,4116.0719,299.0613,0.07265696694948405,680
+7,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,By-product,W,67561,3.065,8.3465,2.7231647634584015,691
+7,R11,Solvents/Organics Recovery - Batch Still Distillation,Reclamation,1,Fugitive emission,A,67561,254.7942,311.8317,1.2238571364654298,682
+8,B11,Aerobic,Degradation,1,Destroyed/converted/degraded,NA,67561,2107450.73,21659.6271,0.010277643406638504,689
+8,B11,Aerobic,Degradation,1,Remaining,W,67561,3073.0307,233.9688,0.07613617397313993,676
+8,B11,Aerobic,Degradation,1,Fugitive emission,A,67561,199.7445,237.8975,1.1910090140154048,677
+9,F01,Liquid Injection,Destruction,1,Destroyed/converted/degraded,NA,67561,6210991.0192,59389.8071,0.009562050068404323,691
+9,F01,Liquid Injection,Destruction,1,Remaining,A,67561,1024.2252,92.8607,0.09066433827248147,680
+9,F01,Liquid Injection,Destruction,1,Fugitive emission,A,67561,73.1203,90.587,1.2388762081118376,679

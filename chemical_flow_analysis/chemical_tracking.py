@@ -11,7 +11,7 @@ from chemical_flow_analysis.auxiliary import (estimating_val_with_log,
 import pandas as pd
 import numpy as np
 
-def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste_stream, PAU_code, efficiency, dir_path, Metal_indicator='NO'):
+def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste_stream, PAU_code, efficiency, per_remaining, dir_path, Metal_indicator='NO'):
     Releases = pd.read_csv(dir_path + '/chemical_flow_analysis/tri_releases/TRI_releases.csv')
     Releases = Releases.loc[Releases['CAS NUMBER'] == chemical]
     for key, val in CoU.items():
@@ -62,7 +62,7 @@ def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste
             Soil_emission_factor = estimating_val_with_log(mu_Soil_emission_factors, theta_2_Soil_emission_factors)
             ## Carrier
             if Objective == 'Removal':
-                Carrier_flow = flow_input*efficiency/100#(1 - Fugitive_emission_factor)*flow_input*efficiency/100
+                Carrier_flow = flow_input*efficiency/100
                 Destroyed_converted_degraded_flow = 0.0
                 # Carrier analysis
                 if '/' in Carrier_for_PAU:
@@ -87,7 +87,7 @@ def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste
                 else:
                     Carrier = Carrier_for_PAU
             elif Objective == 'Reclamation':
-                Carrier_flow = flow_input*efficiency/100#(1 - Fugitive_emission_factor)*flow_input*efficiency/100
+                Carrier_flow = flow_input*efficiency/100
                 Destroyed_converted_degraded_flow = 0.0
                 if PAU_code in ['R11', 'R12', 'R13','R14', 'H20']: # Solvent recovery
                     Carrier = 'L'
@@ -105,10 +105,14 @@ def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste
             else:
                 Carrier_flow = 0.0
                 Carrier = None
-                Destroyed_converted_degraded_flow = (1 - Fugitive_emission_factor)*flow_input*efficiency/100
+                Destroyed_converted_degraded_flow = flow_input*efficiency/100
             if efficiency == 0.0:
                 Carrier = None
-            F_out_hidden = (1 - Fugitive_emission_factor)*(1 - efficiency/100)*flow_input
+            # Hidden stream
+            if per_remaining:
+                F_out_hidden = per_remaining/100*flow_input
+            else:
+                F_out_hidden = (1 - Fugitive_emission_factor)*(1 - efficiency/100)*flow_input
             ## By product and Remaining
             if (Type_of_WM == 'Energy recovery') | (Type_of_treatment == 'Incineration'):
                 if PAU_code == 'A01':
@@ -162,11 +166,15 @@ def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste
                     Remaining = waste_stream
                     By_product_flow = 0.0
                     By_product = None
+            if per_remaining:
+                Fugitive_flow = flow_input - Destroyed_converted_degraded_flow - Carrier_flow - Remaining_flow - By_product_flow
+            else:
+                Fugitive_flow = Fugitive_emission_factor*(1 - efficiency/100)*flow_input
             Flows_out_aux = df_result_aux = pd.DataFrame({'Destroyed/converted/degraded': [Destroyed_converted_degraded_flow],
                                                           'Carrier': [[Carrier_flow, Carrier]],
                                                           'Remaining': [[Remaining_flow, Remaining]],
                                                           'By-product': [[By_product_flow, By_product]],
-                                                          'Fugitive emission': [Fugitive_emission_factor*(1 - efficiency/100)*flow_input]})
+                                                          'Fugitive emission': [Fugitive_flow]})
             Flows_out = pd.concat([Flows_out, Flows_out_aux], axis = 0,
                             sort = False,
                             ignore_index = True)
@@ -242,14 +250,20 @@ def picture(df_for_stream, stream, dir_path, drawing, paus_stream):
         for chemical in Chemicals_in_stream:
             if chemical in Chemical_PAU[PAU_code]:
                 efficiency = Eff_chemical[chemical]
+                per_remaining = None
             else:
+                pau_for_chem = [pos for paus_1, chems in Chemical_PAU.items() for pos, paus_2 in PAU_position.items() if (chemical in chems) and (paus_1 == paus_2)][0]
                 efficiency = 0.0
+                if pau_for_chem > position:
+                    per_remaining = Eff_chemical[chemical]
+                else:
+                    per_remaining = None
             CoU = CoU_chemical[chemical]
             Solubility = Solubility_chemical[chemical]
             Tf = Tf_chemical[chemical]
             Tb = Tb_chemical[chemical]
             flow_input = Flow_in[chemical]
-            Result, flow_effluent = building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_input, waste_stream, PAU_code, efficiency, dir_path)
+            Result, flow_effluent = building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_input, waste_stream, PAU_code, efficiency, per_remaining, dir_path)
             Result['Position'] = position
             Flows = pd.concat([Flows, Result], axis = 0,
                         sort = False,
