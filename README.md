@@ -42,12 +42,12 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
   <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_PAU.png width="100%">
 </p>
 
-## Sequence of PAUs for a Waste Stream
+## Sequence of PAUs for a Waste Stream<sup>[2](#myfootnote2)</sup>
 <p align="center">
   <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_Seq.png width="85%">
 </p>
 
-# Chemical Flow Tracking
+# Chemical Flow Tracking<sup>[3](#myfootnote3)</sup>
 
 <p align="center">
  <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/pau_draws/PAU_sequence.png width="95%">
@@ -75,9 +75,9 @@ When you finish filling out the sheet "Input", please press enter
 
 # Output
 
-The following are the program output:
+The following are the program outputs:
 
-1. In the folder [marginal](https://github.com/jodhernandezbe/PAU_case_study/tree/master/bayesian_network/probabilities/marginal), the marginal proabilities under the BN will be obtained. The files Marginal_probabilities_based_on_BN_for_**CAS**_in_stream_**#**.csv has these probabilities, where **CAS** is for the chemical and **#** for the waste stream number that contains the chemical.
+1. In the folder [marginal](https://github.com/jodhernandezbe/PAU_case_study/tree/master/bayesian_network/probabilities/marginal), the files Marginal_probabilities_based_on_BN_for_CAS_in_stream_#.csv have the marginal proabilities under the BN. *CAS* indicates the chemical, while *#* the number for the stream that contains the chemical.
 2. The file [PAU_selection_and_position_under_FAHP.csv](https://github.com/jodhernandezbe/PAU_case_study/tree/master/fuzzy_analytical_hierarchy_process/PAU_selection_and_position_under_FAHP.csv) has the PAU methods and sequences selected under the FAHP.
 3. The file [Chemical_flow_tracking.csv](https://github.com/jodhernandezbe/PAU_case_study/blob/master/chemical_flow_analysis/Chemical_flow_tracking.csv) has the material flow analysis and allocation for the PAU methods and sequences. 
 4. The folder [pau_draws](https://github.com/jodhernandezbe/PAU_case_study/tree/master/chemical_flow_analysis/pau_draws) has the draws that represent the flow allocation for the PAU methods and sequences.
@@ -102,6 +102,10 @@ U.S. Environmental Protection Agency, administered by the Oak Ridge Institute fo
 ```
 conda config --set channel_priority false
 ```
+<a name="myfootnote2">2</a>: NFPA: National Fire Protection Association
+
+<a name="myfootnote3">3</a>: A03 is a code that represents Scrubber, while F71 Fume/Vapor incinerator. The list of codes for the PAU methos can be found in [Methods_TRI.csv](https://github.com/jodhernandezbe/PAU_case_study/blob/master/Methods_TRI.csv).
+
 
 
 
