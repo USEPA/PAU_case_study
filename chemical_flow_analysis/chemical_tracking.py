@@ -62,7 +62,7 @@ def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste
             Soil_emission_factor = estimating_val_with_log(mu_Soil_emission_factors, theta_2_Soil_emission_factors)
             ## Carrier
             if Objective == 'Removal':
-                Carrier_flow = (1 - Fugitive_emission_factor)*flow_input*efficiency/100
+                Carrier_flow = flow_input*efficiency/100#(1 - Fugitive_emission_factor)*flow_input*efficiency/100
                 Destroyed_converted_degraded_flow = 0.0
                 # Carrier analysis
                 if '/' in Carrier_for_PAU:
@@ -87,7 +87,7 @@ def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste
                 else:
                     Carrier = Carrier_for_PAU
             elif Objective == 'Reclamation':
-                Carrier_flow = (1 - Fugitive_emission_factor)*flow_input*efficiency/100
+                Carrier_flow = flow_input*efficiency/100#(1 - Fugitive_emission_factor)*flow_input*efficiency/100
                 Destroyed_converted_degraded_flow = 0.0
                 if PAU_code in ['R11', 'R12', 'R13','R14', 'H20']: # Solvent recovery
                     Carrier = 'L'
@@ -166,7 +166,7 @@ def building_pau_black_box(chemical, Solubility, Tf, Tb, CoU, flow_inputs, waste
                                                           'Carrier': [[Carrier_flow, Carrier]],
                                                           'Remaining': [[Remaining_flow, Remaining]],
                                                           'By-product': [[By_product_flow, By_product]],
-                                                          'Fugitive emission': [Fugitive_emission_factor*flow_input]})
+                                                          'Fugitive emission': [Fugitive_emission_factor*(1 - efficiency/100)*flow_input]})
             Flows_out = pd.concat([Flows_out, Flows_out_aux], axis = 0,
                             sort = False,
                             ignore_index = True)
