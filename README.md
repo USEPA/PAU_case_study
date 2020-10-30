@@ -15,18 +15,18 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 7. [python-graphviz](https://anaconda.org/conda-forge/python-graphviz)
 8. [pomegranate](https://anaconda.org/anaconda/pomegranate)<sup>[1](#myfootnote1)</sup>
 
-# Data-driven model: Bayesian Network (BN) for Pollution Abatement Unit (PAU) Selection
+# Data-driven model: Bayesian Network (BN) for Pollution Abatement Unit (PAU) Identification
 
 ## Factor names
 
 | Name | Node| Name | Node |
 | ------------- | ------------- | ------------- | ------------- |
-| Byproduct |	Node-1 | Waste flow	| Node-7 |
-| Manufactured impurity	| Node-2 | Chemical price	| Node-8 |
-| Process impurity	| Node-3 | Pollution abatement unit		| Node-9 |
-| Type of waste	| Node-4 | Pollution abatement capital expenditure	| Node-10 |
-| Concentration	| Node-5 | Pollution abatement operating cost	| Node-11 |
-| Efficiency	| Node-6 | Type of waste management	| Node-12 |
+| Is a byproduct? |	Node-1 | Waste flow	| Node-7 |
+| Is a manufactured impurity	| Node-2 | Chemical price	| Node-8 |
+| Is a process impurity	| Node-3 | Pollution abatement unit		| Node-9 |
+| Type of waste	| Node-4 | CAPEX	| Node-10 |
+| Chemical concentration	| Node-5 | OPEX	| Node-11 |
+| Material efficiency	| Node-6 | Type of waste management	| Node-12 |
 
 ## Structure
 
