@@ -17,7 +17,7 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 
 # Data-driven model: Bayesian Network (BN) for Pollution Abatement Unit (PAU) Identification
 
-## Factor names
+## Random variable names
 
 | Name | Node| Name | Node |
 | ------------- | ------------- | ------------- | ------------- |
