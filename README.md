@@ -22,8 +22,8 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 | Name | Node| Name | Node |
 | ------------- | ------------- | ------------- | ------------- |
 | Is a byproduct? |	Node-1 | Waste flow	| Node-7 |
-| Is a manufactured impurity	| Node-2 | Chemical price	| Node-8 |
-| Is a process impurity	| Node-3 | Pollution abatement unit		| Node-9 |
+| Is a manufactured impurity?	| Node-2 | Chemical price	| Node-8 |
+| Is a process impurity?	| Node-3 | Pollution abatement unit		| Node-9 |
 | Type of waste	| Node-4 | CAPEX	| Node-10 |
 | Chemical concentration	| Node-5 | OPEX	| Node-11 |
 | Material efficiency	| Node-6 | Type of waste management	| Node-12 |
