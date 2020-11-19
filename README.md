@@ -44,7 +44,7 @@ This Pythos scripts were written using Python 3.x, Ubuntu 18.04, and Anaconda3. 
 
 ## Sequence of PAUs for a Waste Stream<sup>[2](#myfootnote2)</sup>
 <p align="center">
-  <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_Seq.png width="85%">
+  <img src= https://github.com/jodhernandezbe/PAU_case_study/blob/master/fuzzy_analytical_hierarchy_process/FAHP_Seq.svg width="85%">
 </p>
 
 # Chemical Flow Tracking<sup>[3](#myfootnote3)</sup>
