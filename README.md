@@ -1,6 +1,6 @@
 # Overview
 
-This is a repository with the Python scripts to run the case study for selecting the pollution abatement activities for concerning chemicals and tracking chemical flows at the end-of-life stage. The data was obtained by means of data engineering using different publicly-available databases. The properties of chemicals were obtained using the GitHub repository [Properties_Scraper](https://github.com/jodhernandezbe/Properties_Scraper), while the PAU dataset using the repository [PAU4Chem](https://github.com/jodhernandezbe/PAU4Chem).
+This is a repository with the Python scripts to run the case study for selecting the pollution abatement activities for chemicals of concern and tracking chemical flows at the end-of-life stage. The data was obtained by means of data engineering using different publicly-available databases. The properties of chemicals were obtained using the GitHub repository [Properties_Scraper](https://github.com/jodhernandezbe/Properties_Scraper), while the PAU dataset using the repository [PAU4Chem](https://github.com/jodhernandezbe/PAU4Chem).
 
 # Requirements:
 
